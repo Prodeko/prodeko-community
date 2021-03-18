@@ -1,0 +1,10 @@
+# Don't copy the following files over to docker containers
+
+.git/
+.gitignore
+.next/                # Existing Next.js builds
+node_modules/         # Installed inside container
+data/
+directus/
+.dockerignore
+Dockerfile
