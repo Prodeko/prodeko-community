@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+  database:
+    container_name: prodeko-seminar-database
+    image: postgres:12
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    network_mode: host
+    env_file:
+      - .env
+
+  directus:
+    container_name: prodeko-seminar-cms
+    image: directus/directus:v9.0.0-rc.51
+    volumes:
+      - ./directus/extensions:/directus/extensions
+      - ./directus/uploads:/directus/uploads
+    ports:
+      - 8055:8055
+    network_mode: host
+    depends_on:
+      - database
+    env_file:
+      - .env
+
