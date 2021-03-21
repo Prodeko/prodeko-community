@@ -91,4 +91,39 @@ export const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100%;
   }
+
+  :root {
+    /* Colors */
+    --black: #000000;
+    --background: #001302;
+    --gray-dark: #333333;
+    --gray-light: #666666;
+    --highlight: #41DFAB;
+    --danger: #C45046;
+    --confirm: #005338;
+
+    --prodeko-blue: #002E7D;
+    --prodeko-red: #D42E12;
+    --prodeko-orange: #FF5800;
+    --prodeko-green: #007336;
+    --prodeko-yellow: #FFD500;
+
+    --photo-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.7) 80%);
+
+
+    /* Text sizes */
+    --text-body: 1.125rem;
+    --text-ingress: 2rem;
+    --text-title: 4rem;
+    --text-subtitle: 3rem;
+    --text-navigation: 1.5rem;
+
+
+    /* Dimensions */
+    --border-radius-small: 0.5rem;
+    --border-radius-large: 1rem;
+
+    /* General */
+    font-family: 'Raleway';
+  }
 `;
