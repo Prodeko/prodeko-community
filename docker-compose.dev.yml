@@ -5,8 +5,6 @@ services:
     image: postgres:12
     volumes:
       - ./data/database:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
     network_mode: host
     env_file:
       - .env
@@ -17,8 +15,6 @@ services:
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
-    ports:
-      - 8055:8055
     network_mode: host
     depends_on:
       - database
@@ -32,8 +28,6 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./:/usr/src/app
-    ports:
-      - 3000:3000
     network_mode: host
     depends_on:
       - directus
