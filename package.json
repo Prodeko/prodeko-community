@@ -6,14 +6,15 @@
     "dev": "next dev",
     "dev:docker": "docker-compose -f docker-compose.dev.yml up --build",
     "build": "next build",
-    "start": "next start",
-    "postinstall": "(git submodule update --init --recursive && cd directus/extensions/interfaces/conditional-fields && npm install && npm run build && cp dist/index.js index.js)"
+    "build:extensions": "(git submodule update --init --recursive && cd directus/extensions/interfaces/conditional-fields && npm install && npm run build && cp dist/index.js index.js)",
+    "start": "next start"
   },
   "dependencies": {
     "@directus/sdk-js": "9.0.0-rc.51",
     "next": "10.0.9",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-icons": "^4.2.0",
     "styled-components": "5.2.1"
   },
   "devDependencies": {
