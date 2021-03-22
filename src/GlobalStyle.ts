@@ -94,6 +94,7 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     /* Colors */
+    --white: #FFFFFF;
     --black: #000000;
     --background: #001302;
     --gray-dark: #333333;
@@ -109,6 +110,7 @@ export const GlobalStyle = createGlobalStyle`
     --prodeko-yellow: #FFD500;
 
     --photo-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.7) 80%);
+    --card-shadow: 0 0.5rem 1.25rem #64646F40;
 
 
     /* Text sizes */
@@ -123,7 +125,21 @@ export const GlobalStyle = createGlobalStyle`
     --border-radius-small: 0.5rem;
     --border-radius-large: 1rem;
 
+    --text-width: 65ch;
+    --content-width: 50rem;
+
+    --spacing-small: 0.5rem;
+    --spacing-regular: 1rem;
+    --spacing-medium: 1.5rem;
+    --spacing-large: 2rem;
+    --spacing-xlarge: 3rem;
+
+    --card-height: 18rem;
+
+
     /* General */
     font-family: 'Raleway';
+    font-weight: 500;
+    color: var(--black);
   }
 `;
