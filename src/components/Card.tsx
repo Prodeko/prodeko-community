@@ -8,6 +8,7 @@ import {
   FiYoutube as VideoIcon,
   FiMessageCircle as CommentIcon,
 } from 'react-icons/fi';
+
 import { Article } from 'types';
 import { Line } from 'components/Line';
 import { RainbowIconGrayscale } from 'components/RainbowIcon';
