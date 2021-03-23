@@ -88,7 +88,6 @@ export const GlobalStyle = createGlobalStyle`
 
   /* Fullscreen defaults for Next.js */
   div#__next {
-    width: 100vw;
     height: 100%;
   }
 
@@ -127,6 +126,7 @@ export const GlobalStyle = createGlobalStyle`
 
     --text-width: 65ch;
     --content-width: 50rem;
+    --min-content-width: calc(100% - 2 * var(--spacing-regular));
 
     --spacing-small: 0.5rem;
     --spacing-regular: 1rem;

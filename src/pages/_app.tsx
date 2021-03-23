@@ -1,4 +1,5 @@
 import { GlobalContext } from 'api/globalContext';
+import { Footer } from 'components/Footer';
 import { GlobalStyle } from 'GlobalStyle';
 import { AppProps } from 'next/app';
 
@@ -12,6 +13,7 @@ function App({ Component, pageProps }: AppProps) {
     <GlobalContext.Provider value={{ commonData, language }}>
       <GlobalStyle />
       <Component {...pageProps} />
+      <Footer />
     </GlobalContext.Provider>
   );
 }

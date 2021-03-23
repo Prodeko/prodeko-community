@@ -7,11 +7,11 @@ import styled from 'styled-components';
  */
 export const Main = styled.main`
   display: grid;
-  grid-template-columns: [main-start] 1fr [content-start] min(var(--content-width), 100%) [content-end] 1fr [main-end];
   grid-template-rows: min-content;
-
-  height: 100%;
-  overflow: auto;
+  grid-template-columns:
+    [main-start] 1fr [content-start]
+    min(var(--content-width), var(--min-content-width))
+    [content-end] 1fr [main-end];
 
   & > * {
     grid-column: content;

@@ -29,7 +29,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
     <Main>
       <Banner bannerUrl={background_banner} logoUrl={main_logo} logoText={logo_alternative_text} />
 
-      <FirstCardSection articles={mockArticles} type="video" title={videos_title} />
+      <CardSection articles={mockArticles} type="video" title={videos_title} />
 
       <CardSection articles={mockArticles} type="podcast" title={podcasts_title} />
 
@@ -66,17 +66,17 @@ const CardSectionWrapper = styled(Section)`
   & > * + * {
     margin-top: var(--spacing-medium);
   }
+
+  &:first-of-type {
+    color: var(--white);
+    margin-top: -15vh;
+  }
 `;
 
 const CardSectionTitle = styled.h2`
   line-height: 0.7;
   font-size: 3rem;
   font-weight: 700;
-`;
-
-const FirstCardSection = styled(CardSection)`
-  color: var(--white);
-  margin-top: -15vh;
 `;
 
 export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQuery>) {
