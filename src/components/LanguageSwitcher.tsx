@@ -12,7 +12,7 @@ export const LanguageSwitcher: React.FC = () => {
     <LanguagesList>
       {LANGUAGES.map((lang) => (
         <LanguagesListItem>
-          <Link href={translations[lang].slug}>
+          <Link href={translations[lang].slug || ''}>
             <LanguageLink aria-current={lang === language}>{lang}</LanguageLink>
           </Link>
         </LanguagesListItem>

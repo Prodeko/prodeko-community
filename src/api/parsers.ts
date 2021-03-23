@@ -8,7 +8,7 @@
  */
 
 import { ASSET_URL } from 'api/config';
-import { Article, Author, CommonData, FrontPageData, LANGUAGE_KEYS } from 'types';
+import { Article, Author, CommonData, FrontPageData, InfoPageData, LANGUAGE_KEYS } from 'types';
 
 /**
  * Parses a generic translated Directus field into an object with language
@@ -87,4 +87,10 @@ export const parseFrontPageData = (data: any): FrontPageData => ({
   main_logo: parseImageUrl(data.main_logo),
   translations: parseTranslationData(data.translations),
   highlighted_articles: data.highlighted_articles.map(parseArticle),
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const parseInfoPageData = (data: any): InfoPageData => ({
+  ...data,
+  translations: parseTranslationData(data.translations),
 });

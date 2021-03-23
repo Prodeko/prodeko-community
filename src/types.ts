@@ -103,6 +103,7 @@ export type Article = BlogPost | Podcast | Video;
 
 export type FrontPageData = {
   id: number;
+  template: 'front';
   date_updated?: string;
   background_banner: string;
   main_logo: string;
@@ -116,3 +117,39 @@ export type FrontPageData = {
   }>;
   highlighted_articles: Article[];
 };
+
+export type InfoPageData = {
+  id: number;
+  template: 'info';
+  date_updated?: string;
+  translations: Translated<{
+    id: number;
+    slug: string;
+    page_title: string;
+    body: HTMLString;
+  }>;
+};
+
+type BasePageData = {
+  language: LanguageCode;
+  commonData: CommonData;
+};
+
+export type PageData = BasePageData &
+  (
+    | {
+        template: 'front';
+        data: FrontPageData;
+      }
+    | {
+        template: 'info';
+        data: InfoPageData;
+      }
+    | {
+        template: 'notFound';
+      }
+  );
+
+export interface PageDataProps<T> extends BasePageData {
+  data: T;
+}

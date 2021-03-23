@@ -7,17 +7,20 @@ type BannerProps = {
   bannerUrl: string;
   logoUrl: string;
   logoText: string;
+  decorative?: boolean;
 };
 
-export const Banner: React.FC<BannerProps> = ({ bannerUrl, logoUrl, logoText }) => (
+export const Banner: React.FC<BannerProps> = ({ bannerUrl, logoUrl, logoText, decorative }) => (
   <BannerWrapper>
     <Image src={bannerUrl} alt="" layout="fill" objectFit="cover" />
 
     <LogoWrapper>
       <Image src={logoUrl} alt="" layout="fill" objectFit="contain" />
-      <SrOnly>
-        <h1>{logoText}</h1>
-      </SrOnly>
+      {!decorative && (
+        <SrOnly>
+          <h1>{logoText}</h1>
+        </SrOnly>
+      )}
     </LogoWrapper>
   </BannerWrapper>
 );

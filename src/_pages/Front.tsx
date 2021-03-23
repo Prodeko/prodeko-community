@@ -1,24 +1,25 @@
-import { getCommonData, getFrontPageData } from 'api';
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { ParsedUrlQuery } from 'node:querystring';
+import { NextPage } from 'next';
 import styled from 'styled-components';
 
-import { Article, LanguageCode } from 'types';
+import { Article, FrontPageData } from 'types';
 import { Main as MainBase } from 'components/Main';
 import { Banner } from 'components/Banner';
 import { Section } from 'components/Section';
 import { Card, CardList } from 'components/Card';
 import { Line } from 'components/Line';
 import React from 'react';
+import { useGlobalContext } from 'api/globalContext';
 
-export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { background_banner, main_logo, highlighted_articles, language } = props;
-  const {
-    logo_alternative_text,
-    videos_title,
-    podcasts_title,
-    blog_posts_title,
-  } = props.translations[language];
+export const Front: NextPage<FrontPageData> = ({
+  background_banner,
+  main_logo,
+  highlighted_articles,
+  translations,
+}) => {
+  const { language } = useGlobalContext();
+  const { logo_alternative_text, videos_title, podcasts_title, blog_posts_title } = translations[
+    language
+  ];
 
   // TODO: remove
   const mockArticles = highlighted_articles
@@ -36,7 +37,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
       <CardSection articles={mockArticles} type="blog_post" title={blog_posts_title} />
     </Main>
   );
-}
+};
 
 type CardSectionProps = {
   articles: Article[];
@@ -78,8 +79,3 @@ const CardSectionTitle = styled.h2`
   font-size: 3rem;
   font-weight: 700;
 `;
-
-export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQuery>) {
-  const [frontPageData, commonData] = await Promise.all([getFrontPageData(), getCommonData()]);
-  return { props: { ...frontPageData, commonData, language: 'fi' as LanguageCode }, revalidate: 1 };
-}
