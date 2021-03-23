@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { LANGUAGES } from 'types';
 import { useGlobalContext } from 'api/globalContext';
+import { TextLink } from 'components/TextLink';
 
 export const LanguageSwitcher: React.FC = () => {
   const { language, translations } = useGlobalContext();
@@ -11,7 +12,7 @@ export const LanguageSwitcher: React.FC = () => {
   return (
     <LanguagesList>
       {LANGUAGES.map((lang) => (
-        <LanguagesListItem>
+        <LanguagesListItem key={lang}>
           <Link href={translations[lang].slug || ''}>
             <LanguageLink aria-current={lang === language}>{lang}</LanguageLink>
           </Link>
@@ -23,6 +24,8 @@ export const LanguageSwitcher: React.FC = () => {
 
 const LanguagesList = styled.ul`
   display: flex;
+  justify-content: flex-end;
+  width: var(--logo-width);
   color: var(--white);
 `;
 
@@ -34,15 +37,6 @@ const LanguagesListItem = styled.li`
   }
 `;
 
-const LanguageLink = styled.a`
+const LanguageLink = styled(TextLink)`
   text-transform: uppercase;
-  padding: var(--spacing-small);
-
-  ${(p) =>
-    p['aria-current']
-      ? `
-  font-weight: 700;
-  text-decoration: underline;
-  `
-      : ''}
 `;

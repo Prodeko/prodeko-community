@@ -110,6 +110,7 @@ export type FrontPageData = {
   translations: Translated<{
     id: number;
     slug: string;
+    navigation_title: string;
     logo_alternative_text: string;
     videos_title: string;
     podcasts_title: string;
@@ -122,19 +123,32 @@ export type InfoPageData = {
   id: number;
   template: 'info';
   date_updated?: string;
+  background_banner: string;
+  main_logo: string;
   translations: Translated<{
     id: number;
     slug: string;
+    navigation_title: string;
     page_title: string;
     body: HTMLString;
   }>;
 };
 
+/** Array of routes in the site that should be displayed in navbar */
+export type PageRoutes = Translated<
+  {
+    title: string;
+    slug: string;
+  }[]
+>;
+
 type BasePageData = {
   language: LanguageCode;
   commonData: CommonData;
+  routes: PageRoutes;
 };
 
+/** Data to be passed down to global context and currently rendered page */
 export type PageData = BasePageData &
   (
     | {
@@ -149,7 +163,3 @@ export type PageData = BasePageData &
         template: 'notFound';
       }
   );
-
-export interface PageDataProps<T> extends BasePageData {
-  data: T;
-}

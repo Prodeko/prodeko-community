@@ -6,7 +6,7 @@ import { SrOnly } from 'components/SrOnly';
 type BannerProps = {
   bannerUrl: string;
   logoUrl: string;
-  logoText: string;
+  logoText?: string;
   decorative?: boolean;
 };
 

@@ -113,7 +113,8 @@ const LinkContents = styled.a`
   }
 `;
 
-const Title = styled.h2`
+const Title = styled.h3`
+  font-size: var(--text-card-title);
   line-height: 1em;
 `;
 

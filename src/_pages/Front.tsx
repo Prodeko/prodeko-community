@@ -76,6 +76,4 @@ const CardSectionWrapper = styled(Section)`
 
 const CardSectionTitle = styled.h2`
   line-height: 0.7;
-  font-size: 3rem;
-  font-weight: 700;
 `;

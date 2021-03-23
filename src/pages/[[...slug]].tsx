@@ -12,6 +12,10 @@ const FrontPage = dynamic<FrontPageData>(() => import('_pages/Front').then((mod)
   ssr: false,
 });
 
+const InfoPage = dynamic<InfoPageData>(() => import('_pages/Info').then((mod) => mod.Info), {
+  ssr: false,
+});
+
 /**
  * This could be imagined as the "router" for this app. We use a root catch-all
  * Next.js route so that our CMS can control the slugs of the application
@@ -24,13 +28,18 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   const {
     commonData,
     language,
+    routes,
     data: { translations },
   } = props;
 
+  // Get the correct component to render with an immediately invoked function execution
   const pageComponent = (() => {
     switch (props.template) {
       case 'front':
         return <FrontPage {...props.data} />;
+
+      case 'info':
+        return <InfoPage {...props.data} />;
     }
   })();
 
@@ -38,7 +47,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   // lift them up to a global context so we don't have to prop drill them
   // to random components
   return (
-    <GlobalContext.Provider value={{ commonData, language, translations }}>
+    <GlobalContext.Provider value={{ commonData, language, translations, routes }}>
       <Navbar />
       {pageComponent}
       <Footer />

@@ -1,13 +1,19 @@
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { useGlobalContext } from 'api/globalContext';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
+import { TextLink } from 'components/TextLink';
 
 export const Navbar: React.FC = () => {
-  const { language, commonData } = useGlobalContext();
+  const { query } = useRouter();
+  const { language, commonData, routes } = useGlobalContext();
   const { logo } = commonData;
+
+  const currentSlug = query.slug?.[0] || '';
 
   return (
     <NavbarWrapper>
@@ -15,7 +21,15 @@ export const Navbar: React.FC = () => {
         <Image src={logo} alt="" layout="fill" objectFit="contain" />
       </LogoLink>
 
-      <NavLinks></NavLinks>
+      <NavLinks>
+        {routes[language].map((route) => (
+          <li key={route.slug}>
+            <Link href={route.slug}>
+              <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
+            </Link>
+          </li>
+        ))}
+      </NavLinks>
 
       <LanguageSwitcher />
     </NavbarWrapper>
@@ -32,16 +46,25 @@ const NavbarWrapper = styled.nav`
 
   padding: 0 var(--spacing-regular);
 
+  color: var(--white);
   background-color: var(--black);
   box-shadow: 0 0.25rem 1.5rem #00000040;
+
+  --logo-width: 8rem;
 
   z-index: 999;
 `;
 
 const LogoLink = styled.a`
   position: relative;
-  width: 8rem;
+  width: var(--logo-width);
   height: 100%;
 `;
 
-const NavLinks = styled.ul``;
+const NavLinks = styled.ul`
+  display: flex;
+
+  & > li + li {
+    margin-left: var(--spacing-regular);
+  }
+`;

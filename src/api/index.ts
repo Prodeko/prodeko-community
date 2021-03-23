@@ -1,7 +1,7 @@
 import DirectusSDK from '@directus/sdk-js';
 import { API_URL } from 'api/config';
 import { parseCommonData, parseFrontPageData, parseInfoPageData } from 'api/parsers';
-import { LANGUAGES, PageData } from 'types';
+import { LANGUAGES, PageData, PageRoutes } from 'types';
 
 const directus = new DirectusSDK(API_URL as string);
 
@@ -47,12 +47,33 @@ export const getInfoPageData = createDataFetcher('info_page', commonDataQuery, p
 
 const getAllPages = async () => Promise.all([getFrontPageData(), getInfoPageData()]);
 
+/**
+ * As we want to be able to define page slugs via Directus, we need to be able
+ * to fetch page data based on the slug in our main page component. Here we
+ * also provide contents for the global context.
+ */
 export const getPageBySlug = async (slug: string[] | undefined): Promise<PageData> => {
   const [[frontPageData, infoPageData], commonData] = await Promise.all([
     getAllPages(),
     getCommonData(),
   ]);
   const pages = [frontPageData, infoPageData];
+
+  // Map all pages' slugs to arrays to be accessed in site navigation
+  const routes = pages.reduce((acc, curr) => {
+    LANGUAGES.forEach((lang) => {
+      const newRoute = {
+        title: curr.translations[lang].navigation_title,
+        slug: curr.translations[lang].slug || '',
+      };
+      if (Array.isArray(acc[lang])) {
+        acc[lang] = [...acc[lang], newRoute];
+      } else {
+        acc[lang] = [newRoute];
+      }
+    });
+    return acc;
+  }, {} as PageRoutes);
 
   if (slug === undefined) {
     // nextjs default query for front page
@@ -61,6 +82,7 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
       data: frontPageData,
       language: 'fi',
       commonData,
+      routes,
     };
   }
 
@@ -78,6 +100,7 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
             data: pageData as any,
             language: lang,
             commonData,
+            routes,
           };
         }
       }
@@ -88,6 +111,7 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
     template: 'notFound',
     language: 'fi',
     commonData,
+    routes,
   };
 };
 

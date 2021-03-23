@@ -7,6 +7,8 @@
  * as `any`.
  */
 
+// eslint-disable @typescript-eslint/no-explicit-any
+
 import { ASSET_URL } from 'api/config';
 import { Article, Author, CommonData, FrontPageData, InfoPageData, LANGUAGE_KEYS } from 'types';
 
@@ -44,7 +46,6 @@ import { Article, Author, CommonData, FrontPageData, InfoPageData, LANGUAGE_KEYS
  *  }
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const parseTranslationData = (data: any[]) =>
   data.reduce((acc, curr) => {
     const lang = curr.languages_code as keyof typeof LANGUAGE_KEYS;
@@ -56,10 +57,8 @@ const parseTranslationData = (data: any[]) =>
  * Directus has a specialized assets endpoint, so we need to create custom urls
  * to utilize it
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseImageUrl = (imageId: string) => `${ASSET_URL}/${imageId}`;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseCommonData = (data: any): CommonData => ({
   ...data,
   logo: parseImageUrl(data.logo),
@@ -80,7 +79,6 @@ const parseArticle = (data: any): Article => ({
   translations: parseTranslationData(data.translations),
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseFrontPageData = (data: any): FrontPageData => ({
   ...data,
   background_banner: parseImageUrl(data.background_banner),
@@ -89,8 +87,9 @@ export const parseFrontPageData = (data: any): FrontPageData => ({
   highlighted_articles: data.highlighted_articles.map(parseArticle),
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseInfoPageData = (data: any): InfoPageData => ({
   ...data,
+  background_banner: parseImageUrl(data.background_banner),
+  main_logo: parseImageUrl(data.main_logo),
   translations: parseTranslationData(data.translations),
 });

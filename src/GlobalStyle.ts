@@ -118,6 +118,7 @@ export const GlobalStyle = createGlobalStyle`
     --text-title: 4rem;
     --text-subtitle: 3rem;
     --text-navigation: 1.5rem;
+    --text-card-title: 1.5rem;
 
 
     /* Dimensions */
@@ -141,5 +142,20 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Raleway';
     font-weight: 500;
     color: var(--black);
+  }
+
+  h1 {
+    font-size: var(--text-title);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: var(--text-subtitle);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: var(--text-ingress);
+    font-weight: 700;
   }
 `;
