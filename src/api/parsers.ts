@@ -10,7 +10,15 @@
 // eslint-disable @typescript-eslint/no-explicit-any
 
 import { ASSET_URL } from 'api/config';
-import { Article, Author, CommonData, FrontPageData, InfoPageData, LANGUAGE_KEYS } from 'types';
+import {
+  ArchivePageData,
+  Article,
+  Author,
+  CommonData,
+  FrontPageData,
+  InfoPageData,
+  LANGUAGE_KEYS,
+} from 'types';
 
 /**
  * Parses a generic translated Directus field into an object with language
@@ -79,6 +87,8 @@ const parseArticle = (data: any): Article => ({
   translations: parseTranslationData(data.translations),
 });
 
+export const parseArticles = (data: any): Article[] => data.map(parseArticle);
+
 export const parseFrontPageData = (data: any): FrontPageData => ({
   ...data,
   background_banner: parseImageUrl(data.background_banner),
@@ -91,5 +101,10 @@ export const parseInfoPageData = (data: any): InfoPageData => ({
   ...data,
   background_banner: parseImageUrl(data.background_banner),
   main_logo: parseImageUrl(data.main_logo),
+  translations: parseTranslationData(data.translations),
+});
+
+export const parseArchivePageData = (data: any): ArchivePageData => ({
+  ...data,
   translations: parseTranslationData(data.translations),
 });

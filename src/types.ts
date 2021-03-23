@@ -134,6 +134,22 @@ export type InfoPageData = {
   }>;
 };
 
+export type ArchivePageData = {
+  id: number;
+  template: 'archive';
+  date_updated?: string;
+  articles: Article[];
+  translations: Translated<{
+    page_title: string;
+    slug: string;
+    navigation_title: string;
+    sort_order_label: string;
+    filter_label: string;
+    newest_first: string;
+    oldest_first: string;
+  }>;
+};
+
 /** Array of routes in the site that should be displayed in navbar */
 export type PageRoutes = Translated<
   {
@@ -158,6 +174,10 @@ export type PageData = BasePageData &
     | {
         template: 'info';
         data: InfoPageData;
+      }
+    | {
+        template: 'archive';
+        data: ArchivePageData;
       }
     | {
         template: 'notFound';

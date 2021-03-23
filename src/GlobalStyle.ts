@@ -125,6 +125,7 @@ export const GlobalStyle = createGlobalStyle`
     --border-radius-small: 0.5rem;
     --border-radius-large: 1rem;
 
+    --navbar-height: 3rem;
     --text-width: 65ch;
     --content-width: 50rem;
     --min-content-width: calc(100% - 2 * var(--spacing-regular));

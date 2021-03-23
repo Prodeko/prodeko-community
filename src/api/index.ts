@@ -1,6 +1,12 @@
 import DirectusSDK from '@directus/sdk-js';
 import { API_URL } from 'api/config';
-import { parseCommonData, parseFrontPageData, parseInfoPageData } from 'api/parsers';
+import {
+  parseArchivePageData,
+  parseArticles,
+  parseCommonData,
+  parseFrontPageData,
+  parseInfoPageData,
+} from 'api/parsers';
 import { LANGUAGES, PageData, PageRoutes } from 'types';
 
 const directus = new DirectusSDK(API_URL as string);
@@ -45,7 +51,21 @@ export const getFrontPageData = createDataFetcher('front_page', frontPageQuery, 
 
 export const getInfoPageData = createDataFetcher('info_page', commonDataQuery, parseInfoPageData);
 
-const getAllPages = async () => Promise.all([getFrontPageData(), getInfoPageData()]);
+// Archive page needs to list all available articles but that data isn't linked
+// in the CMS, so we need to combine data fetchers to achieve the desired result
+const articlesQuery = {
+  fields: ['*', 'translations.*', 'author.*', 'author.translations.*'],
+};
+const getArticles = createDataFetcher('articles', articlesQuery, parseArticles);
+const getArchivePage = createDataFetcher('archive_page', commonDataQuery, parseArchivePageData);
+const getArchivePageData = async () => {
+  const [articles, archivePageData] = await Promise.all([getArticles(), getArchivePage()]);
+  return { ...archivePageData, articles };
+};
+
+/** Page order defined here also reflects on the navbar */
+const getAllPages = async () =>
+  Promise.all([getFrontPageData(), getArchivePageData(), getInfoPageData()]);
 
 /**
  * As we want to be able to define page slugs via Directus, we need to be able
@@ -53,11 +73,7 @@ const getAllPages = async () => Promise.all([getFrontPageData(), getInfoPageData
  * also provide contents for the global context.
  */
 export const getPageBySlug = async (slug: string[] | undefined): Promise<PageData> => {
-  const [[frontPageData, infoPageData], commonData] = await Promise.all([
-    getAllPages(),
-    getCommonData(),
-  ]);
-  const pages = [frontPageData, infoPageData];
+  const [pages, commonData] = await Promise.all([getAllPages(), getCommonData()]);
 
   // Map all pages' slugs to arrays to be accessed in site navigation
   const routes = pages.reduce((acc, curr) => {
@@ -79,7 +95,7 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
     // nextjs default query for front page
     return {
       template: 'front',
-      data: frontPageData,
+      data: pages[0],
       language: 'fi',
       commonData,
       routes,

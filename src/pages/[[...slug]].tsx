@@ -1,5 +1,5 @@
 import { getPageBySlug, getPaths } from 'api';
-import { InfoPageData, FrontPageData } from 'types';
+import { InfoPageData, FrontPageData, ArchivePageData } from 'types';
 import { GetStaticPropsContext, InferGetStaticPropsType, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
 import { ParsedUrlQuery } from 'querystring';
@@ -11,10 +11,15 @@ import { Navbar } from 'components/Navbar';
 const FrontPage = dynamic<FrontPageData>(() => import('_pages/Front').then((mod) => mod.Front), {
   ssr: false,
 });
-
 const InfoPage = dynamic<InfoPageData>(() => import('_pages/Info').then((mod) => mod.Info), {
   ssr: false,
 });
+const ArchivePage = dynamic<ArchivePageData>(
+  () => import('_pages/Archive').then((mod) => mod.Archive),
+  {
+    ssr: false,
+  }
+);
 
 /**
  * This could be imagined as the "router" for this app. We use a root catch-all
@@ -40,6 +45,9 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
 
       case 'info':
         return <InfoPage {...props.data} />;
+
+      case 'archive':
+        return <ArchivePage {...props.data} />;
     }
   })();
 

@@ -148,8 +148,8 @@ const IconGroup = styled.div`
 `;
 
 export const CardList = styled.ul`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-flow: column;
   grid-gap: var(--spacing-large);
 `;

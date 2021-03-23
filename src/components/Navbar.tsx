@@ -8,6 +8,10 @@ import { useGlobalContext } from 'api/globalContext';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
 import { TextLink } from 'components/TextLink';
 
+/**
+ * The order of nav bar links is currently determined by the order of API calls
+ * in `getAllPages`
+ */
 export const Navbar: React.FC = () => {
   const { query } = useRouter();
   const { language, commonData, routes } = useGlobalContext();
@@ -39,7 +43,7 @@ export const Navbar: React.FC = () => {
 const NavbarWrapper = styled.nav`
   position: fixed;
   width: 100%;
-  height: 3rem;
+  height: var(--navbar-height);
   display: flex;
   align-items: center;
   justify-content: space-between;

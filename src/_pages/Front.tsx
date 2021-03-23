@@ -2,13 +2,11 @@ import { NextPage } from 'next';
 import styled from 'styled-components';
 
 import { Article, FrontPageData } from 'types';
+import { useGlobalContext } from 'api/globalContext';
 import { Main as MainBase } from 'components/Main';
 import { Banner } from 'components/Banner';
-import { Section } from 'components/Section';
 import { Card, CardList } from 'components/Card';
 import { Line } from 'components/Line';
-import React from 'react';
-import { useGlobalContext } from 'api/globalContext';
 
 export const Front: NextPage<FrontPageData> = ({
   background_banner,
@@ -63,7 +61,7 @@ const Main = styled(MainBase)`
   grid-row-gap: var(--spacing-xlarge);
 `;
 
-const CardSectionWrapper = styled(Section)`
+const CardSectionWrapper = styled.section`
   & > * + * {
     margin-top: var(--spacing-medium);
   }

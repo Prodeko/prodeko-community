@@ -2,11 +2,10 @@ import { NextPage } from 'next';
 import styled from 'styled-components';
 
 import { InfoPageData } from 'types';
+import { useGlobalContext } from 'api/globalContext';
 import { Main } from 'components/Main';
 import { Banner } from 'components/Banner';
 import { Line } from 'components/Line';
-import React from 'react';
-import { useGlobalContext } from 'api/globalContext';
 
 export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, translations }) => {
   const { language } = useGlobalContext();
@@ -17,15 +16,13 @@ export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, tra
       <Banner bannerUrl={background_banner} logoUrl={main_logo} decorative />
 
       <Article>
-        <Title>{page_title}</Title>
+        <h1>{page_title}</h1>
         <Line variant="long" />
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </Article>
     </Main>
   );
 };
-
-const Title = styled.h1``;
 
 const Article = styled.article`
   background-color: var(--white);
@@ -35,6 +32,10 @@ const Article = styled.article`
 
   * + * {
     margin-top: var(--spacing-regular);
+  }
+
+  p {
+    color: var(--gray-dark);
   }
 `;
 
