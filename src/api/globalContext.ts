@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react';
-import { CommonData, LanguageCode } from 'types';
+import { CommonData, CommonPageData, LanguageCode } from 'types';
 
-type GlobalContext = {
+interface GlobalContext extends CommonPageData {
   commonData: CommonData;
   language: LanguageCode;
-};
+}
 
 const GlobalContext = createContext({} as GlobalContext);
 

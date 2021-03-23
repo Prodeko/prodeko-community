@@ -1,3 +1,11 @@
+/**
+ * Typings for data used around in the application.
+ *
+ * Some data returned by Directus is omitted intentionally, as it would
+ * be of no use, e.g. with bidirectional relations, data can be infinitely
+ * nested.
+ */
+
 export const LANGUAGE_KEYS = { 'fi-FI': 'fi', 'en-US': 'en' };
 export const LANGUAGES = ['fi', 'en'] as const;
 export type LanguageCode = typeof LANGUAGES[number];
@@ -33,6 +41,16 @@ export type CommonData = {
     blog_post_icon_alternative_text: string;
     rainbow_icon_alternative_text: string;
     comment_icon_alternative_text: string;
+  }>;
+};
+
+/**
+ * All pages always include a slug which we need for language switching, so
+ * we expose it in the global context
+ */
+export type CommonPageData = {
+  translations: Translated<{
+    slug: string;
   }>;
 };
 
@@ -90,6 +108,7 @@ export type FrontPageData = {
   main_logo: string;
   translations: Translated<{
     id: number;
+    slug: string;
     logo_alternative_text: string;
     videos_title: string;
     podcasts_title: string;
