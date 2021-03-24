@@ -118,6 +118,7 @@ export const GlobalStyle = createGlobalStyle`
 
     --photo-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.7) 80%);
     --card-shadow: 0 0.5rem 1.25rem #64646F40;
+    --dark-shadow: 0 0.25rem 1.5rem #00000040;
 
 
     /* Text sizes */

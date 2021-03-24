@@ -1,4 +1,5 @@
 import DirectusSDK from '@directus/sdk-js';
+
 import { API_URL } from 'api/config';
 import {
   parseArchivePageData,
@@ -9,7 +10,43 @@ import {
 } from 'api/parsers';
 import { LANGUAGES, PageData, PageRoutes } from 'types';
 
-const directus = new DirectusSDK(API_URL as string);
+export let directus = new DirectusSDK(API_URL as string);
+
+if (typeof window !== 'undefined') {
+  const asyncLocalStorage = {
+    setItem: async function (key: string, value: any) {
+      await null;
+      return localStorage.setItem(key, value);
+    },
+    getItem: async function (key: string) {
+      await null;
+      return localStorage.getItem(key);
+    },
+    removeItem: async function (key: string) {
+      await null;
+      return localStorage.removeItem(key);
+    },
+  };
+
+  directus = new DirectusSDK(API_URL as string, {
+    auth: { storage: asyncLocalStorage, mode: 'json' },
+  });
+}
+
+/**
+ * Called when returning from custom authentication endpoint with a refresh
+ * token which we can use to gain a proper access token for the current user
+ */
+export const authenticate = async (refreshToken: string) => {
+  const res = await directus.axios.post(`${API_URL}/auth/refresh`, {
+    refresh_token: refreshToken,
+  });
+  const { access_token, expires, refresh_token } = res.data.data;
+  directus.auth.token = access_token;
+  localStorage.setItem('directus_access_token_expires', expires);
+  localStorage.setItem('directus_refresh_token', refresh_token);
+  directus.auth.refresh(false);
+};
 
 /**
  * Directus SDK can accept objects instead of query params.

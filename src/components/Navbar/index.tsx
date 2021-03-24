@@ -8,6 +8,7 @@ import { useGlobalContext } from 'api/globalContext';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
 import { TextLink } from 'components/TextLink';
 import { ProfileButton } from 'components/Navbar/ProfileButton';
+import { slugify } from 'utils/slugify';
 
 /**
  * The order of nav bar links is currently determined by the order of API calls
@@ -22,7 +23,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      <Link href={routes[language][0].slug} passHref>
+      <Link href={slugify(routes[language][0].slug)} passHref>
         <LogoLink>
           <Image src={logo} alt="" layout="fill" objectFit="contain" />
         </LogoLink>
@@ -31,7 +32,7 @@ export const Navbar: React.FC = () => {
       <NavLinks>
         {routes[language].map((route) => (
           <li key={route.slug}>
-            <Link href={route.slug} passHref>
+            <Link href={slugify(route.slug)} passHref>
               <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
             </Link>
           </li>
@@ -58,7 +59,7 @@ const NavbarWrapper = styled.nav`
 
   color: var(--white);
   background-color: var(--black);
-  box-shadow: 0 0.25rem 1.5rem #00000040;
+  box-shadow: var(--dark-shadow);
 
   --logo-width: 8rem;
 
