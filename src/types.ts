@@ -41,16 +41,9 @@ export type CommonData = {
     blog_post_icon_alternative_text: string;
     rainbow_icon_alternative_text: string;
     comment_icon_alternative_text: string;
-  }>;
-};
-
-/**
- * All pages always include a slug which we need for language switching, so
- * we expose it in the global context
- */
-export type CommonPageData = {
-  translations: Translated<{
-    slug: string;
+    video_slug: string;
+    podcast_slug: string;
+    blog_post_slug: string;
   }>;
 };
 
@@ -165,7 +158,11 @@ type BasePageData = {
   routes: PageRoutes;
 };
 
-/** Data to be passed down to global context and currently rendered page */
+/**
+ * Data to be passed down to global context and currently rendered page
+ * If new pages are added, append the appropriate template and prop data
+ * types here
+ */
 export type PageData = BasePageData &
   (
     | {
@@ -179,6 +176,10 @@ export type PageData = BasePageData &
     | {
         template: 'archive';
         data: ArchivePageData;
+      }
+    | {
+        template: 'article';
+        data: Article;
       }
     | {
         template: 'notFound';

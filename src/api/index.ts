@@ -73,7 +73,11 @@ const getAllPages = async () =>
  * also provide contents for the global context.
  */
 export const getPageBySlug = async (slug: string[] | undefined): Promise<PageData> => {
-  const [pages, commonData] = await Promise.all([getAllPages(), getCommonData()]);
+  const [pages, articles, commonData] = await Promise.all([
+    getAllPages(),
+    getArticles(),
+    getCommonData(),
+  ]);
 
   // Map all pages' slugs to arrays to be accessed in site navigation
   const routes = pages.reduce((acc, curr) => {
@@ -114,6 +118,27 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
           return {
             template: pageData.template,
             data: pageData as any,
+            language: lang,
+            commonData,
+            routes,
+          };
+        }
+      }
+    }
+  }
+
+  // We currently have no routes with two-parts-slug other than individual articles,
+  // so we can just match the second part to know which article to render.
+  if (slug.length === 2) {
+    for (let i = 0; i < articles.length; i++) {
+      const article = articles[i];
+      for (let j = 0; j < LANGUAGES.length; j++) {
+        const lang = LANGUAGES[j];
+        const articleSlug = article.translations[lang].slug;
+        if (slug[1] === articleSlug) {
+          return {
+            template: 'article',
+            data: article,
             language: lang,
             commonData,
             routes,

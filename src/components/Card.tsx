@@ -6,14 +6,13 @@ import {
   FiFileText as ArticleIcon,
   FiVolume2 as PodcastIcon,
   FiYoutube as VideoIcon,
-  FiMessageCircle as CommentIcon,
 } from 'react-icons/fi';
 
 import { Article } from 'types';
 import { Line } from 'components/Line';
-import { RainbowIconGrayscale } from 'components/RainbowIcon';
 import { useGlobalContext } from 'api/globalContext';
 import { SrOnly } from 'components/SrOnly';
+import { ArticleStats } from 'components/ArticleStats';
 
 type CardProps = {
   article: Article;
@@ -43,10 +42,12 @@ export const Card: React.FC<CardProps> = ({ article }) => {
 
   const mediaAltText = commonData.translations[language][`${type}_icon_alternative_text` as const];
 
+  const linkPrefix = commonData.translations[language][`${type}_slug` as const];
+
   return (
     <CardWrapper>
       <Image src={photo} alt="" layout="fill" objectFit="cover" />
-      <Link href={slug}>
+      <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>
           <Title>{title}</Title>
           <Line />
@@ -55,18 +56,8 @@ export const Card: React.FC<CardProps> = ({ article }) => {
           <IconRow>
             <MediaIcon />
             <SrOnly>{mediaAltText}</SrOnly>
-            <IconGroup>
-              <IconWrapper>
-                <CommentIcon />
-                <SrOnly>{comment_icon_alternative_text}</SrOnly>
-                {commentCount}
-              </IconWrapper>
-              <IconWrapper>
-                <RainbowIconGrayscale />
-                <SrOnly>{rainbow_icon_alternative_text}</SrOnly>
-                {rainbowCount}
-              </IconWrapper>
-            </IconGroup>
+
+            <ArticleStats article={article} />
           </IconRow>
         </LinkContents>
       </Link>
@@ -126,25 +117,6 @@ const IconRow = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 0.25em;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  line-height: 1;
-
-  & > *:first-child {
-    margin-right: 0.25em;
-  }
-`;
-
-const IconGroup = styled.div`
-  display: flex;
-  align-items: center;
-
-  & > * + * {
-    margin-left: 1em;
-  }
 `;
 
 export const CardList = styled.ul`

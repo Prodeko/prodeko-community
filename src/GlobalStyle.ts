@@ -145,7 +145,7 @@ export const GlobalStyle = createGlobalStyle`
     --spacing-xlarge: 3rem;
 
     --card-height: 18rem;
-
+    --author-max-width: 18rem;
 
     /* General */
     font-family: 'Raleway';
@@ -153,18 +153,20 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--black);
   }
 
+  h1, h2, h3 {
+    font-weight: 700;
+    line-height: 0.9;
+  }
+
   h1 {
     font-size: var(--text-title);
-    font-weight: 700;
   }
 
   h2 {
     font-size: var(--text-subtitle);
-    font-weight: 700;
   }
 
   h3 {
     font-size: var(--text-ingress);
-    font-weight: 700;
   }
 `;

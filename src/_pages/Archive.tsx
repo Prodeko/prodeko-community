@@ -115,10 +115,10 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
 
   return (
     <Main>
-      <header>
+      <Header>
         <h1>{page_title}</h1>
         <Line variant="long" />
-      </header>
+      </Header>
 
       <FilterWrapper>
         <SortWrapper>
@@ -171,6 +171,12 @@ const ArticleBlock: React.FC<ArticleBlockProps> = ({ articles, year }) => (
     </StyledCardList>
   </ArticleBlockWrapper>
 );
+
+const Header = styled.header`
+  * + * {
+    margin-top: var(--spacing-regular);
+  }
+`;
 
 const FilterWrapper = styled.div`
   display: flex;

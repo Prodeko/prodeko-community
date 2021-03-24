@@ -1,9 +1,10 @@
 import { createContext, useContext } from 'react';
-import { CommonData, CommonPageData, LanguageCode, PageRoutes } from 'types';
+import { CommonData, LanguageCode, PageRoutes } from 'types';
 
-interface GlobalContext extends CommonPageData {
+interface GlobalContext {
   commonData: CommonData;
   language: LanguageCode;
+  alternativeSlugs: Record<LanguageCode, string[]>;
   routes: PageRoutes;
 }
 

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { InfoPageData } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { Main } from 'components/Main';
+import { ArticleBody } from 'components/ArticleBody';
 import { Banner } from 'components/Banner';
 import { Line } from 'components/Line';
 
@@ -18,29 +19,23 @@ export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, tra
       <Article>
         <h1>{page_title}</h1>
         <Line variant="long" />
-        <div dangerouslySetInnerHTML={{ __html: body }} />
+        <Contents dangerouslySetInnerHTML={{ __html: body }} />
       </Article>
     </Main>
   );
 };
 
-const Article = styled.article`
-  background-color: var(--white);
+const Article = styled(ArticleBody)`
   border-radius: var(--border-radius-small);
   margin-top: -8rem;
   padding: var(--spacing-medium) var(--spacing-large);
+`;
 
+const Contents = styled.div`
   * + * {
     margin-top: var(--spacing-regular);
   }
-
-  p {
-    color: var(--gray-dark);
+  h2 {
+    margin-top: var(--spacing-large);
   }
-`;
-
-const CardSectionTitle = styled.h2`
-  line-height: 0.7;
-  font-size: 3rem;
-  font-weight: 700;
 `;

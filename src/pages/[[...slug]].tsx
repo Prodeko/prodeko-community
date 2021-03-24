@@ -1,5 +1,12 @@
 import { getPageBySlug, getPaths } from 'api';
-import { InfoPageData, FrontPageData, ArchivePageData } from 'types';
+import {
+  FrontPageData,
+  ArchivePageData,
+  InfoPageData,
+  Article,
+  LANGUAGES,
+  LanguageCode,
+} from 'types';
 import { GetStaticPropsContext, InferGetStaticPropsType, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
 import { ParsedUrlQuery } from 'querystring';
@@ -20,6 +27,9 @@ const ArchivePage = dynamic<ArchivePageData>(
     ssr: false,
   }
 );
+const ArticlePage = dynamic<Article>(() => import('_pages/Article').then((mod) => mod.Article), {
+  ssr: false,
+});
 
 /**
  * This could be imagined as the "router" for this app. We use a root catch-all
@@ -48,14 +58,31 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
 
       case 'archive':
         return <ArchivePage {...props.data} />;
+
+      case 'article':
+        return <ArticlePage {...props.data} />;
     }
   })();
+
+  // Generate all links to same content in different language to be passed into global
+  // context and used in `LanguageSwitcher`
+  const alternativeSlugs = Object.fromEntries(
+    LANGUAGES.map((lang) => {
+      const slug = translations[lang].slug;
+      if (props.template === 'article') {
+        const linkPrefix = commonData.translations[lang][`${props.data.type}_slug` as const];
+        return [lang, [linkPrefix, slug]];
+      } else {
+        return [lang, [slug]];
+      }
+    })
+  ) as Record<LanguageCode, string[]>;
 
   // We need common data and current language in multiple locations, so we
   // lift them up to a global context so we don't have to prop drill them
   // to random components
   return (
-    <GlobalContext.Provider value={{ commonData, language, translations, routes }}>
+    <GlobalContext.Provider value={{ commonData, language, alternativeSlugs, routes }}>
       <Navbar />
       {pageComponent}
       <Footer />
