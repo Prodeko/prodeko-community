@@ -29,7 +29,6 @@ export const LanguageSwitcher: React.FC = () => {
 const LanguagesList = styled.ul`
   display: flex;
   justify-content: flex-end;
-  width: var(--logo-width);
 `;
 
 const LanguagesListItem = styled.li`

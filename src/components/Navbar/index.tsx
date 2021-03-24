@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { useGlobalContext } from 'api/globalContext';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
 import { TextLink } from 'components/TextLink';
+import { ProfileButton } from 'components/Navbar/ProfileButton';
 
 /**
  * The order of nav bar links is currently determined by the order of API calls
@@ -37,7 +38,10 @@ export const Navbar: React.FC = () => {
         ))}
       </NavLinks>
 
-      <LanguageSwitcher />
+      <RightGroup>
+        <LanguageSwitcher />
+        <ProfileButton />
+      </RightGroup>
     </NavbarWrapper>
   );
 };
@@ -73,4 +77,12 @@ const NavLinks = styled.ul`
   & > li + li {
     margin-left: var(--spacing-regular);
   }
+`;
+
+const RightGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: var(--logo-width);
 `;
