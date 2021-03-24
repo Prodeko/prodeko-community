@@ -21,14 +21,16 @@ export const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      <LogoLink>
-        <Image src={logo} alt="" layout="fill" objectFit="contain" />
-      </LogoLink>
+      <Link href={routes[language][0].slug} passHref>
+        <LogoLink>
+          <Image src={logo} alt="" layout="fill" objectFit="contain" />
+        </LogoLink>
+      </Link>
 
       <NavLinks>
         {routes[language].map((route) => (
           <li key={route.slug}>
-            <Link href={route.slug}>
+            <Link href={route.slug} passHref>
               <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
             </Link>
           </li>

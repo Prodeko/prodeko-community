@@ -72,8 +72,15 @@ export const GlobalStyle = createGlobalStyle`
     font: inherit;
   }
 
-  a {
+  a,
+  button {
     cursor: pointer;
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
   }
   
   /* Remove all animations and transitions for people that prefer not to see them */
@@ -98,6 +105,7 @@ export const GlobalStyle = createGlobalStyle`
     --background: #001302;
     --gray-dark: #333333;
     --gray-light: #666666;
+    --gray-lighter: #F0F0F0;
     --highlight: #41DFAB;
     --danger: #C45046;
     --confirm: #005338;

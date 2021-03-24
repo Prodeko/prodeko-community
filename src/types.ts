@@ -65,7 +65,8 @@ export type Author = {
   }>;
 };
 
-type ArticleType = 'blog_post' | 'podcast' | 'video';
+export const ARTICLE_TYPES = ['blog_post', 'podcast', 'video'] as const;
+export type ArticleType = typeof ARTICLE_TYPES[number];
 
 type ArticleBase = {
   id: number;

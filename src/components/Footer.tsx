@@ -12,7 +12,15 @@ import { SrOnly } from 'components/SrOnly';
 
 export const Footer: React.FC = () => {
   const { language, commonData } = useGlobalContext();
-  const { prodeko_link, prodeko_logo } = commonData;
+  const {
+    prodeko_link,
+    prodeko_logo,
+    alumni_link,
+    department_link,
+    facebook_link,
+    instagram_link,
+    linkedin_link,
+  } = commonData;
   const { alumni_link_text, department_link_text } = commonData.translations[language];
 
   return (
@@ -21,19 +29,19 @@ export const Footer: React.FC = () => {
         <Image src={prodeko_logo} alt="" layout="fill" objectFit="contain" />
       </LogoLink>
 
-      <TextLink>{alumni_link_text}</TextLink>
-      <TextLink>{department_link_text}</TextLink>
+      <TextLink href={alumni_link}>{alumni_link_text}</TextLink>
+      <TextLink href={department_link}>{department_link_text}</TextLink>
 
       <IconWrapper>
-        <TextLink>
+        <TextLink href={facebook_link}>
           <FacebookIcon />
           <SrOnly>Facebook</SrOnly>
         </TextLink>
-        <TextLink>
+        <TextLink href={instagram_link}>
           <InstagramIcon />
           <SrOnly>Instagram</SrOnly>
         </TextLink>
-        <TextLink>
+        <TextLink href={linkedin_link}>
           <LinkedInIcon />
           <SrOnly>LinkedIn</SrOnly>
         </TextLink>
@@ -68,11 +76,14 @@ const LogoLink = styled.a`
   position: relative;
   width: min(100%, 30rem);
   padding-top: 20%;
+  color: currentColor;
 `;
 
 const TextLink = styled.a`
   font-size: 1.25rem;
   font-weight: 600;
+  color: currentColor;
+  text-decoration: none;
 `;
 
 const IconWrapper = styled.div`

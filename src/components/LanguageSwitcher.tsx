@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -8,12 +9,22 @@ import { TextLink } from 'components/TextLink';
 
 export const LanguageSwitcher: React.FC = () => {
   const { language, translations } = useGlobalContext();
+  const { query } = useRouter();
+  // We want to preserve query params other than the current route on language
+  // switch so that switching works as expected with archive filters
+  const { slug, ...restQuery } = query;
 
   return (
     <LanguagesList>
       {LANGUAGES.map((lang) => (
         <LanguagesListItem key={lang}>
-          <Link href={translations[lang].slug || ''}>
+          <Link
+            href={{
+              pathname: translations[lang].slug || '',
+              query: restQuery,
+            }}
+            passHref
+          >
             <LanguageLink aria-current={lang === language}>{lang}</LanguageLink>
           </Link>
         </LanguagesListItem>
@@ -26,7 +37,6 @@ const LanguagesList = styled.ul`
   display: flex;
   justify-content: flex-end;
   width: var(--logo-width);
-  color: var(--white);
 `;
 
 const LanguagesListItem = styled.li`
