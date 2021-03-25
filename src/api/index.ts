@@ -18,7 +18,7 @@ export let directus = new DirectusSDK(API_URL as string);
 // that is capable of storing authentication state
 if (typeof window !== 'undefined') {
   directus = new DirectusSDK(API_URL as string, {
-    auth: { storage: asyncLocalStorage, mode: 'json' },
+    auth: { storage: asyncLocalStorage, mode: 'json', autoRefresh: true },
   });
 }
 
