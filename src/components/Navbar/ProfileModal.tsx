@@ -50,5 +50,9 @@ export const ProfileModal = styled(ModalAdapter).attrs({
 
     background-color: var(--white);
     box-shadow: var(--dark-shadow);
+
+    & > * + * {
+      margin-top: var(--spacing-regular);
+    }
   }
 `;
