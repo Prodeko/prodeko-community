@@ -78,7 +78,7 @@ export const parseCommonData = (data: any): CommonData => ({
   ...data,
   logo: parseImageUrl(data.logo),
   prodeko_logo: parseImageUrl(data.prodeko_logo),
-  translations: parseTranslationData(data?.translations),
+  translations: parseTranslationData(data.translations),
 });
 
 export const parseComment = (data: any): Comment => ({

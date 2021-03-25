@@ -27,9 +27,12 @@ const ArchivePage = dynamic<ArchivePageData>(
     ssr: false,
   }
 );
-const ArticlePage = dynamic<Article>(() => import('_pages/Article').then((mod) => mod.Article), {
-  ssr: false,
-});
+const ArticlePage = dynamic<{ article: Article }>(
+  () => import('_pages/Article').then((mod) => mod.Article),
+  {
+    ssr: false,
+  }
+);
 
 /**
  * This could be imagined as the "router" for this app. We use a root catch-all
@@ -60,7 +63,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
         return <ArchivePage {...props.data} />;
 
       case 'article':
-        return <ArticlePage {...props.data} />;
+        return <ArticlePage article={props.data} />;
     }
   })();
 

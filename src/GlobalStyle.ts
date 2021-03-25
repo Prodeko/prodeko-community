@@ -82,7 +82,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
-  
+
   /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
@@ -172,4 +172,14 @@ export const GlobalStyle = createGlobalStyle`
   h3 {
     font-size: var(--text-ingress);
   }
+
+  blockquote {
+    position: relative;
+    background-color: var(--gray-lighter);
+    border-left: 0.2em solid var(--gray-light);
+    padding: 0.25em 0.5em;
+    margin-left: -0.7em;
+    font-style: italic;
+  }
+  
 `;

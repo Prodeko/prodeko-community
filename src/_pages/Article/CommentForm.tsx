@@ -7,13 +7,25 @@ import { PillButton } from '_pages/Article/PillButton';
 import { FiEdit, FiSend, FiX } from 'react-icons/fi';
 import { createComment } from 'api';
 import { useAuth } from 'api/useAuth';
+import { useRouter } from 'next/router';
 
 type CommentFormProps = {
   articleId: number;
   parentComment?: number;
 };
 
+// We need to define these statically to prevent unnecessary errors
+// https://github.com/quilljs/quill/issues/1940#issuecomment-379536850
+const quillModules = {
+  toolbar: [
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ['clean'],
+  ],
+};
+
 export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComment }) => {
+  const router = useRouter();
   const [formOpen, setFormOpen] = useState(false);
   const openForm = () => setFormOpen(true);
   const closeForm = () => setFormOpen(false);
@@ -28,9 +40,16 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
       body: value,
     });
     if (data) {
-      console.log(data);
-      closeForm();
+      // Refreshes static props of the page, thanks Josh!
+      // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+      router.replace(router.asPath, undefined, { scroll: false });
+      onClose();
     }
+  };
+
+  const onClose = () => {
+    setValue('');
+    closeForm();
   };
 
   if (user) {
@@ -39,14 +58,14 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
         <CommentFormWrapper onSubmit={handleSubmit}>
           <NewCommentTitle id="formTitle">Uusi kommentti</NewCommentTitle>
 
-          <Quill theme="bubble" value={value} onChange={setValue} />
+          <Quill theme="bubble" value={value} modules={quillModules} onChange={setValue} />
 
           <FormActions>
             <PillButton variant="confirm">
               <FiSend />
               Lähetä
             </PillButton>
-            <PillButton variant="cancel" onClick={closeForm}>
+            <PillButton variant="cancel" onClick={onClose}>
               <FiX />
               Peruuta
             </PillButton>

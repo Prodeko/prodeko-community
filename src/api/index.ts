@@ -73,21 +73,6 @@ const commonDataQuery = {
 
 export const getCommonData = createDataFetcher('common_data', commonDataQuery, parseCommonData);
 
-const frontPageQuery = {
-  ...commonDataQuery,
-  fields: [
-    ...commonDataQuery.fields,
-    'highlighted_articles.*',
-    'highlighted_articles.translations.*',
-    'highlighted_articles.author.*',
-    'highlighted_articles.author.translations.*',
-  ],
-};
-
-export const getFrontPageData = createDataFetcher('front_page', frontPageQuery, parseFrontPageData);
-
-export const getInfoPageData = createDataFetcher('info_page', commonDataQuery, parseInfoPageData);
-
 // Archive page needs to list all available articles but that data isn't linked
 // in the CMS, so we need to combine data fetchers to achieve the desired result
 const articlesQuery = {
@@ -103,6 +88,19 @@ const articlesQuery = {
   ],
 };
 const getArticles = createDataFetcher('articles', articlesQuery, parseArticles);
+
+const frontPageQuery = {
+  ...commonDataQuery,
+  fields: [
+    ...commonDataQuery.fields,
+    ...articlesQuery.fields.map((field) => `highlighted_articles.${field}`),
+  ],
+};
+
+export const getFrontPageData = createDataFetcher('front_page', frontPageQuery, parseFrontPageData);
+
+export const getInfoPageData = createDataFetcher('info_page', commonDataQuery, parseInfoPageData);
+
 const getArchivePage = createDataFetcher('archive_page', commonDataQuery, parseArchivePageData);
 const getArchivePageData = async () => {
   const [articles, archivePageData] = await Promise.all([getArticles(), getArchivePage()]);

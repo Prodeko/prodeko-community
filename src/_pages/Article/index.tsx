@@ -1,9 +1,13 @@
 import { NextPage } from 'next';
 import styled from 'styled-components';
+import { FiExternalLink } from 'react-icons/fi';
 
-import { Article as ArticleProps } from 'types';
+import { Article as ArticleType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
+import { useAuth } from 'api/useAuth';
+
 import { Main as MainBase } from 'components/Main';
+import { TextLink } from 'components/TextLink';
 import { ArticleBody } from 'components/ArticleBody';
 import { BlogBanner } from '_pages/Article/BlogBanner';
 import { ArticleInfo } from '_pages/Article/ArticleInfo';
@@ -13,8 +17,13 @@ import { VideoBanner } from '_pages/Article/VideoBanner';
 import { CommentForm } from '_pages/Article/CommentForm';
 import { Comment } from '_pages/Article/Comment';
 
-export const Article: NextPage<ArticleProps> = (article) => {
+type ArticleProps = {
+  article: ArticleType;
+};
+
+export const Article: NextPage<ArticleProps> = ({ article }) => {
   const { language } = useGlobalContext();
+  const { user, loginUrl } = useAuth();
   const { title, body, ingress } = article.translations[language];
 
   const header = (() => {
@@ -44,6 +53,12 @@ export const Article: NextPage<ArticleProps> = (article) => {
 
           <CommentsTitle>Kommentit</CommentsTitle>
 
+          {!user && (
+            <LoginLink href={loginUrl}>
+              Kirjaudu sisään osallistuaksesi keskusteluun
+              <ExternalLinkIcon />
+            </LoginLink>
+          )}
           <CommentsList>
             {article.comments
               ?.filter((comment) => comment.parent_comment === null)
@@ -113,4 +128,13 @@ const CommentsList = styled.ol`
   & > * + * {
     margin-top: var(--spacing-xlarge);
   }
+`;
+
+const LoginLink = styled(TextLink)`
+  --padding: 0px;
+`;
+
+const ExternalLinkIcon = styled(FiExternalLink)`
+  margin-left: 0.5em;
+  margin-bottom: -0.1em;
 `;

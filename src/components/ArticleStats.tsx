@@ -17,7 +17,6 @@ export const ArticleStats: React.FC<ArticleStatsProps> = ({ article, ...rest }) 
     language
   ];
 
-  const commentCount = 0;
   const rainbowCount = 0;
 
   return (
@@ -25,7 +24,7 @@ export const ArticleStats: React.FC<ArticleStatsProps> = ({ article, ...rest }) 
       <IconWrapper>
         <CommentIcon />
         <SrOnly>{comment_icon_alternative_text}</SrOnly>
-        {commentCount}
+        {article.comments.length}
       </IconWrapper>
       <IconWrapper>
         <RainbowIconGrayscale />

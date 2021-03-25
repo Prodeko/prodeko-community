@@ -19,7 +19,11 @@ export const LanguageSwitcher: React.FC = () => {
     <LanguagesList>
       {LANGUAGES.map((lang) => (
         <LanguagesListItem key={lang}>
-          <Link href={{ pathname: slugify(alternativeSlugs[lang]), query: sluglessQuery }} passHref>
+          <Link
+            href={{ pathname: slugify(alternativeSlugs[lang]), query: sluglessQuery }}
+            passHref
+            scroll={false}
+          >
             <LanguageLink aria-current={lang === language}>{lang}</LanguageLink>
           </Link>
         </LanguagesListItem>
