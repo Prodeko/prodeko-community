@@ -10,7 +10,14 @@ import {
   parseInfoPageData,
   parseUser,
 } from 'api/parsers';
-import { AuthenticationResponse, CommentFormData, LANGUAGES, PageData, PageRoutes } from 'types';
+import {
+  AuthenticationResponse,
+  CommentFormData,
+  LANGUAGES,
+  LikeFormData,
+  PageData,
+  PageRoutes,
+} from 'types';
 
 export let directus = new DirectusSDK(API_URL as string);
 
@@ -41,8 +48,19 @@ export const getMe = async () => {
   return parsedUser;
 };
 
+/** Requires an authenticated user to call, otherwise will fail */
 export const createComment = async (data: CommentFormData) => {
   return directus.items('comments').create(data);
+};
+
+/** Requires an authenticated user to call, otherwise will fail */
+export const likeArticle = async (data: LikeFormData) => {
+  return directus.items('rainbow_likes').create(data);
+};
+
+/** Allows users to unlike an article they've previously liked */
+export const unlikeArticle = async (likeId: number) => {
+  return directus.items('rainbow_likes').delete(likeId);
 };
 
 /**
@@ -85,6 +103,7 @@ const articlesQuery = {
     'comments.user_created.*',
     'comments.subcomments.*',
     'comments.subcomments.user_created.*',
+    'liked_by.*',
   ],
 };
 const getArticles = createDataFetcher('articles', articlesQuery, parseArticles);

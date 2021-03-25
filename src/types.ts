@@ -17,7 +17,9 @@ export type AuthenticationResponse = {
   refresh_token: string;
 };
 
+/** User wrapped by Directus */
 export type User = {
+  id: string;
   first_name?: string;
   last_name?: string;
   avatar: string;
@@ -30,6 +32,12 @@ export type CommentFormData = {
   body: string;
   article: number;
   parent_comment?: number;
+};
+
+/** Data required to like an article */
+export type LikeFormData = {
+  articles_id: number;
+  directus_users_id: string;
 };
 
 type Translated<Data> = {
@@ -90,6 +98,12 @@ export type Author = {
   }>;
 };
 
+export type Like = {
+  id: number;
+  articles_id: number;
+  directus_users_id: string;
+};
+
 export const ARTICLE_TYPES = ['blog_post', 'podcast', 'video'] as const;
 export type ArticleType = typeof ARTICLE_TYPES[number];
 
@@ -109,6 +123,7 @@ type ArticleBase = {
     slug: string;
   }>;
   comments: Comment[];
+  liked_by: Like[];
 };
 
 interface BlogPost extends ArticleBase {

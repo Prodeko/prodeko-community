@@ -16,6 +16,7 @@ import { PodcastBanner } from '_pages/Article/PodcastBanner';
 import { VideoBanner } from '_pages/Article/VideoBanner';
 import { CommentForm } from '_pages/Article/CommentForm';
 import { Comment } from '_pages/Article/Comment';
+import { RainbowButton } from '_pages/Article/RainbowButton';
 
 type ArticleProps = {
   article: ArticleType;
@@ -50,6 +51,10 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
           {ingress && <Ingress>{ingress}</Ingress>}
 
           <Contents dangerouslySetInnerHTML={{ __html: body }} />
+
+          <RainbowButton articleId={article.id} likedBy={article.liked_by}>
+            {article.liked_by.length} henkilöä piti artikkelista
+          </RainbowButton>
 
           <CommentsTitle>Kommentit</CommentsTitle>
 

@@ -17,8 +17,6 @@ export const ArticleStats: React.FC<ArticleStatsProps> = ({ article, ...rest }) 
     language
   ];
 
-  const rainbowCount = 0;
-
   return (
     <IconGroup {...rest}>
       <IconWrapper>
@@ -29,7 +27,7 @@ export const ArticleStats: React.FC<ArticleStatsProps> = ({ article, ...rest }) 
       <IconWrapper>
         <RainbowIconGrayscale />
         <SrOnly>{rainbow_icon_alternative_text}</SrOnly>
-        {rainbowCount}
+        {article.liked_by.length}
       </IconWrapper>
     </IconGroup>
   );
