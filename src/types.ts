@@ -25,6 +25,13 @@ export type User = {
   language: LanguageCode;
 };
 
+/** Data required to submit a comment */
+export type CommentFormData = {
+  body: string;
+  article: number;
+  parent_comment?: number;
+};
+
 type Translated<Data> = {
   [key in LanguageCode]: Data;
 };
@@ -62,6 +69,16 @@ export type CommonData = {
   }>;
 };
 
+export type Comment = {
+  id: number;
+  user_created: User;
+  date_created: string;
+  body: HTMLString;
+  article: number;
+  parent_comment: number;
+  subcomments: Comment[];
+};
+
 export type Author = {
   id: number;
   date_updated?: string;
@@ -91,7 +108,7 @@ type ArticleBase = {
     body: HTMLString;
     slug: string;
   }>;
-  comments: []; // TODO: Comments type
+  comments: Comment[];
 };
 
 interface BlogPost extends ArticleBase {

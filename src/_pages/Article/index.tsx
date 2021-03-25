@@ -10,6 +10,8 @@ import { ArticleInfo } from '_pages/Article/ArticleInfo';
 import { Author } from '_pages/Article/Author';
 import { PodcastBanner } from '_pages/Article/PodcastBanner';
 import { VideoBanner } from '_pages/Article/VideoBanner';
+import { CommentForm } from '_pages/Article/CommentForm';
+import { Comment } from '_pages/Article/Comment';
 
 export const Article: NextPage<ArticleProps> = (article) => {
   const { language } = useGlobalContext();
@@ -39,6 +41,18 @@ export const Article: NextPage<ArticleProps> = (article) => {
           {ingress && <Ingress>{ingress}</Ingress>}
 
           <Contents dangerouslySetInnerHTML={{ __html: body }} />
+
+          <CommentsTitle>Kommentit</CommentsTitle>
+
+          <CommentsList>
+            {article.comments
+              ?.filter((comment) => comment.parent_comment === null)
+              .map((comment) => (
+                <Comment comment={comment} key={comment.id} />
+              ))}
+          </CommentsList>
+
+          <CommentForm articleId={article.id} />
         </ArticleBody>
 
         {article.author && <Author author={article.author} />}
@@ -87,4 +101,16 @@ const Ingress = styled.p`
   line-height: 1.2;
   font-style: italic;
   margin-bottom: 1em;
+`;
+
+const CommentsTitle = styled.h2`
+  margin-top: var(--spacing-xlarge);
+`;
+
+const CommentsList = styled.ol`
+  margin-top: var(--spacing-xlarge);
+  margin-bottom: var(--spacing-xlarge);
+  & > * + * {
+    margin-top: var(--spacing-xlarge);
+  }
 `;

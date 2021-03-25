@@ -81,6 +81,12 @@ export const parseCommonData = (data: any): CommonData => ({
   translations: parseTranslationData(data?.translations),
 });
 
+export const parseComment = (data: any): Comment => ({
+  ...data,
+  user_created: parseUser(data.user_created),
+  subcomments: data.subcomments.map(parseComment),
+});
+
 const parseAuthor = (data: any): Author => ({
   ...data,
   photo: parseImageUrl(data.photo),
@@ -92,6 +98,7 @@ const parseArticle = (data: any): Article => ({
   author: data.author ? parseAuthor(data.author) : null,
   photo: parseImageUrl(data.photo),
   translations: parseTranslationData(data.translations),
+  comments: data.comments.map(parseComment),
 });
 
 export const parseArticles = (data: any): Article[] => data.map(parseArticle);

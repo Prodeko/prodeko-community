@@ -109,6 +109,8 @@ export const GlobalStyle = createGlobalStyle`
     --highlight: #41DFAB;
     --danger: #C45046;
     --confirm: #005338;
+    --neutral: #2F80ED;
+    --neutral-dark: #285FA9;
 
     --prodeko-blue: #002E7D;
     --prodeko-red: #D42E12;

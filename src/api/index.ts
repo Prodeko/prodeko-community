@@ -10,7 +10,7 @@ import {
   parseInfoPageData,
   parseUser,
 } from 'api/parsers';
-import { AuthenticationResponse, LANGUAGES, PageData, PageRoutes } from 'types';
+import { AuthenticationResponse, CommentFormData, LANGUAGES, PageData, PageRoutes } from 'types';
 
 export let directus = new DirectusSDK(API_URL as string);
 
@@ -39,6 +39,10 @@ export const getMe = async () => {
   const { data } = await directus.users.me.read();
   const parsedUser = parseUser(data);
   return parsedUser;
+};
+
+export const createComment = async (data: CommentFormData) => {
+  return directus.items('comments').create(data);
 };
 
 /**
@@ -87,7 +91,16 @@ export const getInfoPageData = createDataFetcher('info_page', commonDataQuery, p
 // Archive page needs to list all available articles but that data isn't linked
 // in the CMS, so we need to combine data fetchers to achieve the desired result
 const articlesQuery = {
-  fields: ['*', 'translations.*', 'author.*', 'author.translations.*'],
+  fields: [
+    '*',
+    'translations.*',
+    'author.*',
+    'author.translations.*',
+    'comments.*',
+    'comments.user_created.*',
+    'comments.subcomments.*',
+    'comments.subcomments.user_created.*',
+  ],
 };
 const getArticles = createDataFetcher('articles', articlesQuery, parseArticles);
 const getArchivePage = createDataFetcher('archive_page', commonDataQuery, parseArchivePageData);
