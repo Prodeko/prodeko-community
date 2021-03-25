@@ -53,6 +53,10 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({
       };
     }
 
+    const wrapperClassName = `${isPressed || loading ? 'active' : ''}${loading ? ' loading' : ''}${
+      isPressed ? ' pressed' : ''
+    }`;
+
     return (
       <RainbowButtonWrapper
         {...props}
@@ -60,7 +64,7 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({
         disabled={loading}
         onClick={onClick}
       >
-        <RainbowWrapper className={isPressed || loading ? 'active' : ''}>
+        <RainbowWrapper className={wrapperClassName}>
           <AnimateIcon />
         </RainbowWrapper>
         {children}
@@ -87,6 +91,7 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
   color: var(--gray-dark);
   background-color: unset;
   outline: none;
+  transition: color 0.5s ease;
 
   &[aria-pressed='true'] {
     color: var(--black);
@@ -108,13 +113,20 @@ const rainbowAnimation = css`
     cursor: pointer;
     overflow: visible;
     #rainbow {
+      transition: filter 0.5s ease;
       filter: grayscale(1);
       transform-origin: center;
-      animation: animateHeartOut 0.2s linear forwards;
+      // animation: animateHeartOut 0.2s linear forwards;
     }
     #main-circ {
       transform-origin: 29.5px 29.5px;
     }
+  }
+
+  &&.loading.pressed #rainbow {
+    transition: filter 0.5s ease;
+    filter: grayscale(1);
+    animation: animateHeartOut 0.2s linear forwards;
   }
 
   &.active svg {
