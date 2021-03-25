@@ -10,6 +10,21 @@ export const LANGUAGE_KEYS = { 'fi-FI': 'fi', 'en-US': 'en' };
 export const LANGUAGES = ['fi', 'en'] as const;
 export type LanguageCode = typeof LANGUAGES[number];
 
+/** Returned by Directus on successful authentication or refresh */
+export type AuthenticationResponse = {
+  access_token: string;
+  expires: number;
+  refresh_token: string;
+};
+
+export type User = {
+  first_name?: string;
+  last_name?: string;
+  avatar: string;
+  description?: string;
+  language: LanguageCode;
+};
+
 type Translated<Data> = {
   [key in LanguageCode]: Data;
 };

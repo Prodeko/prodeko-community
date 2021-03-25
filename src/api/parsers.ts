@@ -18,6 +18,7 @@ import {
   FrontPageData,
   InfoPageData,
   LANGUAGE_KEYS,
+  User,
 } from 'types';
 
 /**
@@ -66,6 +67,12 @@ const parseTranslationData = (data: any[]) =>
  * to utilize it
  */
 export const parseImageUrl = (imageId: string) => `${ASSET_URL}/${imageId}`;
+
+export const parseUser = (data: any): User => ({
+  ...data,
+  avatar: data.avatar ? parseImageUrl(data.avatar) : null,
+  language: LANGUAGE_KEYS[data.language as keyof typeof LANGUAGE_KEYS],
+});
 
 export const parseCommonData = (data: any): CommonData => ({
   ...data,

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
 import styled from 'styled-components';
 
-import { authenticate, directus } from 'api';
 import { useGlobalContext } from 'api/globalContext';
 import { ProfileModal } from 'components/Navbar/ProfileModal';
 import { TextLink } from 'components/TextLink';
 import { FiUser } from 'react-icons/fi';
 import { API_URL } from 'api/config';
+import { useAuth } from 'api/useAuth';
 
 interface ProfileButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
@@ -18,39 +17,25 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({ children, ...rest 
   const { asPath } = useRouter();
   const { language, commonData } = useGlobalContext();
   const {} = commonData.translations[language];
+  const { user, logout } = useAuth();
 
-  // If we ever end up with a `directus_refresh_token` cookie (as we do when
-  // using the authentication link) we immediately consume it and try to gain
-  // a proper access token for our Directus SDK instance and thus know that
-  // we have been authenticated
+  // We want to keep the log-in redirection in sync with the current page
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setRedirectUrl(`${window.location.href}`);
-      const token = Cookies.get('directus_refresh_token');
-      if (token) {
-        Cookies.remove('directus_refresh_token');
-        authenticate(token);
-      }
     }
   }, [asPath]);
-
-  useEffect(() => {
-    (async () => {
-      if (directus.auth.token) {
-        const { data } = await directus.users.me.read({ fields: ['*', '*.*'], single: true });
-        console.log(data);
-      }
-    })();
-  }, [directus.auth.token]);
 
   return (
     <>
       <ButtonWrapper {...rest} onClick={() => setModalOpen((prev) => !prev)}>
-        ?
+        {user ? <FiUser /> : '?'}
       </ButtonWrapper>
 
       <ProfileModal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
         <ModalTitle>sup</ModalTitle>
+
+        {user && <button onClick={logout}>logout</button>}
 
         <TextLink
           href={`${API_URL}/custom/prodeko-auth${
