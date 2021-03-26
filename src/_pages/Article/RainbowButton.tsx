@@ -73,7 +73,9 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({
   } else {
     return (
       <RainbowButtonWrapper {...props} disabled>
-        <RainbowIcon />
+        <DisabledRainbowWrapper>
+          <RainbowIcon />
+        </DisabledRainbowWrapper>
         {children}
       </RainbowButtonWrapper>
     );
@@ -106,8 +108,23 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
     font-size: 2em;
     transition: transform 0.3s ease;
   }
+
+  &:hover span:not(.active) #rainbow {
+    filter: grayscale(0.7);
+  }
 `;
 
+const DisabledRainbowWrapper = styled.span`
+  padding: 0.25em;
+  display: flex;
+`;
+
+/**
+ * This styling is pretty convoluted and not the cleanest implementation, but
+ * alas it works so no point in trying to unnecessarily optimize in.
+ * Heavily based on Twitter's like-animation and a CodePen by Robeen
+ * https://codepen.io/robeen/pen/PbvJjy
+ */
 const rainbowAnimation = css`
   svg {
     cursor: pointer;

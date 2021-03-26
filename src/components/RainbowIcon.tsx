@@ -30,6 +30,10 @@ export const RainbowIcon = () => (
   </svg>
 );
 
+/**
+ * SVG for a coloured rainbow with extra shapes for animating it in with an
+ * extremely satisfying "pop"
+ */
 export const AnimateIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 58 57">
     <g id="Group" fill="none" fill-rule="evenodd">
