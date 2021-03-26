@@ -22,12 +22,13 @@ export const PillButton: React.FC<PillButtonProps> = ({ variant, outlined, ...re
 };
 
 const buttonBase = css`
+  font-size: 1.125em;
   border-radius: 999px;
   border: none;
 
   display: flex;
   align-items: center;
-  padding: 0.25em 0.9em;
+  padding: 0.4em 0.9em;
 
   & > svg {
     margin-right: 0.5em;

@@ -132,7 +132,7 @@ const ArticleWrapper = styled.div`
 const ContentsWrapper = styled.div``;
 
 const Contents = styled.div`
-  * + * {
+  & > * + * {
     margin-top: var(--spacing-regular);
   }
   h2 {
@@ -151,7 +151,7 @@ const Comments = styled.section`
   max-width: var(--text-width);
   width: 100%;
 
-  * + * {
+  & > * + * {
     margin-top: var(--spacing-regular);
   }
 `;
