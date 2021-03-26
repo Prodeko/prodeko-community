@@ -9,6 +9,7 @@ import {
 
 import { useGlobalContext } from 'api/globalContext';
 import { SrOnly } from 'components/SrOnly';
+import { TextLink } from 'components/TextLink';
 
 export const Footer: React.FC = () => {
   const { language, commonData } = useGlobalContext();
@@ -29,22 +30,22 @@ export const Footer: React.FC = () => {
         <Image src={prodeko_logo} alt="" layout="fill" objectFit="contain" />
       </LogoLink>
 
-      <TextLink href={alumni_link}>{alumni_link_text}</TextLink>
-      <TextLink href={department_link}>{department_link_text}</TextLink>
+      <StyledTextLink href={alumni_link}>{alumni_link_text}</StyledTextLink>
+      <StyledTextLink href={department_link}>{department_link_text}</StyledTextLink>
 
       <IconWrapper>
-        <TextLink href={facebook_link}>
+        <IconLink href={facebook_link}>
           <FacebookIcon />
           <SrOnly>Facebook</SrOnly>
-        </TextLink>
-        <TextLink href={instagram_link}>
+        </IconLink>
+        <IconLink href={instagram_link}>
           <InstagramIcon />
           <SrOnly>Instagram</SrOnly>
-        </TextLink>
-        <TextLink href={linkedin_link}>
+        </IconLink>
+        <IconLink href={linkedin_link}>
           <LinkedInIcon />
           <SrOnly>LinkedIn</SrOnly>
-        </TextLink>
+        </IconLink>
       </IconWrapper>
     </FooterWrapper>
   );
@@ -68,7 +69,7 @@ const FooterWrapper = styled.footer`
   background-color: var(--background);
   color: var(--white);
 
-  margin-top: var(--spacing-xlarge);
+  margin-top: calc(var(--spacing-xlarge) * 2);
   padding: var(--spacing-xlarge) 0;
 `;
 
@@ -79,11 +80,8 @@ const LogoLink = styled.a`
   color: currentColor;
 `;
 
-const TextLink = styled.a`
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: currentColor;
-  text-decoration: none;
+const StyledTextLink = styled(TextLink)`
+  font-size: var(--text-navigation);
 `;
 
 const IconWrapper = styled.div`
@@ -94,8 +92,14 @@ const IconWrapper = styled.div`
 
   & > a {
     padding: var(--spacing-regular);
+    font-size: var(--text-card-title);
   }
   & > a + a {
     margin-left: var(--spacing-small);
   }
+`;
+
+const IconLink = styled.a`
+  color: currentColor;
+  text-decoration: none;
 `;

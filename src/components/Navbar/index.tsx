@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+
+import { FiX as CrossIcon, FiMenu as MenuIcon } from 'react-icons/fi';
 
 import { useGlobalContext } from 'api/globalContext';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
@@ -15,6 +17,9 @@ import { slugify } from 'utils/slugify';
  * in `getAllPages`
  */
 export const Navbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleIsOpen = () => setIsOpen((prev) => !prev);
+  const close = () => setIsOpen(false);
   const { query } = useRouter();
   const { language, commonData, routes } = useGlobalContext();
   const { logo } = commonData;
@@ -23,52 +28,93 @@ export const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      <Link href={slugify(routes[language][0].slug)} passHref>
-        <LogoLink>
-          <Image src={logo} alt="" layout="fill" objectFit="contain" />
-        </LogoLink>
-      </Link>
+      <DesktopWrapper>
+        <LogoImageLink href={slugify(routes[language][0].slug)} logo={logo} />
 
-      <NavLinks>
-        {routes[language].map((route) => (
-          <li key={route.slug}>
-            <Link href={slugify(route.slug)} passHref>
-              <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
-            </Link>
-          </li>
-        ))}
-      </NavLinks>
+        <NavLinks>
+          {routes[language].map((route) => (
+            <li key={route.slug}>
+              <Link href={slugify(route.slug)} passHref>
+                <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
+              </Link>
+            </li>
+          ))}
+        </NavLinks>
 
-      <RightGroup>
-        <LanguageSwitcher />
+        <RightGroup>
+          <LanguageSwitcher />
+          <ProfileButton />
+        </RightGroup>
+      </DesktopWrapper>
+
+      <MobileWrapper>
+        <MenuButton onClick={toggleIsOpen} aria-expanded={isOpen}>
+          {isOpen && <CrossIcon />}
+          {!isOpen && <MenuIcon />}
+        </MenuButton>
+
+        <LogoImageLink href={slugify(routes[language][0].slug)} logo={logo} />
+
         <ProfileButton />
-      </RightGroup>
+
+        <MenuPanel aria-hidden={!isOpen}>
+          <MobileNavLinks>
+            {routes[language].map((route) => (
+              <li key={route.slug} onClick={close}>
+                <Link href={slugify(route.slug)} passHref>
+                  <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
+                </Link>
+              </li>
+            ))}
+          </MobileNavLinks>
+
+          <LanguageSwitcher />
+        </MenuPanel>
+      </MobileWrapper>
     </NavbarWrapper>
   );
 };
+
+const LogoImageLink: React.FC<{ href: string; logo: string }> = ({ href, logo }) => (
+  <Link href={href} passHref>
+    <LogoLink>
+      <Image src={logo} alt="" layout="fill" objectFit="contain" />
+    </LogoLink>
+  </Link>
+);
 
 const NavbarWrapper = styled.nav`
   position: fixed;
   width: 100%;
   height: var(--navbar-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 var(--spacing-regular);
 
   color: var(--white);
-  background-color: var(--black);
   box-shadow: var(--dark-shadow);
 
-  --logo-width: 8rem;
+  font-size: var(--text-navigation);
 
   z-index: 999;
 `;
 
+const DesktopWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--spacing-regular);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: var(--black);
+
+  @media (max-width: 55em) {
+    display: none;
+  }
+`;
+
 const LogoLink = styled.a`
   position: relative;
-  width: var(--logo-width);
+  width: var(--navbar-logo-width);
   height: 100%;
 `;
 
@@ -76,7 +122,7 @@ const NavLinks = styled.ul`
   display: flex;
 
   & > li + li {
-    margin-left: var(--spacing-regular);
+    margin-left: var(--spacing-xlarge);
   }
 `;
 
@@ -84,6 +130,61 @@ const RightGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 
-  width: var(--logo-width);
+  width: var(--navbar-logo-width);
+`;
+
+const MobileWrapper = styled(DesktopWrapper)`
+  display: flex !important;
+  padding-left: var(--spacing-small);
+  @media (min-width: 55em) {
+    display: none !important;
+  }
+`;
+
+const MenuButton = styled.button`
+  color: currentColor;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  font-size: 1.5em;
+  padding: 0.25em;
+`;
+
+const MenuPanel = styled.div`
+  position: absolute;
+  top: var(--navbar-height);
+  left: 0;
+  width: 100%;
+  padding: var(--spacing-large);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--black);
+  box-shadow: var(--dark-shadow);
+
+  transition: transform 0.5s ease;
+
+  &[aria-hidden='true'] {
+    transform: translateY(-100%);
+  }
+
+  & > * + * {
+    margin-top: var(--spacing-large);
+  }
+
+  z-index: -1;
+`;
+
+const MobileNavLinks = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > li + li {
+    margin-top: var(--spacing-regular);
+  }
 `;

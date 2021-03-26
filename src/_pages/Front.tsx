@@ -57,21 +57,23 @@ const CardSection: React.FC<CardSectionProps> = ({ articles, type, title, ...res
   </CardSectionWrapper>
 );
 
-const Main = styled(MainBase)`
-  grid-row-gap: var(--spacing-xlarge);
-`;
+const Main = styled(MainBase)``;
 
 const CardSectionWrapper = styled.section`
+  & + & {
+    margin-top: calc(var(--spacing-xlarge) * 1.5);
+  }
+
   & > * + * {
     margin-top: var(--spacing-medium);
   }
 
   &:first-of-type {
     color: var(--white);
-    margin-top: -15vh;
+    margin-top: var(--below-banner-offset);
   }
 `;
 
 const CardSectionTitle = styled.h2`
-  line-height: 0.7;
+  font-size: var(--text-title);
 `;

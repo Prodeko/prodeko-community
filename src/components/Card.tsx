@@ -45,7 +45,7 @@ export const Card: React.FC<CardProps> = ({ article }) => {
   const linkPrefix = commonData.translations[language][`${type}_slug` as const];
 
   return (
-    <CardWrapper>
+    <Wrapper>
       <Image src={photo} alt="" layout="fill" objectFit="cover" />
       <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>
@@ -61,11 +61,11 @@ export const Card: React.FC<CardProps> = ({ article }) => {
           </IconRow>
         </LinkContents>
       </Link>
-    </CardWrapper>
+    </Wrapper>
   );
 };
 
-const CardWrapper = styled.li`
+const Wrapper = styled.li`
   position: relative;
   overflow: hidden;
 
@@ -117,11 +117,16 @@ const IconRow = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 0.25em;
+  font-size: var(--text-body);
+
+  & svg {
+    font-size: 1.25em;
+  }
 `;
 
 export const CardList = styled.ul`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
   grid-gap: var(--spacing-large);
 `;

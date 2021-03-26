@@ -135,15 +135,17 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
 
         <PillGroup>
           <PillGroupLabel>{filter_label}</PillGroupLabel>
-          {ARTICLE_TYPES.map((type) => (
-            <Pill
-              onClick={getPillOnClick(type)}
-              aria-pressed={!filteredTypes.includes(type)}
-              key={type}
-            >
-              {commonData.translations[language][`${type}_icon_alternative_text` as const]}
-            </Pill>
-          ))}
+          <PillWrapper>
+            {ARTICLE_TYPES.map((type) => (
+              <Pill
+                onClick={getPillOnClick(type)}
+                aria-pressed={!filteredTypes.includes(type)}
+                key={type}
+              >
+                {commonData.translations[language][`${type}_icon_alternative_text` as const]}
+              </Pill>
+            ))}
+          </PillWrapper>
         </PillGroup>
       </FilterWrapper>
 
@@ -164,11 +166,11 @@ type ArticleBlockProps = {
 const ArticleBlock: React.FC<ArticleBlockProps> = ({ articles, year }) => (
   <ArticleBlockWrapper>
     <BlockTitle>{year}</BlockTitle>
-    <StyledCardList>
+    <CardList>
       {articles.map((article) => (
         <Card article={article} key={article.id} />
       ))}
-    </StyledCardList>
+    </CardList>
   </ArticleBlockWrapper>
 );
 
@@ -181,9 +183,15 @@ const Header = styled.header`
 const FilterWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
-  & > * + * {
-    margin-left: var(--spacing-regular);
+  font-size: var(--text-filter);
+
+  // We can't use flexbox gap yet (thanks safari), but this works similarly
+  --gap: var(--spacing-regular);
+  margin: calc(var(--gap) / -2);
+  & > * {
+    padding: calc(var(--gap) / 2);
   }
 `;
 
@@ -235,10 +243,6 @@ const Pill = styled.button`
 
   font-weight: 300;
 
-  & + & {
-    margin-left: 0.5em;
-  }
-
   &[aria-pressed='true'] {
     background-color: var(--highlight);
     color: var(--confirm);
@@ -263,8 +267,16 @@ const PillGroupLabel = styled.legend`
   }
 `;
 
+const PillWrapper = styled.div`
+  // We can't use flexbox gap yet (thanks safari), but this works similarly
+  --gap: var(--spacing-small);
+  margin: calc(var(--gap) / -2);
+  & > * {
+    margin: calc(var(--gap) / 2);
+  }
+`;
+
 const Main = styled(MainBase)`
-  --content-width: 60rem;
   padding-top: calc(var(--navbar-height) + var(--spacing-xlarge));
 
   & > * + * {
@@ -274,16 +286,21 @@ const Main = styled(MainBase)`
 
 const ArticleBlockWrapper = styled.li`
   display: flex;
+
   & + & {
     margin-top: calc(var(--spacing-xlarge) * 2);
+  }
+
+  @media (max-width: 26em) {
+    flex-direction: column;
+    & > h2 {
+      margin-bottom: var(--spacing-large);
+    }
   }
 `;
 
 const BlockTitle = styled.h2`
   margin-right: var(--spacing-large);
   line-height: 0.5; // To vertically align with top of the cards
-`;
-
-const StyledCardList = styled(CardList)`
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  width: 3em;
 `;

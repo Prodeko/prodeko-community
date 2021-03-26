@@ -8,6 +8,7 @@ export const TextLink = styled.a`
   padding: var(--padding);
   text-decoration: none;
   color: currentColor;
+  text-align: center;
 
   &[aria-current='true'] {
     font-weight: 700;

@@ -27,8 +27,8 @@ export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, tra
 
 const Article = styled(ArticleBody)`
   border-radius: var(--border-radius-small);
-  margin-top: -8rem;
-  padding: var(--spacing-medium) var(--spacing-large);
+  margin-top: var(--below-banner-offset);
+  padding: var(--article-padding);
 `;
 
 const Contents = styled.div`

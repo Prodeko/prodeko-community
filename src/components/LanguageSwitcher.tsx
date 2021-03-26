@@ -35,6 +35,8 @@ export const LanguageSwitcher: React.FC = () => {
 const LanguagesList = styled.ul`
   display: flex;
   justify-content: flex-end;
+
+  font-size: 0.85em;
 `;
 
 const LanguagesListItem = styled.li`

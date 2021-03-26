@@ -29,7 +29,7 @@ const BannerWrapper = styled.header`
   grid-column: main;
   position: relative;
   width: 100%;
-  height: 50vh; // TODO: is this good?
+  height: var(--banner-height);
 
   display: flex;
   justify-content: center;
@@ -40,6 +40,6 @@ const BannerWrapper = styled.header`
 
 const LogoWrapper = styled.div`
   position: relative;
-  width: min(100%, var(--content-width));
-  height: 100%;
+  width: min(var(--min-content-width), var(--content-width));
+  margin-top: var(--banner-logo-offset);
 `;

@@ -83,6 +83,42 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 
+
+  /* General default styles */
+  h1, h2, h3 {
+    font-weight: 700;
+    line-height: 0.9;
+    overflow-wrap: break-word;
+  }
+
+  h1 {
+    font-size: var(--text-title);
+  }
+
+  h2 {
+    font-size: var(--text-subtitle);
+  }
+
+  h3 {
+    font-size: var(--text-ingress);
+  }
+
+  p {
+    font-size: var(--text-body);
+    overflow-wrap: break-word;
+  }
+
+  blockquote {
+    position: relative;
+    background-color: var(--gray-lighter);
+    border-left: 0.2em solid var(--gray-light);
+    padding: 0.25em 0.5em;
+    margin-left: -0.7em;
+    font-style: italic;
+  }
+
+
+
   /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
@@ -124,22 +160,31 @@ export const GlobalStyle = createGlobalStyle`
 
 
     /* Text sizes */
-    --text-body: 1.125rem;
-    --text-ingress: 2rem;
     --text-title: 4rem;
     --text-subtitle: 3rem;
+    --text-ingress: 2rem;
+    --text-card-title: 1.75rem;
     --text-navigation: 1.5rem;
-    --text-card-title: 1.5rem;
+    --text-filter: 1.25rem;
+    --text-body: 1.125rem;
 
 
     /* Dimensions */
     --border-radius-small: 0.5rem;
     --border-radius-large: 1rem;
 
-    --navbar-height: 3rem;
+    --navbar-height: 4rem;
+    --navbar-logo-width: 12rem;
+
+    --banner-height: 40rem;
+    --banner-logo-offset: -5rem;
+    --below-banner-offset: calc(var(--banner-height) / -4.5);
+
     --text-width: 65ch;
-    --content-width: 50rem;
-    --min-content-width: calc(100% - 2 * var(--spacing-regular));
+    --content-width: 65rem;
+    --min-content-width: calc(100% - 2 * var(--spacing-large));
+
+    --article-padding: var(--spacing-medium) var(--spacing-large);
 
     --spacing-small: 0.5rem;
     --spacing-regular: 1rem;
@@ -147,39 +192,59 @@ export const GlobalStyle = createGlobalStyle`
     --spacing-large: 2rem;
     --spacing-xlarge: 3rem;
 
-    --card-height: 18rem;
+    --card-height: 24rem;
+    --card-min-width: 16rem;
     --author-max-width: 18rem;
 
     /* General */
     font-family: 'Raleway';
     font-weight: 500;
     color: var(--black);
+
+
+
+    /* Media queries */
+
+    // x-large; 1200px
+    @media (max-width: 75em) {
+      --text-title: 3rem;
+      --text-subtitle: 2.5rem;
+      --text-card-title: 1.5rem;
+      --text-navigation: 1.25rem;
+
+      --content-width: 55rem;
+
+      --card-height: 20rem;
+    }
+
+    // large; 880px
+    @media (max-width: 55em) {
+      --banner-height: 30rem;
+      --below-banner-offset: calc(var(--banner-height) / -3.5);
+
+      --text-filter: 1.125rem;
+    }
+
+    // medium; 640px 
+    @media (max-width: 40em) {
+      --min-content-width: calc(100% - 2 * var(--spacing-regular));
+      --article-padding: var(--spacing-medium) var(--spacing-regular);
+      --text-filter: 1rem;
+    }
+
+    // small; 480px
+    @media (max-width: 30em) {
+      --min-content-width: calc(100% - 2 * var(--spacing-small));
+
+      --navbar-logo-width: 10rem;
+      --banner-logo-offset: -10rem;
+      --below-banner-offset: calc(var(--banner-height) / -2.5);
+      --article-padding: var(--spacing-regular) var(--spacing-small);
+
+      --text-title: 2.5rem;
+      --text-subtitle: 2rem;
+      --text-body: 1rem;
+    }
   }
 
-  h1, h2, h3 {
-    font-weight: 700;
-    line-height: 0.9;
-  }
-
-  h1 {
-    font-size: var(--text-title);
-  }
-
-  h2 {
-    font-size: var(--text-subtitle);
-  }
-
-  h3 {
-    font-size: var(--text-ingress);
-  }
-
-  blockquote {
-    position: relative;
-    background-color: var(--gray-lighter);
-    border-left: 0.2em solid var(--gray-light);
-    padding: 0.25em 0.5em;
-    margin-left: -0.7em;
-    font-style: italic;
-  }
-  
 `;

@@ -41,7 +41,7 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({ children, ...rest 
 };
 
 const ProfileButtonWrapper = styled.button`
-  --size: 2rem;
+  --size: 3rem;
 
   display: flex;
   align-items: center;
