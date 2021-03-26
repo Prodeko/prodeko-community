@@ -42,20 +42,26 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
 
   return (
     <Main>
-      <ArticleWrapper>
-        <ArticleBody>
-          {header}
+      <ContentsWrapper>
+        <ArticleWrapper>
+          <ArticleBody>
+            {header}
 
-          <ArticleInfo article={article} />
+            <ArticleInfo article={article} />
 
-          {ingress && <Ingress>{ingress}</Ingress>}
+            {ingress && <Ingress>{ingress}</Ingress>}
 
-          <Contents dangerouslySetInnerHTML={{ __html: body }} />
+            <Contents dangerouslySetInnerHTML={{ __html: body }} />
 
-          <RainbowButton articleId={article.id} likedBy={article.liked_by}>
-            {article.liked_by.length} henkilöä piti artikkelista
-          </RainbowButton>
+            <RainbowButton articleId={article.id} likedBy={article.liked_by}>
+              {article.liked_by.length} henkilöä piti artikkelista
+            </RainbowButton>
+          </ArticleBody>
 
+          {article.author && <Author author={article.author} />}
+        </ArticleWrapper>
+
+        <Comments>
           <CommentsTitle>Kommentit</CommentsTitle>
 
           {!user && (
@@ -73,39 +79,57 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
           </CommentsList>
 
           <CommentForm articleId={article.id} />
-        </ArticleBody>
-
-        {article.author && <Author author={article.author} />}
-      </ArticleWrapper>
+        </Comments>
+      </ContentsWrapper>
     </Main>
   );
 };
 
 const Main = styled(MainBase)`
-  --content-width: 70rem;
-  padding-top: calc(var(--navbar-height) + var(--spacing-xlarge));
+  justify-items: center;
 
   // This needs to be synced with main element minimum paddings
   --pad: var(--spacing-regular);
 `;
 
 const ArticleWrapper = styled.div`
-  /*
-  display: grid;
-  grid-template-columns:
-    [article-start]
-    min(var(--text-width), 100%)
-    [article-end aside-start]
-    1fr
-    [aside-end];
-  grid-gap: calc(var(--pad) + var(--spacing-xlarge));
-  */
   display: flex;
 
   aside {
     margin-left: calc(var(--pad) + var(--spacing-xlarge));
+    border-left: 1px solid var(--black);
+    padding-left: var(--article-spacing);
+    margin-top: calc(var(--navbar-height) + var(--article-top-padding));
+    height: min-content;
+    max-width: var(--author-max-width);
+  }
+
+  @media (max-width: 55em) {
+    flex-direction: column;
+
+    aside {
+      height: auto;
+      border: 1px solid var(--black);
+      border-left: none;
+      border-right: none;
+      max-width: unset;
+
+      margin: 0;
+      margin-top: var(--spacing-large);
+      padding: var(--spacing-large) 0;
+
+      // Next.js image component doesn't have proper aspect ratios yet so
+      // gotta hack around it
+      div:first-child {
+        padding: 0;
+        height: var(--author-max-width);
+        margin: auto;
+      }
+    }
   }
 `;
+
+const ContentsWrapper = styled.div``;
 
 const Contents = styled.div`
   * + * {
@@ -117,10 +141,19 @@ const Contents = styled.div`
 `;
 
 const Ingress = styled.p`
-  font-size: 1.5rem;
+  font-size: var(--text-ingress);
   line-height: 1.2;
   font-style: italic;
   margin-bottom: 1em;
+`;
+
+const Comments = styled.section`
+  max-width: var(--text-width);
+  width: 100%;
+
+  * + * {
+    margin-top: var(--spacing-regular);
+  }
 `;
 
 const CommentsTitle = styled.h2`

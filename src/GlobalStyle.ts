@@ -113,7 +113,6 @@ export const GlobalStyle = createGlobalStyle`
     background-color: var(--gray-lighter);
     border-left: 0.2em solid var(--gray-light);
     padding: 0.25em 0.5em;
-    margin-left: -0.7em;
     font-style: italic;
   }
 
@@ -162,10 +161,11 @@ export const GlobalStyle = createGlobalStyle`
     /* Text sizes */
     --text-title: 4rem;
     --text-subtitle: 3rem;
-    --text-ingress: 2rem;
+    --text-ingress: 1.75rem;
     --text-card-title: 1.75rem;
     --text-navigation: 1.5rem;
     --text-filter: 1.25rem;
+    --text-author-bio: 1.125rem;
     --text-body: 1.125rem;
 
 
@@ -180,11 +180,14 @@ export const GlobalStyle = createGlobalStyle`
     --banner-logo-offset: -5rem;
     --below-banner-offset: calc(var(--banner-height) / -4.5);
 
-    --text-width: 65ch;
+    --text-width: 75ch;
     --content-width: 65rem;
     --min-content-width: calc(100% - 2 * var(--spacing-large));
 
     --article-padding: var(--spacing-medium) var(--spacing-large);
+    --article-spacing: var(--spacing-large);
+    --article-banner-height: 60%;
+    --article-top-padding: var(--spacing-xlarge);
 
     --spacing-small: 0.5rem;
     --spacing-regular: 1rem;
@@ -211,6 +214,7 @@ export const GlobalStyle = createGlobalStyle`
       --text-subtitle: 2.5rem;
       --text-card-title: 1.5rem;
       --text-navigation: 1.25rem;
+      --text-author-bio: 1rem;
 
       --content-width: 55rem;
 
@@ -222,6 +226,7 @@ export const GlobalStyle = createGlobalStyle`
       --banner-height: 30rem;
       --below-banner-offset: calc(var(--banner-height) / -3.5);
 
+      --text-ingress: 1.5rem;
       --text-filter: 1.125rem;
     }
 
@@ -230,6 +235,10 @@ export const GlobalStyle = createGlobalStyle`
       --min-content-width: calc(100% - 2 * var(--spacing-regular));
       --article-padding: var(--spacing-medium) var(--spacing-regular);
       --text-filter: 1rem;
+
+      --author-max-width: 12rem;
+      --article-banner-height: 80%;
+      --article-top-padding: 0px;
     }
 
     // small; 480px
@@ -239,7 +248,9 @@ export const GlobalStyle = createGlobalStyle`
       --navbar-logo-width: 10rem;
       --banner-logo-offset: -10rem;
       --below-banner-offset: calc(var(--banner-height) / -2.5);
+
       --article-padding: var(--spacing-regular) var(--spacing-small);
+      --article-banner-height: 100%;
 
       --text-title: 2.5rem;
       --text-subtitle: 2rem;

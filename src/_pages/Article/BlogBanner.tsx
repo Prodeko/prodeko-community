@@ -7,17 +7,23 @@ type BlogBannerProps = {
 };
 
 export const BlogBanner: React.FC<BlogBannerProps> = ({ title, photo }) => (
-  <BlogBannerWrapper>
-    <Image src={photo} alt="" layout="fill" objectFit="cover" />
-    <BlogBannerTitle>
-      <h1>{title}</h1>
-    </BlogBannerTitle>
-  </BlogBannerWrapper>
+  <Wrapper>
+    <BlogBannerWrapper>
+      <Image src={photo} alt="" layout="fill" objectFit="cover" />
+      <BlogBannerTitle>
+        <h1>{title}</h1>
+      </BlogBannerTitle>
+    </BlogBannerWrapper>
+  </Wrapper>
 );
+
+const Wrapper = styled.div`
+  padding-top: calc(var(--navbar-height) + var(--article-top-padding));
+`;
 
 const BlogBannerWrapper = styled.header`
   position: relative;
-  padding-top: 50%;
+  padding-top: var(--article-banner-height);
   margin: 0 calc(var(--pad) * -1);
   color: var(--white);
 `;

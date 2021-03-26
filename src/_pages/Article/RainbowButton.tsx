@@ -88,7 +88,7 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
   align-items: center;
   padding: 0;
 
-  font-size: 1.25em;
+  font-size: var(--text-filter);
   font-weight: 600;
   color: var(--gray-dark);
   background-color: unset;
@@ -104,7 +104,7 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
   }
 
   & > span {
-    margin-right: 0.5em;
+    margin-right: 0.25em;
     font-size: 2em;
     transition: transform 0.3s ease;
   }
@@ -133,7 +133,7 @@ const rainbowAnimation = css`
       transition: filter 0.5s ease;
       filter: grayscale(1);
       transform-origin: center;
-      // animation: animateHeartOut 0.2s linear forwards;
+      // animation: animateRainbowOut 0.2s linear forwards;
     }
     #main-circ {
       transform-origin: 29.5px 29.5px;
@@ -143,14 +143,14 @@ const rainbowAnimation = css`
   &&.loading.pressed #rainbow {
     transition: filter 0.5s ease;
     filter: grayscale(1);
-    animation: animateHeartOut 0.2s linear forwards;
+    animation: animateRainbowOut 0.2s linear forwards;
   }
 
   &.active svg {
     #rainbow {
       filter: unset;
       transform: scale(0);
-      animation: animateHeart 0.3s linear forwards 0.25s;
+      animation: animateRainbow 0.3s linear forwards 0.25s;
     }
     #main-circ {
       transition: all 2s;
@@ -327,7 +327,7 @@ const rainbowAnimation = css`
     }
   }
 
-  @keyframes animateHeart {
+  @keyframes animateRainbow {
     0% {
       transform: scale(0.2);
     }
@@ -341,7 +341,7 @@ const rainbowAnimation = css`
     }
   }
 
-  @keyframes animateHeartOut {
+  @keyframes animateRainbowOut {
     0% {
       transform: scale(1);
     }

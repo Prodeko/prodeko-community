@@ -33,6 +33,15 @@ export const ArticleStats: React.FC<ArticleStatsProps> = ({ article, ...rest }) 
   );
 };
 
+const IconGroup = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > * + * {
+    margin-left: 1em;
+  }
+`;
+
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -40,14 +49,5 @@ const IconWrapper = styled.div`
 
   & > *:first-child {
     margin-right: 0.25em;
-  }
-`;
-
-const IconGroup = styled.div`
-  display: flex;
-  align-items: center;
-
-  & > * + * {
-    margin-left: 1em;
   }
 `;

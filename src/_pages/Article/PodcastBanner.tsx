@@ -50,6 +50,7 @@ export const PodcastBanner: React.FC<PodcastBannerProps> = ({ title, podcastEmbe
 };
 
 const PodcastBannerWrapper = styled.header`
+  padding-top: calc(var(--navbar-height) + var(--spacing-xlarge));
   * + * {
     margin-top: var(--spacing-medium);
   }

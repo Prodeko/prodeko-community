@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -20,9 +20,12 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleIsOpen = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
-  const { query } = useRouter();
+  const { query, asPath } = useRouter();
   const { language, commonData, routes } = useGlobalContext();
   const { logo } = commonData;
+
+  // Close the navbar whenever path changes, i.e. user navigated somewhere
+  useEffect(close, [asPath]);
 
   const currentSlug = query.slug?.[0] || '';
 
@@ -60,7 +63,7 @@ export const Navbar: React.FC = () => {
         <MenuPanel aria-hidden={!isOpen}>
           <MobileNavLinks>
             {routes[language].map((route) => (
-              <li key={route.slug} onClick={close}>
+              <li key={route.slug}>
                 <Link href={slugify(route.slug)} passHref>
                   <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
                 </Link>

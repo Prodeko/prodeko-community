@@ -24,24 +24,21 @@ export const Author: React.FC<AuthorProps> = ({ author }) => {
 };
 
 const AuthorWrapper = styled.aside`
-  border-left: 1px solid var(--black);
-  padding-left: var(--spacing-large);
-  height: min-content;
-  max-width: var(--author-max-width);
-
   * + * {
     margin-top: var(--spacing-regular);
   }
 `;
 
 const AuthorPhotoWrapper = styled.div`
+  max-width: var(--author-max-width);
   position: relative;
   padding-top: 100%;
   border-radius: 999px;
   overflow: hidden;
 `;
 
-const AuthorBio = styled.div`
+const AuthorBio = styled.p`
   color: var(--gray-dark);
   line-height: 1.2;
+  font-size: var(--text-author-bio);
 `;

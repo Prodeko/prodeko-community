@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { InfoPageData } from 'types';
 import { useGlobalContext } from 'api/globalContext';
-import { Main } from 'components/Main';
+import { Main as MainBase } from 'components/Main';
 import { ArticleBody } from 'components/ArticleBody';
 import { Banner } from 'components/Banner';
 import { Line } from 'components/Line';
@@ -24,6 +24,10 @@ export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, tra
     </Main>
   );
 };
+
+const Main = styled(MainBase)`
+  justify-items: center;
+`;
 
 const Article = styled(ArticleBody)`
   border-radius: var(--border-radius-small);

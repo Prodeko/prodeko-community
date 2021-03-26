@@ -37,13 +37,15 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({ title, videoEmbed }) =
 };
 
 const VideoBannerWrapper = styled.header`
+  padding-top: calc(var(--navbar-height) + var(--spacing-xlarge));
+
   * + * {
     margin-top: var(--spacing-medium);
   }
 `;
 
 const LoadingWrapper = styled(LoadingSkeleton)`
-  padding-top: 56.25%; // Aspect ratio 16:9
+  padding-top: var(--article-banner-height);
 `;
 
 const PlayerWrapper = styled.div`
