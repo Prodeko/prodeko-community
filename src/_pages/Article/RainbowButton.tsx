@@ -53,10 +53,6 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({
       };
     }
 
-    const wrapperClassName = `${isPressed || loading ? 'active' : ''}${loading ? ' loading' : ''}${
-      isPressed ? ' pressed' : ''
-    }`;
-
     return (
       <RainbowButtonWrapper
         {...props}
@@ -64,7 +60,7 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({
         disabled={loading}
         onClick={onClick}
       >
-        <RainbowWrapper className={wrapperClassName}>
+        <RainbowWrapper className={`${isPressed || loading ? 'active' : ''}`}>
           <AnimateIcon />
         </RainbowWrapper>
         {children}
@@ -112,6 +108,10 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
   &:hover span:not(.active) #rainbow {
     filter: grayscale(0.7);
   }
+
+  &[disabled][aria-pressed='true'] .active #rainbow {
+    filter: grayscale(1);
+  }
 `;
 
 const DisabledRainbowWrapper = styled.span`
@@ -133,17 +133,10 @@ const rainbowAnimation = css`
       transition: filter 0.5s ease;
       filter: grayscale(1);
       transform-origin: center;
-      // animation: animateRainbowOut 0.2s linear forwards;
     }
     #main-circ {
       transform-origin: 29.5px 29.5px;
     }
-  }
-
-  &&.loading.pressed #rainbow {
-    transition: filter 0.5s ease;
-    filter: grayscale(1);
-    animation: animateRainbowOut 0.2s linear forwards;
   }
 
   &.active svg {
@@ -337,20 +330,6 @@ const rainbowAnimation = css`
     }
     100% {
       animation-timing-function: ease;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes animateRainbowOut {
-    0% {
-      transform: scale(1);
-    }
-    20% {
-      transform: scale(0.6);
-      animation-timing-function: ease-out;
-    }
-    100% {
-      animation-timing-function: ease-in;
       transform: scale(1);
     }
   }
