@@ -41,7 +41,7 @@ export const Card: React.FC<CardProps> = ({ article }) => {
   const linkPrefix = commonData.translations[language][`${type}_slug` as const];
 
   return (
-    <Wrapper variants={itemTransitionUp} key={article.id}>
+    <Wrapper>
       <AnimatedImage src={photo} alt="" layout="fill" objectFit="cover" />
       <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>
@@ -61,7 +61,7 @@ export const Card: React.FC<CardProps> = ({ article }) => {
   );
 };
 
-const Wrapper = styled(m.li)`
+const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
 
@@ -123,6 +123,7 @@ const IconRow = styled.div`
 export const CardList = styled(m.ul).attrs({
   initial: 'initial',
   animate: 'enter',
+  exit: 'exit',
   variants: containerTransitions,
 })`
   width: 100%;
@@ -130,3 +131,9 @@ export const CardList = styled(m.ul).attrs({
   grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
   grid-gap: var(--spacing-large);
 `;
+
+export const CardWrapper = styled(m.li).attrs({
+  initial: 'initial',
+  animate: 'enter',
+  variants: itemTransitionUp,
+})``;

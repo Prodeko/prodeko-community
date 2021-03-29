@@ -26,6 +26,7 @@ export const containerTransitions = {
     opacity: 1,
     transition: { duration: 1, ease: baseEase, staggerChildren: 0.2 },
   },
+  exit: baseExit,
 };
 
 /**

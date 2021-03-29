@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
-import { LazyMotion, domAnimation, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+import { LazyMotion, domMax, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 
 import { ParsedUrlQuery } from 'querystring';
 
@@ -89,7 +89,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   // to random components
   return (
     <GlobalContext.Provider value={{ commonData, language, alternativeSlugs, routes }}>
-      <LazyMotion features={domAnimation} strict>
+      <LazyMotion features={domMax} strict>
         <Navbar />
         <AnimateSharedLayout>
           <AnimatePresence exitBeforeEnter>{pageComponent}</AnimatePresence>

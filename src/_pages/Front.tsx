@@ -5,7 +5,7 @@ import { Article, FrontPageData } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { Main as MainBase } from 'components/Main';
 import { Banner } from 'components/Banner';
-import { Card, CardList } from 'components/Card';
+import { Card, CardList, CardWrapper } from 'components/Card';
 import { Line } from 'components/Line';
 
 export const Front: NextPage<FrontPageData> = ({
@@ -51,7 +51,9 @@ const CardSection: React.FC<CardSectionProps> = ({ articles, type, title, ...res
       {articles
         .filter((a) => a.type === type)
         .map((article) => (
-          <Card article={article} key={article.id} />
+          <CardWrapper key={article.id}>
+            <Card article={article} />
+          </CardWrapper>
         ))}
     </CardList>
   </CardSectionWrapper>

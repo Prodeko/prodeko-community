@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { FiChevronDown as DownIcon, FiChevronUp as UpIcon } from 'react-icons/fi';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 
 import { ArchivePageData, Article, ArticleType, ARTICLE_TYPES } from 'types';
 import { useGlobalContext } from 'api/globalContext';
@@ -147,24 +147,35 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
       </FilterWrapper>
 
       <ol>
-        <AnimatePresence exitBeforeEnter>
-          {visibleArticles.map(([year, articles]) => (
-            <ArticleBlockWrapper variants={itemTransitionUp} key={year}>
-              <BlockTitle>{year}</BlockTitle>
-              <CardList>
-                <AnimatePresence exitBeforeEnter>
-                  {articles.map((article) => (
-                    <Card article={article} key={article.id} />
-                  ))}
-                </AnimatePresence>
-              </CardList>
-            </ArticleBlockWrapper>
-          ))}
-        </AnimatePresence>
+        {visibleArticles.map(([year, articles]) => (
+          <ArticleBlockWrapper variants={itemTransitionUp} key={year} layout="position">
+            <ArticleBlock articles={articles} year={year} />
+          </ArticleBlockWrapper>
+        ))}
       </ol>
     </Main>
   );
 };
+
+type ArticleBlockProps = {
+  articles: Article[];
+  year: number | string;
+};
+
+const ArticleBlock: React.FC<ArticleBlockProps> = ({ articles, year }) => (
+  <>
+    <BlockTitle>{year}</BlockTitle>
+    <CardList layout="position">
+      <AnimatePresence>
+        {articles.map((article) => (
+          <m.li key={article.id} variants={itemTransitionUp} layout="position">
+            <Card article={article} />
+          </m.li>
+        ))}
+      </AnimatePresence>
+    </CardList>
+  </>
+);
 
 const Header = styled.header`
   * + * {
