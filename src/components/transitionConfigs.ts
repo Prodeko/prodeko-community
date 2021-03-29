@@ -2,7 +2,7 @@ const baseEase = [0.48, 0.15, 0.25, 0.96];
 
 const baseExit = {
   opacity: 0,
-  transition: { duration: 0.3, ease: baseEase },
+  transition: { duration: 0.2, ease: baseEase },
 };
 
 const baseEnter = {

@@ -147,11 +147,13 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
       </FilterWrapper>
 
       <ol>
-        {visibleArticles.map(([year, articles]) => (
-          <ArticleBlockWrapper variants={itemTransitionUp} key={year} layout="position">
-            <ArticleBlock articles={articles} year={year} />
-          </ArticleBlockWrapper>
-        ))}
+        <AnimatePresence>
+          {visibleArticles.map(([year, articles]) => (
+            <ArticleBlockWrapper variants={itemTransitionUp} key={year} layout="position">
+              <ArticleBlock articles={articles} year={year} />
+            </ArticleBlockWrapper>
+          ))}
+        </AnimatePresence>
       </ol>
     </Main>
   );

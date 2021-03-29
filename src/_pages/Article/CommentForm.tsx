@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { AnimatePresence, m } from 'framer-motion';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
@@ -8,6 +9,7 @@ import { FiEdit, FiSend, FiX } from 'react-icons/fi';
 import { createComment } from 'api';
 import { useAuth } from 'api/useAuth';
 import { useRouter } from 'next/router';
+import { itemTransitionDown } from 'components/transitionConfigs';
 
 type CommentFormProps = {
   articleId: number;
@@ -52,10 +54,12 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
     closeForm();
   };
 
+  let component = null;
+
   if (user) {
     if (formOpen) {
-      return (
-        <CommentFormWrapper onSubmit={handleSubmit}>
+      component = (
+        <CommentFormWrapper onSubmit={handleSubmit} variants={itemTransitionDown} layout>
           <NewCommentTitle id="formTitle">Uusi kommentti</NewCommentTitle>
 
           <Quill theme="bubble" value={value} modules={quillModules} onChange={setValue} />
@@ -73,19 +77,21 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
         </CommentFormWrapper>
       );
     } else {
-      return (
-        <PillButton variant="neutral" outlined={!!parentComment} onClick={openForm}>
-          <FiEdit />
-          {!!parentComment ? 'Vastaa' : 'Uusi kommentti'}
-        </PillButton>
+      component = (
+        <m.div layout>
+          <PillButton variant="neutral" outlined={!!parentComment} onClick={openForm}>
+            <FiEdit />
+            {!!parentComment ? 'Vastaa' : 'Uusi kommentti'}
+          </PillButton>
+        </m.div>
       );
     }
-  } else {
-    return null;
   }
+
+  return <AnimatePresence>{component}</AnimatePresence>;
 };
 
-const CommentFormWrapper = styled.form`
+const CommentFormWrapper = styled(m.form)`
   & > * + * {
     margin-top: var(--spacing-regular);
   }

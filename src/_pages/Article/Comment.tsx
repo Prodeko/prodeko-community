@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
+import { AnimatePresence, m } from 'framer-motion';
 
 import { Comment as CommentType } from 'types';
 import { CommentForm } from '_pages/Article/CommentForm';
+import { itemTransitionDown } from 'components/transitionConfigs';
 
 type CommentProps = {
   comment: CommentType;
@@ -30,9 +32,13 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
         <div dangerouslySetInnerHTML={{ __html: comment.body }} />
         {comment.subcomments && !comment.parent_comment && (
           <Subcomments>
-            {comment.subcomments.map((comment) => (
-              <Comment comment={comment} key={comment.id} />
-            ))}
+            <AnimatePresence>
+              {comment.subcomments.map((comment) => (
+                <m.li key={comment.id} variants={itemTransitionDown} layout="position">
+                  <Comment comment={comment} key={comment.id} />
+                </m.li>
+              ))}
+            </AnimatePresence>
           </Subcomments>
         )}
         {!comment.parent_comment && (
@@ -43,7 +49,7 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
   );
 };
 
-const Wrapper = styled.li`
+const Wrapper = styled.div`
   --image-size: 3rem;
 `;
 

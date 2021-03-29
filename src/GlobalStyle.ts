@@ -131,6 +131,8 @@ export const GlobalStyle = createGlobalStyle`
   /* Fullscreen defaults for Next.js */
   div#__next {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   :root {

@@ -24,4 +24,7 @@ export const Main = styled(m.main).attrs({
   & > * {
     grid-column: content;
   }
+
+  // Ensure page always takes up full height
+  margin-bottom: auto;
 `;

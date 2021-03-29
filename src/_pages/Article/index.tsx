@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import styled from 'styled-components';
 import { FiExternalLink } from 'react-icons/fi';
+import { AnimatePresence, m } from 'framer-motion';
 
 import { Article as ArticleType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
@@ -17,6 +18,7 @@ import { VideoBanner } from '_pages/Article/VideoBanner';
 import { CommentForm } from '_pages/Article/CommentForm';
 import { Comment } from '_pages/Article/Comment';
 import { RainbowButton } from '_pages/Article/RainbowButton';
+import { itemTransitionDown } from 'components/transitionConfigs';
 
 type ArticleProps = {
   article: ArticleType;
@@ -61,7 +63,7 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
           {article.author && <Author author={article.author} />}
         </ArticleWrapper>
 
-        <Comments>
+        <Comments layout>
           <CommentsTitle>Kommentit</CommentsTitle>
 
           {!user && (
@@ -71,11 +73,15 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
             </LoginLink>
           )}
           <CommentsList>
-            {article.comments
-              ?.filter((comment) => comment.parent_comment === null)
-              .map((comment) => (
-                <Comment comment={comment} key={comment.id} />
-              ))}
+            <AnimatePresence>
+              {article.comments
+                ?.filter((comment) => comment.parent_comment === null)
+                .map((comment) => (
+                  <m.li key={comment.id} variants={itemTransitionDown} layout="position">
+                    <Comment comment={comment} key={comment.id} />
+                  </m.li>
+                ))}
+            </AnimatePresence>
           </CommentsList>
 
           <CommentForm articleId={article.id} />
@@ -132,7 +138,7 @@ const ArticleWrapper = styled.div`
 const ContentsWrapper = styled.div``;
 
 const Contents = styled.div`
-  & > * + * {
+  * + * {
     margin-top: var(--spacing-regular);
   }
   h2 {
@@ -147,7 +153,7 @@ const Ingress = styled.p`
   margin-bottom: 1em;
 `;
 
-const Comments = styled.section`
+const Comments = styled(m.section)`
   max-width: var(--text-width);
   width: 100%;
 
