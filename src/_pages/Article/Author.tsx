@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { m } from 'framer-motion';
 
 import { Author as AuthorType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
+import { containerTransitions, itemTransitionLeft } from 'components/transitionConfigs';
 
 type AuthorProps = {
   author: AuthorType;
@@ -12,24 +14,28 @@ export const Author: React.FC<AuthorProps> = ({ author }) => {
   const { language } = useGlobalContext();
 
   return (
-    <AuthorWrapper>
+    <AuthorWrapper initial="initial" animate="enter" exit="exit" variants={containerTransitions}>
       <AuthorPhotoWrapper>
         <Image src={author.photo} alt="" layout="fill" objectFit="cover" />
       </AuthorPhotoWrapper>
 
-      <h2>{author.name}</h2>
+      <AuthorName>{author.name}</AuthorName>
       <AuthorBio dangerouslySetInnerHTML={{ __html: author.translations[language].biography }} />
     </AuthorWrapper>
   );
 };
 
-const AuthorWrapper = styled.aside`
+const commonAttrs = {
+  variants: itemTransitionLeft,
+};
+
+const AuthorWrapper = styled(m.aside)`
   * + * {
     margin-top: var(--spacing-regular);
   }
 `;
 
-const AuthorPhotoWrapper = styled.div`
+const AuthorPhotoWrapper = styled(m.div).attrs(commonAttrs)`
   max-width: var(--author-max-width);
   position: relative;
   padding-top: 100%;
@@ -37,7 +43,9 @@ const AuthorPhotoWrapper = styled.div`
   overflow: hidden;
 `;
 
-const AuthorBio = styled.p`
+const AuthorName = styled(m.h2).attrs(commonAttrs)``;
+
+const AuthorBio = styled(m.p).attrs(commonAttrs)`
   color: var(--gray-dark);
   line-height: 1.2;
   font-size: var(--text-author-bio);

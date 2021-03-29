@@ -20,9 +20,15 @@ const ArticleInfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   color: var(--gray-light);
+  & > * {
+    margin-top: 0;
+  }
 `;
 
 const ArticleInfoContents = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
   time {
     margin-right: 1em;
   }

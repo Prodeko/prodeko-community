@@ -39,6 +39,7 @@ const IconGroup = styled.div`
 
   & > * + * {
     margin-left: 1em;
+    margin-top: 0;
   }
 `;
 
