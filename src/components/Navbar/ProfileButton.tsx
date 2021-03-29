@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { m } from 'framer-motion';
 
 import { useGlobalContext } from 'api/globalContext';
 import { useAuth } from 'api/useAuth';
 import { ProfileModal } from 'components/Navbar/ProfileModal';
 import { TextLink } from 'components/TextLink';
 import { FiUser } from 'react-icons/fi';
+import { itemTransitionDown } from 'components/transitionConfigs';
 
-interface ProfileButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
-
-export const ProfileButton: React.FC<ProfileButtonProps> = ({ children, ...rest }) => {
+export const ProfileButton: React.FC = ({ children, ...rest }) => {
   const { user, loginUrl, logout } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
   const toggleModal = () => setModalOpen((prev) => !prev);
@@ -25,7 +25,12 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({ children, ...rest 
 
   return (
     <>
-      <ProfileButtonWrapper {...rest} onClick={toggleModal}>
+      <ProfileButtonWrapper
+        {...rest}
+        variants={itemTransitionDown}
+        onClick={toggleModal}
+        key="profileButton"
+      >
         {user ? <FiUser /> : '?'}
       </ProfileButtonWrapper>
 
@@ -40,7 +45,7 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({ children, ...rest 
   );
 };
 
-const ProfileButtonWrapper = styled.button`
+const ProfileButtonWrapper = styled(m.button)`
   --size: 3rem;
 
   display: flex;

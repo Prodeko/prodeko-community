@@ -1,7 +1,9 @@
 import React from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
+import { m } from 'framer-motion';
+
 import { SrOnly } from 'components/SrOnly';
+import { AnimatedImage } from 'components/AnimatedImage';
 
 type BannerProps = {
   bannerUrl: string;
@@ -11,11 +13,11 @@ type BannerProps = {
 };
 
 export const Banner: React.FC<BannerProps> = ({ bannerUrl, logoUrl, logoText, decorative }) => (
-  <BannerWrapper>
-    <Image src={bannerUrl} alt="" layout="fill" objectFit="cover" />
+  <BannerWrapper layoutId="banner">
+    <AnimatedImage src={bannerUrl} alt="" layout="fill" objectFit="cover" />
 
     <LogoWrapper>
-      <Image src={logoUrl} alt="" layout="fill" objectFit="contain" />
+      <AnimatedImage src={logoUrl} alt="" layout="fill" objectFit="contain" transitionUpwards />
       {!decorative && (
         <SrOnly>
           <h1>{logoText}</h1>
@@ -25,7 +27,7 @@ export const Banner: React.FC<BannerProps> = ({ bannerUrl, logoUrl, logoText, de
   </BannerWrapper>
 );
 
-const BannerWrapper = styled.header`
+const BannerWrapper = styled(m.header)`
   grid-column: main;
   position: relative;
   width: 100%;

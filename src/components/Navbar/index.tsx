@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { m } from 'framer-motion';
 
 import { FiX as CrossIcon, FiMenu as MenuIcon } from 'react-icons/fi';
 
@@ -11,6 +12,7 @@ import { LanguageSwitcher } from 'components/LanguageSwitcher';
 import { TextLink } from 'components/TextLink';
 import { ProfileButton } from 'components/Navbar/ProfileButton';
 import { slugify } from 'utils/slugify';
+import { containerTransitions, itemTransitionDown } from 'components/transitionConfigs';
 
 /**
  * The order of nav bar links is currently determined by the order of API calls
@@ -31,16 +33,16 @@ export const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      <DesktopWrapper>
+      <DesktopWrapper initial="initial" animate="enter" variants={containerTransitions}>
         <LogoImageLink href={slugify(routes[language][0].slug)} logo={logo} />
 
         <NavLinks>
           {routes[language].map((route) => (
-            <li key={route.slug}>
+            <m.li variants={itemTransitionDown} key={route.slug}>
               <Link href={slugify(route.slug)} passHref>
                 <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
               </Link>
-            </li>
+            </m.li>
           ))}
         </NavLinks>
 
@@ -63,11 +65,16 @@ export const Navbar: React.FC = () => {
         <MenuPanel aria-hidden={!isOpen}>
           <MobileNavLinks>
             {routes[language].map((route) => (
-              <li key={route.slug}>
+              <m.li
+                initial="initial"
+                animate="enter"
+                variants={itemTransitionDown}
+                key={route.slug}
+              >
                 <Link href={slugify(route.slug)} passHref>
                   <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
                 </Link>
-              </li>
+              </m.li>
             ))}
           </MobileNavLinks>
 
@@ -80,7 +87,7 @@ export const Navbar: React.FC = () => {
 
 const LogoImageLink: React.FC<{ href: string; logo: string }> = ({ href, logo }) => (
   <Link href={href} passHref>
-    <LogoLink>
+    <LogoLink variants={itemTransitionDown}>
       <Image src={logo} alt="" layout="fill" objectFit="contain" />
     </LogoLink>
   </Link>
@@ -92,14 +99,13 @@ const NavbarWrapper = styled.nav`
   height: var(--navbar-height);
 
   color: var(--white);
-  box-shadow: var(--dark-shadow);
 
   font-size: var(--text-navigation);
 
   z-index: 999;
 `;
 
-const DesktopWrapper = styled.div`
+const DesktopWrapper = styled(m.div)`
   width: 100%;
   height: 100%;
   padding: 0 var(--spacing-regular);
@@ -109,19 +115,20 @@ const DesktopWrapper = styled.div`
   justify-content: space-between;
 
   background-color: var(--black);
+  box-shadow: var(--dark-shadow);
 
   @media (max-width: 55em) {
     display: none;
   }
 `;
 
-const LogoLink = styled.a`
+const LogoLink = styled(m.a)`
   position: relative;
   width: var(--navbar-logo-width);
   height: 100%;
 `;
 
-const NavLinks = styled.ul`
+const NavLinks = styled(m.ul)`
   display: flex;
 
   & > li + li {
@@ -129,7 +136,7 @@ const NavLinks = styled.ul`
   }
 `;
 
-const RightGroup = styled.div`
+const RightGroup = styled(m.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -141,6 +148,9 @@ const RightGroup = styled.div`
 const MobileWrapper = styled(DesktopWrapper)`
   display: flex !important;
   padding-left: var(--spacing-small);
+
+  box-shadow: var(--dark-shadow);
+
   @media (min-width: 55em) {
     display: none !important;
   }

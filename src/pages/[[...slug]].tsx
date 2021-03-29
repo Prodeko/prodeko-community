@@ -1,4 +1,9 @@
-import { getPageBySlug, getPaths } from 'api';
+import { GetStaticPropsContext, InferGetStaticPropsType, GetStaticPaths } from 'next';
+import dynamic from 'next/dynamic';
+import { LazyMotion, domAnimation, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+
+import { ParsedUrlQuery } from 'querystring';
+
 import {
   FrontPageData,
   ArchivePageData,
@@ -7,9 +12,7 @@ import {
   LANGUAGES,
   LanguageCode,
 } from 'types';
-import { GetStaticPropsContext, InferGetStaticPropsType, GetStaticPaths } from 'next';
-import dynamic from 'next/dynamic';
-import { ParsedUrlQuery } from 'querystring';
+import { getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
 import { Footer } from 'components/Footer';
 import { Navbar } from 'components/Navbar';
@@ -54,16 +57,16 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   const pageComponent = (() => {
     switch (props.template) {
       case 'front':
-        return <FrontPage {...props.data} />;
+        return <FrontPage {...props.data} key="front" />;
 
       case 'info':
-        return <InfoPage {...props.data} />;
+        return <InfoPage {...props.data} key="info" />;
 
       case 'archive':
-        return <ArchivePage {...props.data} />;
+        return <ArchivePage {...props.data} key="archive" />;
 
       case 'article':
-        return <ArticlePage article={props.data} />;
+        return <ArticlePage article={props.data} key={`article-${props.data.id}`} />;
     }
   })();
 
@@ -86,9 +89,13 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   // to random components
   return (
     <GlobalContext.Provider value={{ commonData, language, alternativeSlugs, routes }}>
-      <Navbar />
-      {pageComponent}
-      <Footer />
+      <LazyMotion features={domAnimation} strict>
+        <Navbar />
+        <AnimateSharedLayout>
+          <AnimatePresence exitBeforeEnter>{pageComponent}</AnimatePresence>
+        </AnimateSharedLayout>
+        <Footer />
+      </LazyMotion>
     </GlobalContext.Provider>
   );
 }

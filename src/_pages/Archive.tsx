@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { FiChevronDown as DownIcon, FiChevronUp as UpIcon } from 'react-icons/fi';
+import { m, AnimatePresence } from 'framer-motion';
 
 import { ArchivePageData, Article, ArticleType, ARTICLE_TYPES } from 'types';
 import { useGlobalContext } from 'api/globalContext';
@@ -10,6 +11,7 @@ import { Main as MainBase } from 'components/Main';
 import { Line } from 'components/Line';
 import { Card, CardList } from 'components/Card';
 import { groupBy } from 'utils/groupBy';
+import { itemTransitionUp } from 'components/transitionConfigs';
 
 /**
  * Currently supported sort orders, adding more requires a refactor to sort
@@ -56,11 +58,6 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
   const { page_title, filter_label, sort_order_label, newest_first, oldest_first } = translations[
     language
   ];
-  const {
-    blog_post_icon_alternative_text,
-    podcast_icon_alternative_text,
-    video_icon_alternative_text,
-  } = commonData.translations[language];
 
   const filteredArticles = articles.filter((a) => !filteredTypes.includes(a.type));
   const articlesByYear = groupBy(filteredArticles, (article) =>
@@ -150,29 +147,24 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
       </FilterWrapper>
 
       <ol>
-        {visibleArticles.map(([year, articles]) => (
-          <ArticleBlock articles={articles} year={year} key={year} />
-        ))}
+        <AnimatePresence exitBeforeEnter>
+          {visibleArticles.map(([year, articles]) => (
+            <ArticleBlockWrapper variants={itemTransitionUp} key={year}>
+              <BlockTitle>{year}</BlockTitle>
+              <CardList>
+                <AnimatePresence exitBeforeEnter>
+                  {articles.map((article) => (
+                    <Card article={article} key={article.id} />
+                  ))}
+                </AnimatePresence>
+              </CardList>
+            </ArticleBlockWrapper>
+          ))}
+        </AnimatePresence>
       </ol>
     </Main>
   );
 };
-
-type ArticleBlockProps = {
-  articles: Article[];
-  year: number | string;
-};
-
-const ArticleBlock: React.FC<ArticleBlockProps> = ({ articles, year }) => (
-  <ArticleBlockWrapper>
-    <BlockTitle>{year}</BlockTitle>
-    <CardList>
-      {articles.map((article) => (
-        <Card article={article} key={article.id} />
-      ))}
-    </CardList>
-  </ArticleBlockWrapper>
-);
 
 const Header = styled.header`
   * + * {
@@ -238,10 +230,16 @@ const Pill = styled.button`
   border-radius: 999px;
   padding: 0.2em 0.8em;
 
+  transition: color 150ms ease, background-color 150ms ease, transform 150ms ease;
+
   background-color: var(--gray-lighter);
   color: var(--gray-light);
 
   font-weight: 300;
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   &[aria-pressed='true'] {
     background-color: var(--highlight);
@@ -284,7 +282,7 @@ const Main = styled(MainBase)`
   }
 `;
 
-const ArticleBlockWrapper = styled.li`
+const ArticleBlockWrapper = styled(m.li)`
   display: flex;
 
   & + & {

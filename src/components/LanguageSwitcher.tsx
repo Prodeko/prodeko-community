@@ -2,11 +2,13 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { m } from 'framer-motion';
 
 import { LANGUAGES } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { TextLink } from 'components/TextLink';
 import { slugify } from 'utils/slugify';
+import { itemTransitionDown } from 'components/transitionConfigs';
 
 export const LanguageSwitcher: React.FC = () => {
   const { language, alternativeSlugs } = useGlobalContext();
@@ -16,7 +18,7 @@ export const LanguageSwitcher: React.FC = () => {
   const { slug, ...sluglessQuery } = query;
 
   return (
-    <LanguagesList>
+    <LanguagesList variants={itemTransitionDown} key="languages">
       {LANGUAGES.map((lang) => (
         <LanguagesListItem key={lang}>
           <Link
@@ -32,7 +34,7 @@ export const LanguageSwitcher: React.FC = () => {
   );
 };
 
-const LanguagesList = styled.ul`
+const LanguagesList = styled(m.ul)`
   display: flex;
   justify-content: flex-end;
 

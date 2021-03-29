@@ -6,10 +6,12 @@ import {
   FiInstagram as InstagramIcon,
   FiLinkedin as LinkedInIcon,
 } from 'react-icons/fi';
+import { m } from 'framer-motion';
 
 import { useGlobalContext } from 'api/globalContext';
 import { SrOnly } from 'components/SrOnly';
 import { TextLink } from 'components/TextLink';
+import { containerTransitions } from 'components/transitionConfigs';
 
 export const Footer: React.FC = () => {
   const { language, commonData } = useGlobalContext();
@@ -25,7 +27,7 @@ export const Footer: React.FC = () => {
   const { alumni_link_text, department_link_text } = commonData.translations[language];
 
   return (
-    <FooterWrapper>
+    <FooterWrapper initial="initial" animate="enter" variants={containerTransitions}>
       <LogoLink href={prodeko_link}>
         <Image src={prodeko_logo} alt="" layout="fill" objectFit="contain" />
       </LogoLink>
@@ -51,7 +53,7 @@ export const Footer: React.FC = () => {
   );
 };
 
-const FooterWrapper = styled.footer`
+const FooterWrapper = styled(m.footer)`
   display: grid;
   grid-template-rows: min-content;
   grid-template-columns:

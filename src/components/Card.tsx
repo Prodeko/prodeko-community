@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 import {
@@ -7,12 +6,15 @@ import {
   FiVolume2 as PodcastIcon,
   FiYoutube as VideoIcon,
 } from 'react-icons/fi';
+import { m } from 'framer-motion';
 
 import { Article } from 'types';
 import { Line } from 'components/Line';
 import { useGlobalContext } from 'api/globalContext';
 import { SrOnly } from 'components/SrOnly';
 import { ArticleStats } from 'components/ArticleStats';
+import { containerTransitions, itemTransitionUp } from 'components/transitionConfigs';
+import { AnimatedImage } from 'components/AnimatedImage';
 
 type CardProps = {
   article: Article;
@@ -24,12 +26,6 @@ export const Card: React.FC<CardProps> = ({ article }) => {
 
   const { type, photo } = article;
   const { title, tagline, slug } = article.translations[language];
-  const { comment_icon_alternative_text, rainbow_icon_alternative_text } = commonData.translations[
-    language
-  ];
-
-  const commentCount = 0;
-  const rainbowCount = 0;
 
   const MediaIcon =
     type === 'blog_post'
@@ -45,8 +41,8 @@ export const Card: React.FC<CardProps> = ({ article }) => {
   const linkPrefix = commonData.translations[language][`${type}_slug` as const];
 
   return (
-    <Wrapper>
-      <Image src={photo} alt="" layout="fill" objectFit="cover" />
+    <Wrapper variants={itemTransitionUp} key={article.id}>
+      <AnimatedImage src={photo} alt="" layout="fill" objectFit="cover" />
       <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>
           <Title>{title}</Title>
@@ -65,7 +61,7 @@ export const Card: React.FC<CardProps> = ({ article }) => {
   );
 };
 
-const Wrapper = styled.li`
+const Wrapper = styled(m.li)`
   position: relative;
   overflow: hidden;
 
@@ -79,7 +75,7 @@ const Wrapper = styled.li`
   }
   &:hover,
   &:hover img {
-    transform: scale(1.02);
+    transform: scale(1.02) !important;
   }
 `;
 
@@ -124,7 +120,11 @@ const IconRow = styled.div`
   }
 `;
 
-export const CardList = styled.ul`
+export const CardList = styled(m.ul).attrs({
+  initial: 'initial',
+  animate: 'enter',
+  variants: containerTransitions,
+})`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
