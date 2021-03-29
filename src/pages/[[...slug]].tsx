@@ -92,9 +92,11 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
       <LazyMotion features={domMax} strict>
         <Navbar />
         <AnimateSharedLayout>
-          <AnimatePresence exitBeforeEnter>{pageComponent}</AnimatePresence>
+          <AnimatePresence exitBeforeEnter>
+            {pageComponent}
+            <Footer />
+          </AnimatePresence>
         </AnimateSharedLayout>
-        <Footer />
       </LazyMotion>
     </GlobalContext.Provider>
   );

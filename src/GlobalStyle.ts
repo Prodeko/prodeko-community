@@ -42,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
 
     line-height: 1.5;
     font-size: 100%;
+    overflow-y: scroll;
   }
   html {
     height: 100%;
