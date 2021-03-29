@@ -7,7 +7,7 @@ services:
       - ./data/database:/var/lib/postgresql/data
     network_mode: host
     env_file:
-      - .env
+      - .env.dev
 
   directus:
     container_name: prodeko-seminar-cms
@@ -16,10 +16,10 @@ services:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
     network_mode: host
+    env_file:
+      - .env.dev
     depends_on:
       - database
-    env_file:
-      - .env
 
   web:
     container_name: prodeko-seminar-web
@@ -29,5 +29,7 @@ services:
     volumes:
       - ./:/usr/src/app
     network_mode: host
+    env_file:
+      - .env.dev
     depends_on:
       - directus

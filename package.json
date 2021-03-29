@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "dev:docker": "docker-compose -f docker-compose.dev.yml up --build",
-    "build": "next build",
+    "build": "make build",
     "build:extensions": "(git submodule update --init --recursive && cd directus/extensions/interfaces/conditional-fields && npm install && npm run build && cp dist/index.js index.js)",
-    "start": "next start"
+    "start": "make run"
   },
   "dependencies": {
     "@directus/sdk-js": "9.0.0-rc.51",

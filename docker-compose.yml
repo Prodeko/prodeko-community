@@ -25,6 +25,20 @@ services:
     env_file:
       - .env
 
+  web:
+    container_name: prodeko-seminar-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: prodeko-seminar_directus
+    ports:
+      - 3000:3000
+    networks:
+      - directus
+    depends_on:
+      - directus
+    env_file:
+      - .env
+
 networks:
   directus:
-
