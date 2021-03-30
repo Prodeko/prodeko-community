@@ -42,7 +42,12 @@ export const Card: React.FC<CardProps> = ({ article }) => {
 
   return (
     <Wrapper>
-      <AnimatedImage src={photo} alt="" layout="fill" objectFit="cover" />
+      <AnimatedImage
+        src={photo || commonData.article_default_picture}
+        alt=""
+        layout="fill"
+        objectFit="cover"
+      />
       <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>
           <Title>{title}</Title>

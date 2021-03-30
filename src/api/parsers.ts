@@ -66,7 +66,7 @@ const parseTranslationData = (data: any[]) =>
  * Directus has a specialized assets endpoint, so we need to create custom urls
  * to utilize it
  */
-export const parseImageUrl = (imageId: string) => `${ASSET_URL}/${imageId}`;
+export const parseImageUrl = (imageId: string) => (imageId ? `${ASSET_URL}/${imageId}` : null);
 
 export const parseUser = (data: any): User => ({
   ...data,
@@ -77,6 +77,8 @@ export const parseUser = (data: any): User => ({
 export const parseCommonData = (data: any): CommonData => ({
   ...data,
   logo: parseImageUrl(data.logo),
+  user_default_picture: parseImageUrl(data.user_default_picture),
+  article_default_picture: parseImageUrl(data.article_default_picture),
   prodeko_logo: parseImageUrl(data.prodeko_logo),
   translations: parseTranslationData(data.translations),
 });

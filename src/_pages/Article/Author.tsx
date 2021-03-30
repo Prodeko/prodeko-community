@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import { m } from 'framer-motion';
 
 import { Author as AuthorType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { containerTransitions, itemTransitionLeft } from 'components/transitionConfigs';
+import { AnimatedImage } from 'components/AnimatedImage';
 
 type AuthorProps = {
   author: AuthorType;
@@ -16,7 +16,7 @@ export const Author: React.FC<AuthorProps> = ({ author }) => {
   return (
     <AuthorWrapper initial="initial" animate="enter" exit="exit" variants={containerTransitions}>
       <AuthorPhotoWrapper>
-        <Image src={author.photo} alt="" layout="fill" objectFit="cover" />
+        <AnimatedImage src={author.photo} alt="" layout="fill" objectFit="cover" />
       </AuthorPhotoWrapper>
 
       <AuthorName>{author.name}</AuthorName>

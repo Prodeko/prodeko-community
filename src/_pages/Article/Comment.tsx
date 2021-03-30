@@ -3,6 +3,7 @@ import { FiUser } from 'react-icons/fi';
 import { AnimatePresence, m } from 'framer-motion';
 
 import { Comment as CommentType } from 'types';
+import { useGlobalContext } from 'api/globalContext';
 import { CommentForm } from '_pages/Article/CommentForm';
 import { itemTransitionDown } from 'components/transitionConfigs';
 
@@ -11,11 +12,13 @@ type CommentProps = {
 };
 
 export const Comment: React.FC<CommentProps> = ({ comment }) => {
+  const { commonData } = useGlobalContext();
+
   return (
     <Wrapper>
       <Profile>
         <Photo>
-          <FiUser />
+          <img src={commonData.user_default_picture} alt="" />
         </Photo>
         <Info>
           <Name>{`${comment.user_created.first_name} ${comment.user_created.last_name}`}</Name>
@@ -65,6 +68,8 @@ const Photo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding: var(--spacing-small);
 
   width: var(--image-size);
   height: var(--image-size);

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { AnimatePresence, m } from 'framer-motion';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
-import { PillButton } from '_pages/Article/PillButton';
-import { FiEdit, FiSend, FiX } from 'react-icons/fi';
 import { createComment } from 'api';
 import { useAuth } from 'api/useAuth';
-import { useRouter } from 'next/router';
+import { useGlobalContext } from 'api/globalContext';
+import { PillButton } from '_pages/Article/PillButton';
+import { FiEdit, FiSend, FiX } from 'react-icons/fi';
 import { itemTransitionDown } from 'components/transitionConfigs';
 
 type CommentFormProps = {
@@ -28,11 +29,20 @@ const quillModules = {
 
 export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComment }) => {
   const router = useRouter();
+  const { language, commonData } = useGlobalContext();
   const [formOpen, setFormOpen] = useState(false);
   const openForm = () => setFormOpen(true);
   const closeForm = () => setFormOpen(false);
   const [value, setValue] = useState('');
   const { user } = useAuth();
+
+  const {
+    send_button_text,
+    cancel_button_text,
+    new_comment_title,
+    reply_button_text,
+    new_comment_button_text,
+  } = commonData.translations[language];
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -60,18 +70,18 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
     if (formOpen) {
       component = (
         <CommentFormWrapper onSubmit={handleSubmit} variants={itemTransitionDown} layout>
-          <NewCommentTitle id="formTitle">Uusi kommentti</NewCommentTitle>
+          <NewCommentTitle id="formTitle">{new_comment_title}</NewCommentTitle>
 
           <Quill theme="bubble" value={value} modules={quillModules} onChange={setValue} />
 
           <FormActions>
             <PillButton variant="confirm">
               <FiSend />
-              Lähetä
+              {send_button_text}
             </PillButton>
             <PillButton variant="cancel" onClick={onClose}>
               <FiX />
-              Peruuta
+              {cancel_button_text}
             </PillButton>
           </FormActions>
         </CommentFormWrapper>
@@ -81,7 +91,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
         <m.div layout>
           <PillButton variant="neutral" outlined={!!parentComment} onClick={openForm}>
             <FiEdit />
-            {!!parentComment ? 'Vastaa' : 'Uusi kommentti'}
+            {!!parentComment ? reply_button_text : new_comment_button_text}
           </PillButton>
         </m.div>
       );

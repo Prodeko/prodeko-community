@@ -93,6 +93,10 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
 
   &[aria-pressed='true'] {
     color: var(--black);
+
+    &:after {
+      content: '!';
+    }
   }
 
   &[disabled] {

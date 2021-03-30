@@ -157,6 +157,7 @@ export const GlobalStyle = createGlobalStyle`
     --prodeko-yellow: #FFD500;
 
     --photo-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.7) 80%);
+    --photo-overlay-short: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.7) 100%);
     --card-shadow: 0 0.5rem 1.25rem #64646F40;
     --dark-shadow: 0 0.25rem 1.5rem #00000040;
 

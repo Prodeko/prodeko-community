@@ -25,14 +25,22 @@ type ArticleProps = {
 };
 
 export const Article: NextPage<ArticleProps> = ({ article }) => {
-  const { language } = useGlobalContext();
+  const { language, commonData } = useGlobalContext();
   const { user, loginUrl } = useAuth();
   const { title, body, ingress } = article.translations[language];
+
+  const {
+    like_count_text,
+    comment_section_title,
+    log_in_to_comment_prompt,
+  } = commonData.translations[language];
 
   const header = (() => {
     switch (article.type) {
       case 'blog_post':
-        return <BlogBanner title={title} photo={article.photo} />;
+        return (
+          <BlogBanner title={title} photo={article.photo || commonData.article_default_picture} />
+        );
 
       case 'podcast':
         return <PodcastBanner title={title} podcastEmbed={article.spotify_embed} />;
@@ -56,7 +64,7 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
             <Contents dangerouslySetInnerHTML={{ __html: body }} />
 
             <RainbowButton articleId={article.id} likedBy={article.liked_by}>
-              {article.liked_by.length} henkilöä piti artikkelista
+              {article.liked_by.length} {like_count_text}
             </RainbowButton>
           </ArticleBody>
 
@@ -64,11 +72,11 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
         </ArticleWrapper>
 
         <Comments layout>
-          <CommentsTitle>Kommentit</CommentsTitle>
+          <CommentsTitle>{comment_section_title}</CommentsTitle>
 
           {!user && (
             <LoginLink href={loginUrl}>
-              Kirjaudu sisään osallistuaksesi keskusteluun
+              {log_in_to_comment_prompt}
               <ExternalLinkIcon />
             </LoginLink>
           )}

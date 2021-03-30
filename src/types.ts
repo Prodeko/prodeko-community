@@ -50,8 +50,12 @@ type HTMLString = string;
 export type CommonData = {
   id: number;
   date_updated?: string;
+
   logo: string;
   prodeko_logo: string;
+  user_default_picture: string;
+  article_default_picture: string;
+
   prodeko_link: string;
   alumni_link: string;
   department_link: string;
@@ -59,21 +63,40 @@ export type CommonData = {
   facebook_link: string;
   instagram_link: string;
   linkedin_link: string;
+
   translations: Translated<{
     id: number;
+    site_title: string;
+    site_tagline: string;
+
+    no_user_placeholder: string;
+    log_in_link_text: string;
+    log_out_link_text: string;
+    my_info_link_text: string;
+
     alumni_link_text: string;
     department_link_text: string;
-    my_info_link_text: string;
-    log_out_link_text: string;
     privacy_policy_link_text: string;
+
     video_icon_alternative_text: string;
     podcast_icon_alternative_text: string;
     blog_post_icon_alternative_text: string;
     rainbow_icon_alternative_text: string;
     comment_icon_alternative_text: string;
+
     video_slug: string;
     podcast_slug: string;
     blog_post_slug: string;
+
+    comment_section_title: string;
+    like_count_text: string;
+    log_in_to_comment_prompt: string;
+    no_comments_yet: string;
+    reply_button_text: string;
+    new_comment_button_text: string;
+    new_comment_title: string;
+    send_button_text: string;
+    cancel_button_text: string;
   }>;
 };
 

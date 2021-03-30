@@ -29,9 +29,10 @@ export const ProfileButton: React.FC = ({ children, ...rest }) => {
         {...rest}
         variants={itemTransitionDown}
         onClick={toggleModal}
+        loggedIn={!!user}
         key="profileButton"
       >
-        {user ? <FiUser /> : '?'}
+        {user ? <ProfileImage src={commonData.user_default_picture} alt="" /> : '?'}
       </ProfileButtonWrapper>
 
       <ProfileModal isOpen={modalOpen} onRequestClose={closeModal}>
@@ -45,7 +46,7 @@ export const ProfileButton: React.FC = ({ children, ...rest }) => {
   );
 };
 
-const ProfileButtonWrapper = styled(m.button)`
+const ProfileButtonWrapper = styled(m.button)<{ loggedIn?: boolean }>`
   --size: 3rem;
 
   display: flex;
@@ -53,11 +54,16 @@ const ProfileButtonWrapper = styled(m.button)`
   justify-content: center;
   width: var(--size);
   height: var(--size);
+  padding: 0;
 
   border: none;
   border-radius: 999px;
-  background-color: var(--gray-dark);
+  background-color: ${(p) => (p.loggedIn ? 'var(--gray-lighter)' : 'var(--gray-dark)')};
   color: var(--gray-lighter);
+`;
+
+const ProfileImage = styled.img`
+  padding: var(--spacing-small);
 `;
 
 const ModalTitle = styled.h2`

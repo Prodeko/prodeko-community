@@ -32,4 +32,11 @@ const BlogBannerTitle = styled.div`
   position: absolute;
   bottom: 0;
   padding: var(--pad);
+
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+
+  background: var(--photo-overlay-short);
 `;

@@ -24,7 +24,7 @@ export const AnimatedImage: React.FC<AnimatedImageProps> = ({
 
   return (
     <TransitionWrapper visible={visible} transitionUpwards={transitionUpwards}>
-      <Image {...props} onLoad={onImageLoad} />;
+      <Image {...props} onLoad={onImageLoad} />
     </TransitionWrapper>
   );
 };
@@ -36,6 +36,8 @@ const TransitionWrapper = styled.div<{
   height: 100%;
   width: 100%;
   position: absolute;
+  top: 0;
+  left: 0;
   transition-property: transform, opacity;
   transition-duration: 1s, 0.7s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1), ease-in-out;
