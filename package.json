@@ -7,7 +7,11 @@
     "dev:in-container": "next dev",
     "build": "next build",
     "build:extensions": "(git submodule update --init --recursive && cd directus/extensions/interfaces/conditional-fields && npm install && npm run build && cp dist/index.js index.js)",
-    "start": "make"
+    "start": "make",
+    "migrate:generate": "ts-node -P tsconfig.scripts.json ./scripts/generateDataMigrations.ts",
+    "migrate:diff": "ts-node -P tsconfig.scripts.json ./scripts/diffDataMigrations.ts",
+    "migrate:save": "mv ./directus/schema.current.json ./directus/schema.json",
+    "migrate:apply": "ts-node -P tsconfig.scripts.json ./scripts/applyDataMigrations.ts"
   },
   "dependencies": {
     "@directus/sdk-js": "9.0.0-rc.51",
@@ -32,6 +36,8 @@
     "@typescript-eslint/eslint-plugin": "4.18.0",
     "@typescript-eslint/parser": "4.18.0",
     "babel-plugin-styled-components": "1.12.0",
+    "diff-arrays-of-objects": "1.1.7",
+    "dotenv": "8.2.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-import-resolver-typescript": "2.4.0",
@@ -43,6 +49,7 @@
     "eslint-plugin-simple-import-sort": "7.0.0",
     "next-transpile-modules": "6.3.0",
     "prettier": "2.2.1",
+    "ts-node": "9.1.1",
     "typescript": "4.2.3"
   }
 }

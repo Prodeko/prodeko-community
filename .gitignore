@@ -1,6 +1,8 @@
 # project specific
 .env*
 directus/uploads
+directus/schema.current.json
+directus/schema.previous.json
 data
 
 # dependencies

@@ -16,6 +16,6 @@
     "baseUrl": "src/",
     "skipLibCheck": true
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "public/*"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "public/*", "scripts/*"],
   "exclude": ["**/node_modules/**", "directus/**"]
 }
