@@ -82,6 +82,10 @@ const Wrapper = styled.div`
   &:hover img {
     transform: scale(1.02) !important;
   }
+
+  &:active {
+    transform: scale(0.95) !important;
+  }
 `;
 
 const LinkContents = styled.a`
