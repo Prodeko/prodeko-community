@@ -19,6 +19,7 @@ import { CommentForm } from '_pages/Article/CommentForm';
 import { Comment } from '_pages/Article/Comment';
 import { RainbowButton } from '_pages/Article/RainbowButton';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import { Head } from 'components/Head';
 
 type ArticleProps = {
   article: ArticleType;
@@ -27,7 +28,7 @@ type ArticleProps = {
 export const Article: NextPage<ArticleProps> = ({ article }) => {
   const { language, commonData } = useGlobalContext();
   const { user, loginUrl } = useAuth();
-  const { title, body, ingress } = article.translations[language];
+  const { title, body, ingress, tagline } = article.translations[language];
 
   const {
     like_count_text,
@@ -52,6 +53,8 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
 
   return (
     <Main>
+      <Head title={title} description={tagline} image={article.photo} />
+
       <ContentsWrapper>
         <ArticleWrapper>
           <ArticleBody>

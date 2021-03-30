@@ -7,6 +7,9 @@ import { Main as MainBase } from 'components/Main';
 import { ArticleBody } from 'components/ArticleBody';
 import { Banner } from 'components/Banner';
 import { Line } from 'components/Line';
+import { truncateString } from 'utils/truncateString';
+import { Head } from 'components/Head';
+import { stripTags } from 'utils/stripTags';
 
 export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, translations }) => {
   const { language } = useGlobalContext();
@@ -14,6 +17,8 @@ export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, tra
 
   return (
     <Main>
+      <Head title={page_title} description={truncateString(stripTags(body))} />
+
       <Banner bannerUrl={background_banner} logoUrl={main_logo} decorative />
 
       <Article>

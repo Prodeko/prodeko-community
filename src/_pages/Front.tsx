@@ -7,6 +7,7 @@ import { Main as MainBase } from 'components/Main';
 import { Banner } from 'components/Banner';
 import { Card, CardList, CardWrapper } from 'components/Card';
 import { Line } from 'components/Line';
+import { Head } from 'components/Head';
 
 export const Front: NextPage<FrontPageData> = ({
   background_banner,
@@ -26,6 +27,8 @@ export const Front: NextPage<FrontPageData> = ({
 
   return (
     <Main>
+      <Head />
+
       <Banner bannerUrl={background_banner} logoUrl={main_logo} logoText={logo_alternative_text} />
 
       <CardSection articles={mockArticles} type="video" title={videos_title} />
