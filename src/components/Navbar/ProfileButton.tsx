@@ -8,6 +8,7 @@ import { ProfileModal } from 'components/Navbar/ProfileModal';
 import { TextLink } from 'components/TextLink';
 import { FiUser } from 'react-icons/fi';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 export const ProfileButton: React.FC = ({ children, ...rest }) => {
   const { user, loginUrl, logout } = useAuth();
@@ -32,7 +33,11 @@ export const ProfileButton: React.FC = ({ children, ...rest }) => {
         loggedIn={!!user}
         key="profileButton"
       >
-        {user ? <ProfileImage src={commonData.user_default_picture} alt="" /> : '?'}
+        {user ? (
+          <ProfileImage src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
+        ) : (
+          '?'
+        )}
       </ProfileButtonWrapper>
 
       <ProfileModal isOpen={modalOpen} onRequestClose={closeModal}>

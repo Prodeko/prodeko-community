@@ -19,7 +19,6 @@ import { CommentForm } from '_pages/Article/CommentForm';
 import { Comment } from '_pages/Article/Comment';
 import { RainbowButton } from '_pages/Article/RainbowButton';
 import { itemTransitionDown } from 'components/transitionConfigs';
-import { Head } from 'components/Head';
 
 type ArticleProps = {
   article: ArticleType;
@@ -53,8 +52,6 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
 
   return (
     <Main>
-      <Head title={title} description={tagline} image={article.photo} />
-
       <ContentsWrapper>
         <ArticleWrapper>
           <ArticleBody>

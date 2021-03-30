@@ -16,6 +16,10 @@ import { getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
 import { Footer } from 'components/Footer';
 import { Navbar } from 'components/Navbar';
+import { Head } from 'components/Head';
+
+import { truncateString } from 'utils/truncateString';
+import { stripTags } from 'utils/stripTags';
 
 // Lazily load different page components for optimized js bundles
 const FrontPage = dynamic<FrontPageData>(() => import('_pages/Front').then((mod) => mod.Front), {
@@ -54,19 +58,36 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   } = props;
 
   // Get the correct component to render with an immediately invoked function execution
-  const pageComponent = (() => {
+  // Pick which meta tags to use as well
+  const [pageMeta, pageComponent] = (() => {
     switch (props.template) {
       case 'front':
-        return <FrontPage {...props.data} key="front" />;
+        return [<Head />, <FrontPage {...props.data} key="front" />];
 
       case 'info':
-        return <InfoPage {...props.data} key="info" />;
+        return [
+          <Head
+            title={props.data.translations[language].page_title}
+            description={truncateString(stripTags(props.data.translations[language].body))}
+          />,
+          <InfoPage {...props.data} key="info" />,
+        ];
 
       case 'archive':
-        return <ArchivePage {...props.data} key="archive" />;
+        return [
+          <Head title={props.data.translations[language].page_title} />,
+          <ArchivePage {...props.data} key="archive" />,
+        ];
 
       case 'article':
-        return <ArticlePage article={props.data} key={`article-${props.data.id}`} />;
+        return [
+          <Head
+            title={props.data.translations[language].title}
+            description={props.data.translations[language].tagline}
+            image={props.data.photo}
+          />,
+          <ArticlePage article={props.data} key={`article-${props.data.id}`} />,
+        ];
     }
   })();
 
@@ -91,6 +112,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
     <GlobalContext.Provider value={{ commonData, language, alternativeSlugs, routes }}>
       <LazyMotion features={domMax} strict>
         <Navbar />
+        {pageMeta}
         <AnimateSharedLayout>
           <AnimatePresence exitBeforeEnter>
             {pageComponent}

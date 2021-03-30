@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import styled from 'styled-components';
+import { m } from 'framer-motion';
 
 import { InfoPageData } from 'types';
 import { useGlobalContext } from 'api/globalContext';
@@ -7,9 +8,7 @@ import { Main as MainBase } from 'components/Main';
 import { ArticleBody } from 'components/ArticleBody';
 import { Banner } from 'components/Banner';
 import { Line } from 'components/Line';
-import { truncateString } from 'utils/truncateString';
-import { Head } from 'components/Head';
-import { stripTags } from 'utils/stripTags';
+import { itemTransitionUp } from 'components/transitionConfigs';
 
 export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, translations }) => {
   const { language } = useGlobalContext();
@@ -17,11 +16,9 @@ export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, tra
 
   return (
     <Main>
-      <Head title={page_title} description={truncateString(stripTags(body))} />
-
       <Banner bannerUrl={background_banner} logoUrl={main_logo} decorative />
 
-      <Article>
+      <Article initial="initial" animate="enter" variants={itemTransitionUp}>
         <h1>{page_title}</h1>
         <Line variant="long" />
         <Contents dangerouslySetInnerHTML={{ __html: body }} />
@@ -34,7 +31,7 @@ const Main = styled(MainBase)`
   justify-items: center;
 `;
 
-const Article = styled(ArticleBody)`
+const Article = styled(m(ArticleBody))`
   border-radius: var(--border-radius-small);
   margin-top: var(--below-banner-offset);
   padding: var(--article-padding);

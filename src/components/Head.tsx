@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import NextHead from 'next/head';
 
-import { PROD_URL } from 'api/config';
 import { useGlobalContext } from 'api/globalContext';
+import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 type HeadProps = {
   title?: string;
@@ -21,18 +21,6 @@ export const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       document.documentElement.lang = language;
     }
   }, [language]);
-
-  // As we create proper urls for dynamic images when parsing them, we need to
-  // re-parse the image into something that can be used by search engines in
-  // meta tags
-  const getImageUrl = (url: string) => {
-    const urlBase = PROD_URL;
-    const urlParts = url.split('/');
-    const assetsIndex = urlParts.indexOf('assets');
-    const assetParts = urlParts.slice(assetsIndex);
-    const assetUrl = assetParts.join('/');
-    return `${urlBase}/${assetUrl}`;
-  };
 
   const fullTitle = title ? `${title} | ${site_title}` : site_title;
   const fullDescription = description ? description : site_tagline;
@@ -53,7 +41,7 @@ export const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       <meta property="og:locale" content={language} />
       <meta
         property="og:image"
-        content={image ? getImageUrl(image) : getImageUrl(commonData.logo)}
+        content={image ? getProductionAssetUrl(image) : getProductionAssetUrl(commonData.logo)}
       />
 
       <meta name="twitter:card" content="summary" />
@@ -61,7 +49,7 @@ export const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       <meta name="twitter:description" content={fullDescription} />
       <meta
         property="twitter:image"
-        content={image ? getImageUrl(image) : getImageUrl(commonData.logo)}
+        content={image ? getProductionAssetUrl(image) : getProductionAssetUrl(commonData.logo)}
       />
     </NextHead>
   );

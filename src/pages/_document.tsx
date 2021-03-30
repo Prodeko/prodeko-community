@@ -1,6 +1,8 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
+import { getPageBySlug } from 'api';
+
 /**
  * We are using optimized variable fonts with only a subset of UTF-8
  * characters available, namely latin characters and most commonly
@@ -52,6 +54,7 @@ export default class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+      const pageProps = await getPageBySlug(ctx.query.slug as string[] | undefined);
 
       return {
         ...initialProps,
@@ -61,6 +64,7 @@ export default class MyDocument extends Document {
             {sheet.getStyleElement()}
           </>
         ),
+        lang: pageProps.language,
       };
     } finally {
       sheet.seal();
@@ -69,7 +73,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang={((this.props as unknown) as { lang: string }).lang}>
         <Head>
           <link
             rel="preload"

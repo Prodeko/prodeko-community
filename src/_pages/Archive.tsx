@@ -12,7 +12,6 @@ import { Line } from 'components/Line';
 import { Card, CardList } from 'components/Card';
 import { groupBy } from 'utils/groupBy';
 import { itemTransitionUp } from 'components/transitionConfigs';
-import { Head } from 'components/Head';
 
 /**
  * Currently supported sort orders, adding more requires a refactor to sort
@@ -113,8 +112,6 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
 
   return (
     <Main>
-      <Head title={page_title} />
-
       <Header>
         <h1>{page_title}</h1>
         <Line variant="long" />

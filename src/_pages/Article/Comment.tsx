@@ -6,6 +6,7 @@ import { Comment as CommentType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { CommentForm } from '_pages/Article/CommentForm';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 type CommentProps = {
   comment: CommentType;
@@ -18,7 +19,7 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
     <Wrapper>
       <Profile>
         <Photo>
-          <img src={commonData.user_default_picture} alt="" />
+          <img src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
         </Photo>
         <Info>
           <Name>{`${comment.user_created.first_name} ${comment.user_created.last_name}`}</Name>
