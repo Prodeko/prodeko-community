@@ -46,3 +46,5 @@ run-backend:
 
 kill:
 	docker-compose kill database directus web
+
+deploy:	kill run-backend apply-migrations build run
