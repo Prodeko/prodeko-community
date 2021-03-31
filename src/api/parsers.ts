@@ -85,7 +85,7 @@ export const parseCommonData = (data: any): CommonData => ({
 
 export const parseComment = (data: any): Comment => ({
   ...data,
-  user_created: parseUser(data.user_created),
+  user_created: data.user_created ? parseUser(data.user_created) : null,
   subcomments: data.subcomments.map(parseComment),
 });
 

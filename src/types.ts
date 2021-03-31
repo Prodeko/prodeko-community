@@ -92,6 +92,7 @@ export type CommonData = {
     like_count_text: string;
     log_in_to_comment_prompt: string;
     no_comments_yet: string;
+    user_not_found: string;
     reply_button_text: string;
     new_comment_button_text: string;
     new_comment_title: string;
@@ -102,7 +103,7 @@ export type CommonData = {
 
 export type Comment = {
   id: number;
-  user_created: User;
+  user_created?: User;
   date_created: string;
   body: HTMLString;
   article: number;

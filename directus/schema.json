@@ -4616,7 +4616,7 @@
             "display_options": null,
             "readonly": false,
             "hidden": false,
-            "sort": 35,
+            "sort": 36,
             "width": "half",
             "group": null,
             "translations": null,
@@ -4659,7 +4659,7 @@
             "display_options": null,
             "readonly": false,
             "hidden": false,
-            "sort": 36,
+            "sort": 37,
             "width": "half",
             "group": null,
             "translations": null,
@@ -4703,12 +4703,55 @@
             "readonly": false,
             "hidden": false,
             "sort": 34,
-            "width": "full",
+            "width": "half",
             "group": null,
             "translations": null,
             "note": "Shown on top of a new comment submission form"
           },
           "pk": "common_data_translations/new_comment_title"
+        },
+        {
+          "collection": "common_data_translations",
+          "field": "user_not_found",
+          "type": "string",
+          "schema": {
+            "name": "user_not_found",
+            "table": "common_data_translations",
+            "data_type": "character varying",
+            "default_value": null,
+            "max_length": 255,
+            "numeric_precision": null,
+            "numeric_scale": null,
+            "is_nullable": true,
+            "is_unique": false,
+            "is_primary_key": false,
+            "has_auto_increment": false,
+            "foreign_key_column": null,
+            "foreign_key_table": null,
+            "comment": null,
+            "schema": "public",
+            "foreign_key_schema": null
+          },
+          "meta": {
+            "id": 157,
+            "collection": "common_data_translations",
+            "field": "user_not_found",
+            "special": null,
+            "interface": "text-input",
+            "options": {
+              "iconLeft": "mood_bad"
+            },
+            "display": "raw",
+            "display_options": null,
+            "readonly": false,
+            "hidden": false,
+            "sort": 35,
+            "width": "half",
+            "group": null,
+            "translations": null,
+            "note": "Displayed instead of users name if user is unavailable for some reason, e.g. deleted account"
+          },
+          "pk": "common_data_translations/user_not_found"
         }
       ]
     },
@@ -6885,10 +6928,10 @@
       "pk": 94
     },
     {
-      "id": 95,
-      "role": null,
-      "collection": "directus_collections",
-      "action": "read",
+      "id": 99,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page",
+      "action": "create",
       "permissions": null,
       "validation": null,
       "presets": null,
@@ -6896,12 +6939,12 @@
         "*"
       ],
       "limit": null,
-      "pk": 95
+      "pk": 99
     },
     {
-      "id": 96,
-      "role": null,
-      "collection": "directus_fields",
+      "id": 100,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page",
       "action": "read",
       "permissions": null,
       "validation": null,
@@ -6910,7 +6953,245 @@
         "*"
       ],
       "limit": null,
-      "pk": 96
+      "pk": 100
+    },
+    {
+      "id": 101,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page_translations",
+      "action": "create",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 101
+    },
+    {
+      "id": 102,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page_translations",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 102
+    },
+    {
+      "id": 103,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page_translations",
+      "action": "update",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 103
+    },
+    {
+      "id": 104,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page",
+      "action": "update",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 104
+    },
+    {
+      "id": 105,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page",
+      "action": "delete",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 105
+    },
+    {
+      "id": 106,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "archive_page_translations",
+      "action": "delete",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 106
+    },
+    {
+      "id": 108,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 108
+    },
+    {
+      "id": 110,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page",
+      "action": "delete",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 110
+    },
+    {
+      "id": 109,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page",
+      "action": "update",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 109
+    },
+    {
+      "id": 107,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page",
+      "action": "create",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 107
+    },
+    {
+      "id": 111,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page_translations",
+      "action": "create",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 111
+    },
+    {
+      "id": 112,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page_translations",
+      "action": "update",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 112
+    },
+    {
+      "id": 113,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page_translations",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 113
+    },
+    {
+      "id": 114,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page_translations",
+      "action": "delete",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 114
+    },
+    {
+      "id": 115,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "comments",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 115
+    },
+    {
+      "id": 116,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "languages",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 116
+    },
+    {
+      "id": 117,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "rainbow_likes",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 117
     }
   ],
   "fields": [
@@ -7145,6 +7426,38 @@
     },
     {
       "collection": "common_data_translations",
+      "field": "profile_dropdown_divider",
+      "type": "alias",
+      "schema": null,
+      "meta": {
+        "id": 22,
+        "collection": "common_data_translations",
+        "field": "profile_dropdown_divider",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "interface": "divider",
+        "options": {
+          "color": "#607D8B",
+          "icon": "account_circle",
+          "title": "Profile dropdown data",
+          "inlineTitle": true
+        },
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 6,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "common_data_translations/profile_dropdown_divider"
+    },
+    {
+      "collection": "common_data_translations",
       "field": "footer_divider",
       "type": "alias",
       "schema": null,
@@ -7175,38 +7488,6 @@
         "note": null
       },
       "pk": "common_data_translations/footer_divider"
-    },
-    {
-      "collection": "common_data_translations",
-      "field": "profile_dropdown_divider",
-      "type": "alias",
-      "schema": null,
-      "meta": {
-        "id": 22,
-        "collection": "common_data_translations",
-        "field": "profile_dropdown_divider",
-        "special": [
-          "alias",
-          "no-data"
-        ],
-        "interface": "divider",
-        "options": {
-          "color": "#607D8B",
-          "icon": "account_circle",
-          "title": "Profile dropdown data",
-          "inlineTitle": true
-        },
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
-        "sort": 6,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "common_data_translations/profile_dropdown_divider"
     },
     {
       "collection": "common_data",
@@ -7597,39 +7878,6 @@
     },
     {
       "collection": "common_data_translations",
-      "field": "article_urls_divider",
-      "type": "alias",
-      "schema": null,
-      "meta": {
-        "id": 129,
-        "collection": "common_data_translations",
-        "field": "article_urls_divider",
-        "special": [
-          "alias",
-          "no-data"
-        ],
-        "interface": "divider",
-        "options": {
-          "color": "#607D8B",
-          "icon": "line_style",
-          "title": "Article URLs",
-          "marginTop": true,
-          "inlineTitle": true
-        },
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
-        "sort": 22,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "common_data_translations/article_urls_divider"
-    },
-    {
-      "collection": "common_data_translations",
       "field": "article_urls_note",
       "type": "alias",
       "schema": null,
@@ -7691,6 +7939,39 @@
         "note": null
       },
       "pk": "common_data_translations/comments_divider"
+    },
+    {
+      "collection": "common_data_translations",
+      "field": "article_urls_divider",
+      "type": "alias",
+      "schema": null,
+      "meta": {
+        "id": 129,
+        "collection": "common_data_translations",
+        "field": "article_urls_divider",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "interface": "divider",
+        "options": {
+          "color": "#607D8B",
+          "icon": "line_style",
+          "title": "Article URLs",
+          "marginTop": true,
+          "inlineTitle": true
+        },
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 22,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "common_data_translations/article_urls_divider"
     }
   ],
   "relations": [

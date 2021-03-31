@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { FiUser } from 'react-icons/fi';
 import { AnimatePresence, m } from 'framer-motion';
 
 import { Comment as CommentType } from 'types';
@@ -13,7 +12,10 @@ type CommentProps = {
 };
 
 export const Comment: React.FC<CommentProps> = ({ comment }) => {
-  const { commonData } = useGlobalContext();
+  const { commonData, language } = useGlobalContext();
+  const { user_not_found } = commonData.translations[language];
+
+  const commenter = comment.user_created;
 
   return (
     <Wrapper>
@@ -22,7 +24,9 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
           <img src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
         </Photo>
         <Info>
-          <Name>{`${comment.user_created.first_name} ${comment.user_created.last_name}`}</Name>
+          <Name>
+            {commenter ? `${commenter.first_name} ${commenter.last_name}` : <i>{user_not_found}</i>}
+          </Name>
           <Datetime dateTime={comment.date_created}>
             {new Date(comment.date_created).toLocaleString('fi-FI', {
               dateStyle: 'medium',
