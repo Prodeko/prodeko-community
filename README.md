@@ -4,9 +4,13 @@ TODO: docs
 
 ## Setup
 
+TL;DR:
+
 1. Make sure you have `docker-compose`, `make` and `npm` available in `$PATH`
-2. Set up the `env` files:
-   - If you want to set up the production build locally, copy `env.example` to `
+2. Copy the sample `env` file:
+   - `cp env.sample .env`
+3. Set up and run the local development server:
+   - `make setup run`
 
 ## Scripts
 
