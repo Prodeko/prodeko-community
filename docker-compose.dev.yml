@@ -1,17 +1,7 @@
 version: '3.4'
 services:
-  database:
-    network_mode: host
-
-  directus:
-    network_mode: host
-
-  web:
+  seminar_web:
     build:
       dockerfile: Dockerfile.dev
     volumes:
       - ./:/usr/src/app
-    network_mode: host
-
-  wait:
-    network_mode: host

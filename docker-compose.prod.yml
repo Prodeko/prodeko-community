@@ -1,14 +1,10 @@
 version: '3.4'
 services:
-  database:
-    networks:
-      - prodeko-seminar
-
-  directus:
+  seminar_cms:
     ports:
       - 8055:8055
 
-  web:
+  seminar_web:
     container_name: prodeko-seminar-web
     build:
       network: prodeko-seminar_prodeko-docker-net
