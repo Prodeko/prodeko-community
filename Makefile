@@ -11,36 +11,33 @@ install:
 
 initial-setup:
 	docker-compose up -d database
-	cat ./directus/seed.sql | docker exec -i prodeko-seminar-database psql -U ${DB_USER} ${DB_DATABASE}
-	docker-compose up -d directus
+	cat ./directus/seed.sql | docker-compose exec -T database psql -U ${DB_USER} -d ${DB_DATABASE}
 
-initial-setup-cleanup:
-	docker-compose kill database directus
-
-build:
-	docker-compose up -d database directus
+build: run-backend
 	docker-compose build --no-cache web
-	docker-compose kill database directus
 
-setup: install initial-setup apply-migrations build initial-setup-cleanup
+setup: install initial-setup apply-migrations build kill
 
 dev:
 	docker-compose -f docker-compose.dev.yml up --build
 
-diff-migrations:
+diff-migrations: run-backend
 	npm run migrate:generate
 	npm run migrate:diff
 
-save-migrations:
+save-migrations: run-backend
 	npm run migrate:generate
 	npm run migrate:save
 
-apply-migrations:
+apply-migrations: run-backend
 	npm run migrate:generate
 	npm run migrate:apply
 
 run:
 	docker-compose up
+
+run-backend:
+	docker-compose up -d database directus
 
 kill:
 	docker-compose kill database directus web
