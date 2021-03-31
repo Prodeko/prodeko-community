@@ -5,13 +5,10 @@ const {
   SENTRY_PROJECT,
   SENTRY_AUTH_TOKEN,
   NODE_ENV,
+  // Available in github actions CI pipeline
+  GITHUB_SHA,
 } = process.env;
 const withTM = require('next-transpile-modules')(['@directus/sdk-js']);
-const cp = require('child_process');
-const gitSha = cp.execSync('git rev-parse --short HEAD', {
-  cwd: __dirname,
-  encoding: 'utf8',
-});
 
 module.exports = withTM({
   images: {
@@ -56,6 +53,7 @@ module.exports = withTM({
       SENTRY_ORG &&
       SENTRY_PROJECT &&
       SENTRY_AUTH_TOKEN &&
+      GITHUB_SHA &&
       NODE_ENV === 'production'
     ) {
       config.plugins.push(
@@ -64,7 +62,7 @@ module.exports = withTM({
           ignore: ['node_modules'],
           stripPrefix: ['webpack://_N_E/'],
           urlPrefix: `~${basePath}/_next`,
-          release: gitSha,
+          release: GITHUB_SHA,
         })
       );
     }
