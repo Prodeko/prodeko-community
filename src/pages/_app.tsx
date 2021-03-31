@@ -1,11 +1,18 @@
 import { GlobalStyle } from 'GlobalStyle';
-import { AppProps } from 'next/app';
+import { AppProps as NextAppProps } from 'next/app';
+import { init } from '../utils/sentry'
 
-function App({ Component, pageProps }: AppProps) {
+init()
+
+type AppProps  = {
+  err: Error
+} & NextAppProps
+
+function App({ Component, pageProps, err }: AppProps) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Component {...pageProps} err={err} />
     </>
   );
 }
