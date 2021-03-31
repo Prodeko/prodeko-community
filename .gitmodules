@@ -1,3 +1,3 @@
 [submodule "directus/extensions/interfaces/conditional-fields"]
 	path = directus/extensions/interfaces/conditional-fields
-	url = git@github.com:Jonesus/directus-conditional-fields.git
+	url = https://github.com/Jonesus/directus-conditional-fields.git
