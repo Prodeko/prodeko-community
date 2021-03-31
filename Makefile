@@ -50,7 +50,7 @@ run:
 
 run-backend:
 	$(COMPOSE) up -d database directus
-	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT},${SERVER_API_URL}
+	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT},${API_HOST}:${API_PORT}
 
 kill:
 	docker-compose kill database directus web
