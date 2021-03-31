@@ -20,7 +20,6 @@ services:
       - prodeko-seminar
 
   wait:
-    image: dokku/wait
     networks:
       - prodeko-seminar
 
