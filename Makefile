@@ -41,3 +41,6 @@ apply-migrations:
 
 run:
 	docker-compose up
+
+kill:
+	docker-compose kill database directus web
