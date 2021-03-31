@@ -3,7 +3,7 @@ ifneq (,$(wildcard ./.env))
     export $(cat .env | sed 's/\"//g')
 endif
 
-all: initial-setup run
+all: build run
 
 install:
 	npm install
@@ -11,7 +11,7 @@ install:
 
 initial-setup:
 	docker-compose up -d database
-	cat seed.sql | docker exec -i prodeko-seminar-database psql -U ${DB_USER} ${DB_DATABASE}
+	cat ./directus/seed.sql | docker exec -i prodeko-seminar-database psql -U ${DB_USER} ${DB_DATABASE}
 	docker-compose up -d directus
 
 initial-setup-cleanup:
