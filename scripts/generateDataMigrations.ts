@@ -38,24 +38,45 @@ const addPk = (func: any) => (item: any) => ({ ...item, pk: func(item) });
   ).map((r) => r.data);
 
   // Filter out directus system relations that get generated automatically on install
-  const filteredCollections = collections!
-    .filter((c: any) => !c.collection.startsWith('directus'))
+  const filteredCollections = collections
+    ?.filter((c: any) => !c.collection.startsWith('directus'))
     .map(addPk(getCollectionPk));
-  const filteredFields = fields!
-    .filter((f: any) => f.meta && !f.meta.system)
+  const filteredFields = fields
+    ?.filter((f: any) => f.meta && !f.meta.system)
     .map(addPk(getFieldPk));
-  const filteredRoles = roles!.filter((r: any) => r.name !== 'Admin').map(addPk(getRolePk));
-  const filteredPermissions = permissions!.filter((p: any) => p.id).map(addPk(getPermissionPk));
-  const filteredRelations = relations!.filter((r: any) => !r.system).map(addPk(getRelationPk));
+  const filteredRoles = roles
+    ?.filter((r: any) => r.name !== 'Admin')
+    .map(addPk(getRolePk))
+    .map((role: any) => ({ ...role, users: [] }));
+  const filteredPermissions = permissions?.filter((p: any) => p.id).map(addPk(getPermissionPk));
+  const filteredRelations = relations?.filter((r: any) => !r.system).map(addPk(getRelationPk));
 
-  const niceFields = groupBy(filteredFields, (field: any) => field.collection);
-  console.log(niceFields);
+  const groupedFields = groupBy(filteredFields, (field: any) => field.collection);
+
+  const dangerousTypes = ['translations', 'alias', 'o2m', 'm2m', 'm2a'];
+  const dangerousFilter = (field: any) =>
+    dangerousTypes.includes(field.type) || field.collection === 'languages';
+
+  const dangerousFields = filteredFields?.filter(dangerousFilter);
+
+  const collectionsWithFields = filteredCollections?.map((collection: any) => ({
+    ...collection,
+    fields: groupedFields[collection.collection]?.filter((field: any) => !dangerousFilter(field)),
+  }));
+
+  const sortedCollections = collectionsWithFields
+    .sort((a: any, b: any) => (b.collection.includes('translations') ? 1 : -1))
+    .sort((a: any, b: any) => (b.collection === 'languages' ? 1 : -1));
+
+  const systemExtensionFields = Object.entries(groupedFields)
+    ?.filter(([key]) => key.startsWith('directus'))
+    .flatMap(([key, fields]) => fields);
 
   const data = {
-    collections: filteredCollections,
-    fields: filteredFields,
+    collections: collectionsWithFields,
     roles: filteredRoles,
     permissions: filteredPermissions,
+    fields: [...systemExtensionFields, ...dangerousFields],
     relations: filteredRelations,
   };
 

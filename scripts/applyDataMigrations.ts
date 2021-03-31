@@ -38,8 +38,6 @@ const directus = new DirectusSDK(API_URL as string);
       for (const item of diffResult.added as any[]) {
         const itemCollection = item.collection;
         delete item.pk;
-        delete item.collection;
-        console.log(item);
         await directus.axios
           .post(`${API_URL}/${getPostEndpoint(collection, itemCollection)}`, item)
           .catch((e: any) => console.log(e.response.data));
