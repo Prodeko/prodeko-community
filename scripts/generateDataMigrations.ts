@@ -8,7 +8,7 @@ for (const k in envConfig) {
   process.env[k] = envConfig[k];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const API_URL = process.env.SERVER_MIGRATION_URL as string;
 const email = process.env.ADMIN_EMAIL as string;
 const password = process.env.ADMIN_PASSWORD as string;
 
