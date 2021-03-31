@@ -5,7 +5,10 @@ import * as dotenv from 'dotenv';
 import fs from 'fs';
 import diff from 'diff-arrays-of-objects';
 
-dotenv.config();
+const envConfig = dotenv.parse(fs.readFileSync('.env'));
+for (const k in envConfig) {
+  process.env[k] = envConfig[k];
+}
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 const email = process.env.ADMIN_EMAIL as string;
