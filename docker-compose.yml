@@ -5,8 +5,6 @@ services:
     image: postgres:12
     volumes:
       - ./data/database:/var/lib/postgresql/data
-    networks:
-      - directus
     env_file:
       - .env
 
@@ -16,10 +14,6 @@ services:
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
-    ports:
-      - 8055:8055
-    networks:
-      - directus
     depends_on:
       - database
     env_file:
@@ -30,15 +24,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      network: prodeko-seminar_directus
-    ports:
-      - 3000:3000
-    networks:
-      - directus
     depends_on:
       - directus
     env_file:
       - .env
-
-networks:
-  directus:

@@ -1,35 +1,20 @@
-version: '3.2'
+version: '3.4'
 services:
   database:
-    container_name: prodeko-seminar-database
-    image: postgres:12
-    volumes:
-      - ./data/database:/var/lib/postgresql/data
     network_mode: host
     env_file:
       - .env.dev
 
   directus:
-    container_name: prodeko-seminar-cms
-    image: directus/directus:v9.0.0-rc.51
-    volumes:
-      - ./directus/extensions:/directus/extensions
-      - ./directus/uploads:/directus/uploads
     network_mode: host
     env_file:
       - .env.dev
-    depends_on:
-      - database
 
   web:
-    container_name: prodeko-seminar-web
     build:
-      context: .
       dockerfile: Dockerfile.dev
     volumes:
       - ./:/usr/src/app
     network_mode: host
     env_file:
       - .env.dev
-    depends_on:
-      - directus

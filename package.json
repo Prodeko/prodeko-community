@@ -7,7 +7,7 @@
     "dev:in-container": "next dev",
     "build": "next build",
     "build:extensions": "(git submodule update --init --recursive && cd directus/extensions/interfaces/conditional-fields && npm install && npm run build && cp dist/index.js index.js)",
-    "start": "make",
+    "start": "make run",
     "migrate:generate": "ts-node -P tsconfig.scripts.json ./scripts/generateDataMigrations.ts",
     "migrate:diff": "ts-node -P tsconfig.scripts.json ./scripts/diffDataMigrations.ts",
     "migrate:save": "mv ./directus/schema.current.json ./directus/schema.json",
