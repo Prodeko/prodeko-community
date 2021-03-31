@@ -1,3 +1,7 @@
+# The main file for running project management scripts. This should be used
+# most often instead of straight NPM scripts to make sure all the pieces
+# play along nicely.
+
 ifneq (,$(wildcard ./.env))
     include .env
 	export $(shell sed 's/=.*//' .env)
@@ -11,48 +15,61 @@ else
 	RUN = $(COMPOSE) up
 endif
 
-all: build run
+# Default for `make` without any args
+all: run
 
-envtest:
-	echo ${COMPOSE}
-
+# We want to build custom Directus extensions on install too
 install:
 	npm install
 	npm run build:extensions
 
+# This shouldn't be ran manually, instead `setup` should be used.
+# Seeds the database with initial Directus data so that we don't have to start
+# the CMS from scratch every time.
 initial-setup:
 	$(COMPOSE) up -d database
 	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
 	cat ./directus/seed.sql | docker-compose exec -T database psql -U ${DB_USER} -d ${DB_DATABASE}
 
+# Run a bunch of other scripts to complete setup. Should only be run on initial
+# setup of the local codebase.
 setup: install initial-setup run-backend apply-migrations kill
 
+# Builds the production version of frontend (assuming .env vars set correctly)
 build: run-backend
 	$(COMPOSE) build --no-cache web
 
+# Helper for being sure CMS migrations contain only wanted changes
 diff-migrations:
 	npm run migrate:generate
 	npm run migrate:diff
 
+# Saves the current CMS state to the versioned schema file so that the changes
+# can be committed to git
 save-migrations:
 	npm run migrate:generate
 	npm run migrate:save
 
+# Applies the version controlled migrations to current CMS instance. Use this
+# if you need upstream changes locally.
 apply-migrations:
 	npm run migrate:generate
 	npm run migrate:apply
 
-dev:
-	$(COMPOSE) up --build
-
+# Runs the project in either dev or prod mode, depending on .env variables
 run:
 	$(RUN)
 
+# Helper for making sure CMS (API) and database are up for static frontend
+# builds et cetera
 run-backend:
 	$(COMPOSE) up -d database directus
 	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT},${API_HOST}:${API_PORT}
 
+# Shut down all project containers
 kill:
 	docker-compose kill database directus web
 
+# This should be run on production server on each new push to the deployed
+# branch. Kills the old instance, applies migrations, builds and then runs
 deploy:	kill run-backend apply-migrations build run
