@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node'
+import { Integrations as TracingIntegrations } from "@sentry/tracing";
 import { RewriteFrames } from '@sentry/integrations'
 
 export const init = () => {
@@ -23,13 +24,15 @@ export const init = () => {
           },
         })
       )
+    } else {
+      integrations.push(new TracingIntegrations.BrowserTracing())
     }
 
     Sentry.init({
       enabled: process.env.NODE_ENV === 'production',
       integrations,
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-      release: process.env.NEXT_PUBLIC_COMMIT_SHA,
+      tracesSampleRate: 1,
     })
   }
 }
