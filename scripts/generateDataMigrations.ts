@@ -1,11 +1,16 @@
 import DirectusSDK from '@directus/sdk-js';
 import * as dotenv from 'dotenv';
 import fs from 'fs';
+import { groupBy } from '../src/utils/groupBy';
 
 dotenv.config();
 
+const token = process.env.ADMIN_TOKEN;
+const email = process.env.ADMIN_EMAIL as string;
+const password = process.env.ADMIN_PASSWORD as string;
+
 const directus = new DirectusSDK(process.env.NEXT_PUBLIC_API_URL as string);
-directus.auth.token = process.env.ADMIN_TOKEN as string;
+// directus.auth.token = process.env.ADMIN_TOKEN as string;
 
 const getCollectionPk = (collection: any) => collection.collection;
 const getRelationPk = (relation: any) => relation.id;
@@ -19,6 +24,7 @@ const addPk = (func: any) => (item: any) => ({ ...item, pk: func(item) });
  * Directus doesn't support schema migrations yet :(
  */
 (async () => {
+  await directus.auth.login({ email, password });
   console.log('Generating data migrations...');
 
   const [collections, fields, roles, permissions, relations] = (
@@ -41,6 +47,9 @@ const addPk = (func: any) => (item: any) => ({ ...item, pk: func(item) });
   const filteredRoles = roles!.filter((r: any) => r.name !== 'Admin').map(addPk(getRolePk));
   const filteredPermissions = permissions!.filter((p: any) => p.id).map(addPk(getPermissionPk));
   const filteredRelations = relations!.filter((r: any) => !r.system).map(addPk(getRelationPk));
+
+  const niceFields = groupBy(filteredFields, (field: any) => field.collection);
+  console.log(niceFields);
 
   const data = {
     collections: filteredCollections,
