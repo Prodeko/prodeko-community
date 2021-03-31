@@ -8,6 +8,8 @@ const {
   // Available in github actions CI pipeline
   GITHUB_SHA,
 } = process.env;
+process.env.SENTRY_DSN = SENTRY_DSN;
+
 const withTM = require('next-transpile-modules')(['@directus/sdk-js']);
 
 module.exports = withTM({
