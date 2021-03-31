@@ -3,16 +3,18 @@
 # play along nicely.
 
 ifneq (,$(wildcard ./.env))
-    include .env
+	include .env
 	export $(shell sed 's/=.*//' .env)
 endif
 
 COMPOSE = docker-compose -f docker-compose.yml -f docker-compose.${ENV}.yml
 
 ifeq ($(ENV),"dev")
-	RUN = $(COMPOSE) up --build
+	RUN = $(COMPOSE) up --build -d
+else ifeq($(ENV), "stag")
+	RUN = $(COMPOSE) up --build -d
 else
-	RUN = $(COMPOSE) up
+	RUN = $(COMPOSE) up -d
 endif
 
 # Default for `make` without any args
@@ -27,9 +29,9 @@ install:
 # Seeds the database with initial Directus data so that we don't have to start
 # the CMS from scratch every time.
 initial-setup:
-	$(COMPOSE) up -d database
+	$(COMPOSE) up -d seminar_database
 	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
-	cat ./directus/seed.sql | docker-compose exec -T database psql -U ${DB_USER} -d ${DB_DATABASE}
+	cat ./directus/seed.sql | docker-compose exec -T seminar_database psql -U ${DB_USER} -d ${DB_DATABASE}
 
 # Run a bunch of other scripts to complete setup. Should only be run on initial
 # setup of the local codebase.
@@ -37,7 +39,7 @@ setup: install initial-setup run-backend apply-migrations kill
 
 # Builds the production version of frontend (assuming .env vars set correctly)
 build: run-backend
-	$(COMPOSE) build --no-cache web
+	$(COMPOSE) build --no-cache seminar_web
 
 # Helper for being sure CMS migrations contain only wanted changes
 diff-migrations:
@@ -63,12 +65,12 @@ run:
 # Helper for making sure CMS (API) and database are up for static frontend
 # builds et cetera
 run-backend:
-	$(COMPOSE) up -d database directus
+	$(COMPOSE) up -d seminar_database seminar_cms
 	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT},${API_HOST}:${API_PORT}
 
 # Shut down all project containers
 kill:
-	docker-compose kill database directus web
+	docker-compose kill seminar_database seminar_cms seminar_web
 
 # This should be run on production server on each new push to the deployed
 # branch. Kills the old instance, applies migrations, builds and then runs
