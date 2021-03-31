@@ -1,16 +1,10 @@
 /// <reference types="./types" />
 
-import DirectusSDK from '@directus/sdk-js';
 import * as dotenv from 'dotenv';
 import fs from 'fs';
 import diff from 'diff-arrays-of-objects';
 
 dotenv.config();
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const directus = new DirectusSDK(API_URL as string);
-directus.auth.token = process.env.ADMIN_TOKEN as string;
 
 (async () => {
   console.log('Diffing data migrations...\n');

@@ -5,12 +5,11 @@ import { groupBy } from '../src/utils/groupBy';
 
 dotenv.config();
 
-const token = process.env.ADMIN_TOKEN;
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 const email = process.env.ADMIN_EMAIL as string;
 const password = process.env.ADMIN_PASSWORD as string;
 
-const directus = new DirectusSDK(process.env.NEXT_PUBLIC_API_URL as string);
-// directus.auth.token = process.env.ADMIN_TOKEN as string;
+const directus = new DirectusSDK(API_URL);
 
 const getCollectionPk = (collection: any) => collection.collection;
 const getRelationPk = (relation: any) => relation.id;

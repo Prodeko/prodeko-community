@@ -7,7 +7,7 @@ import diff from 'diff-arrays-of-objects';
 
 dotenv.config();
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 const email = process.env.ADMIN_EMAIL as string;
 const password = process.env.ADMIN_PASSWORD as string;
 
@@ -15,8 +15,7 @@ const password = process.env.ADMIN_PASSWORD as string;
 const getPostEndpoint = (collection: string, itemCollection: any) =>
   collection === 'fields' ? `fields/${itemCollection}` : collection;
 
-const directus = new DirectusSDK(API_URL as string);
-// directus.auth.token = process.env.ADMIN_TOKEN as string;
+const directus = new DirectusSDK(API_URL);
 
 (async () => {
   await directus.auth.login({ email, password });
