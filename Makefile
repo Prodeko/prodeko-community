@@ -1,29 +1,34 @@
 ifneq (,$(wildcard ./.env))
     include .env
-    export $(cat .env | sed 's/\"//g')
+	export $(shell sed 's/=.*//' .env)
 endif
 
-COMPOSE_PROD := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
-COMPOSE_DEV := docker-compose -f docker-compose.yml -f docker-compose.dev.yml
+COMPOSE = docker-compose -f docker-compose.yml -f docker-compose.${ENV}.yml
+
+ifeq ($(ENV),"dev")
+	RUN = $(COMPOSE) up --build
+else
+	RUN = $(COMPOSE) up
+endif
 
 all: build run
+
+envtest:
+	echo ${COMPOSE}
 
 install:
 	npm install
 	npm run build:extensions
 
 initial-setup:
-	$(COMPOSE_PROD) up -d database
-	$(COMPOSE_PROD) run wait -c database:5432
+	$(COMPOSE) up -d database
+	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
 	cat ./directus/seed.sql | docker-compose exec -T database psql -U ${DB_USER} -d ${DB_DATABASE}
 
+setup: install initial-setup run-backend apply-migrations kill
+
 build: run-backend
-	$(COMPOSE_PROD) build --no-cache web
-
-setup: install initial-setup apply-migrations build kill
-
-dev:
-	$(COMPOSE_DEV) up --build
+	$(COMPOSE) build --no-cache web
 
 diff-migrations:
 	npm run migrate:generate
@@ -37,12 +42,15 @@ apply-migrations:
 	npm run migrate:generate
 	npm run migrate:apply
 
+dev:
+	$(COMPOSE) up --build
+
 run:
-	$(COMPOSE_PROD) up
+	$(RUN)
 
 run-backend:
-	$(COMPOSE_PROD) up -d database directus
-	$(COMPOSE_PROD) run wait -c database:5432,directus:8055
+	$(COMPOSE) up -d database directus
+	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT},${SERVER_API_URL}
 
 kill:
 	docker-compose kill database directus web

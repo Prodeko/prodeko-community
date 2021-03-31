@@ -2,6 +2,16 @@
 
 TODO: docs
 
+## Setup
+
+1. Make sure you have `docker-compose`, `make` and `npm` available in `$PATH`
+2. Set up the `env` files:
+   - If you want to set up the production build locally, copy `env.example` to `
+
+## Scripts
+
+Project management is conducted mainly via `./Makefile`.
+
 ## Migrations
 
 Directus doesn't yet support proper schema migrations ([relevant GH discussion](https://github.com/directus/directus/discussions/3891)), but we really want to be able to version our admin UI and data structures. The `./scripts` folder contains just that!
