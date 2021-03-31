@@ -15,7 +15,7 @@ export const init = () => {
         new RewriteFrames({
           iteratee: (frame) => {
             frame.filename = frame?.filename?.replace(
-              process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR,
+              process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR!,
               'app:///'
             )
             frame.filename = frame?.filename?.replace('.next', '_next')
