@@ -7,15 +7,21 @@ services:
   directus:
     ports:
       - 8055:8055
+    networks:
+      - prodeko-seminar
 
   web:
     container_name: prodeko-seminar-web
     build:
-      network: prodeko-seminar_prodeko-docker-net
+      network: prodeko-seminar_prodeko-seminar
     ports:
       - 3000:3000
+    networks:
+      - prodeko-seminar
+
+  wait:
+    networks:
+      - prodeko-seminar
 
 networks:
-  default:
-    external:
-      name: prodeko-docker-net
+  prodeko-seminar:
