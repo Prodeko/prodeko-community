@@ -7,7 +7,7 @@ services:
   seminar_web:
     container_name: prodeko-seminar-web
     build:
-      network: prodeko-seminar_prodeko-docker-net
+      network: prodeko-docker-net
     ports:
       - 3000:3000
 
