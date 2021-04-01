@@ -4,6 +4,7 @@ import DirectusSDK from '@directus/sdk-js';
 import * as dotenv from 'dotenv';
 import fs from 'fs';
 import diff from 'diff-arrays-of-objects';
+import { generateGroupedData } from './utils';
 
 const envConfig = dotenv.parse(fs.readFileSync('.env'));
 for (const k in envConfig) {
@@ -30,15 +31,31 @@ const directus = new DirectusSDK(API_URL);
   const oldDataString = fs.readFileSync('./directus/schema.current.json', 'utf-8');
   const oldData = JSON.parse(oldDataString);
 
-  for (const [collection, data] of Object.entries(newData)) {
+  const dataToApply = generateGroupedData(oldData, newData);
+
+  for (const [collection, data] of Object.entries(dataToApply)) {
     console.log(`Diffing ${collection}...`);
     const diffResult = diff(oldData[collection], data as any, 'pk');
 
+    if (diffResult.removed.length) {
+      console.log(`Found ${diffResult.removed.length} deleted items in ${collection}`);
+      console.log('Applying changes...');
+      for (const item of diffResult.removed as any[]) {
+        const pk = item.pk;
+        console.log(`Deleted: ${item.pk}`);
+        delete item.pk;
+        await directus.axios
+          .delete(`${API_URL}/${collection}/${pk}`, item)
+          .catch((e: any) => console.log(e.response.data));
+      }
+      console.log('Done.');
+    }
     if (diffResult.added.length) {
       console.log(`Found ${diffResult.added.length} new items in ${collection}`);
       console.log('Applying changes...');
       for (const item of diffResult.added as any[]) {
         const itemCollection = item.collection;
+        console.log(`Added: ${item.pk}`);
         delete item.pk;
         await directus.axios
           .post(`${API_URL}/${getPostEndpoint(collection, itemCollection)}`, item)
@@ -51,24 +68,13 @@ const directus = new DirectusSDK(API_URL);
       console.log('Applying changes...');
       for (const item of diffResult.updated as any[]) {
         const pk = item.pk;
+        console.log(`Updated: ${item.pk}`);
         delete item.pk;
         await directus.axios
           .patch(`${API_URL}/${collection}/${pk}`, item)
           .catch((e: any) => console.log(e.response.data));
       }
       console.log('Done.');
-    }
-    if (diffResult.removed.length) {
-      console.log(`Found ${diffResult.removed.length} deleted items in ${collection}`);
-      console.log('Applying changes...');
-      for (const item of diffResult.removed as any[]) {
-        const pk = item.pk;
-        delete item.pk;
-        await directus.axios
-          .delete(`${API_URL}/${collection}/${pk}`, item)
-          .catch((e: any) => console.log(e.response.data));
-      }
-      console.log('Done.\n');
     }
     if (diffResult.same.length === (data as any).length) {
       console.log('No changes found.');

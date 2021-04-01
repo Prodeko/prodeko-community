@@ -68,6 +68,16 @@ apply-migrations:
 	npm run migrate:generate
 	npm run migrate:apply
 
+# Used for migration restoration
+swap-migrations:
+	mv ./directus/schema.json ./directus/schema.swap.json && \
+	mv ./directus/schema.previous.json ./directus/schema.json && \
+	mv ./directus/schema.swap.json ./directus/schema.previous.json
+
+# An attempt to undo changes caused by a migration. This should not be relied
+# upon, as changing database fields is often destructive
+restore-migrations: swap-migrations diff-migrations
+
 # Runs the project in either dev or prod mode, depending on .env variables
 run:
 	$(RUN)
