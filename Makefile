@@ -9,16 +9,26 @@ endif
 
 COMPOSE = docker-compose -f docker-compose.yml -f docker-compose.${ENV}.yml
 
-ifeq ($(ENV),dev)
-	RUN = $(COMPOSE) up --build
-else ifeq($(ENV), stag)
-	RUN = $(COMPOSE) up
-else
+# Depending on the env, customize the commands being run
+ifeq ($(ENV),prod)
 	RUN = $(COMPOSE) up -d
+else
+	# stag, dev
+	ifeq ($(ENV), dev)
+		RUN = $(COMPOSE) up --build
+	else
+		RUN = $(COMPOSE) up
+	endif
+	SEED = cat ./directus/seed.sql | docker-compose exec -T seminar_database psql -U ${DB_USER} -d ${DB_DATABASE}
+	WAIT = $(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
+	DATABASE = $(COMPOSE) up -d seminar_database
 endif
 
 # Default for `make` without any args
 all: run
+
+env-test:
+	echo $(NEXT_PUBLIC_API_URL)
 
 # We want to build custom Directus extensions on install too
 install:
@@ -29,9 +39,9 @@ install:
 # Seeds the database with initial Directus data so that we don't have to start
 # the CMS from scratch every time.
 initial-setup:
-	$(COMPOSE) up -d seminar_database
-	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
-	cat ./directus/seed.sql | docker-compose exec -T seminar_database psql -U ${DB_USER} -d ${DB_DATABASE}
+	$(DATABASE)
+	$(WAIT)
+	$(SEED)
 
 # Run a bunch of other scripts to complete setup. Should only be run on initial
 # setup of the local codebase.
@@ -65,8 +75,9 @@ run:
 # Helper for making sure CMS (API) and database are up for static frontend
 # builds et cetera
 run-backend:
-	$(COMPOSE) up -d seminar_database seminar_cms
-	$(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT},${API_HOST}:${API_PORT}
+	$(DATABASE)
+	$(COMPOSE) up -d seminar_cms
+	$(WAIT)
 
 # Shut down all project containers
 kill:
