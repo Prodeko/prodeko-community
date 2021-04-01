@@ -9,10 +9,10 @@ endif
 
 COMPOSE = docker-compose -f docker-compose.yml -f docker-compose.${ENV}.yml
 
-ifeq ($(ENV),"dev")
-	RUN = $(COMPOSE) up --build -d
-else ifeq($(ENV), "stag")
-	RUN = $(COMPOSE) up --build -d
+ifeq ($(ENV),dev)
+	RUN = $(COMPOSE) up --build
+else ifeq($(ENV), stag)
+	RUN = $(COMPOSE) up
 else
 	RUN = $(COMPOSE) up -d
 endif
