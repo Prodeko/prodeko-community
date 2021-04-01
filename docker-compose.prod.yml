@@ -1,5 +1,9 @@
 version: '3.4'
 services:
+  seminar_cms:
+    ports:
+      - 8055:8055
+
   seminar_web:
     container_name: prodeko-seminar-web
     build:
