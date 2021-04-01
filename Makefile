@@ -10,11 +10,15 @@ endif
 COMPOSE = docker-compose -f docker-compose.yml -f docker-compose.${ENV}.yml
 
 # Depending on the env, customize the commands being run
-ifeq ($(ENV),"prod")
+ifeq ($(ENV),prod)
 	RUN = $(COMPOSE) up -d
 else
 	# stag, dev
-	RUN = $(COMPOSE) up --build -d
+	ifeq ($(ENV), dev)
+		RUN = $(COMPOSE) up --build
+	else
+		RUN = $(COMPOSE) up
+	endif
 	SEED = cat ./directus/seed.sql | docker-compose exec -T seminar_database psql -U ${DB_USER} -d ${DB_DATABASE}
 	WAIT = $(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
 	DATABASE = $(COMPOSE) up -d seminar_database
