@@ -3,11 +3,12 @@ services:
   seminar_cms:
     ports:
       - 8055:8055
+    restart: unless-stopped
 
   seminar_web:
-    container_name: prodeko-seminar-web
     build:
       network: prodeko-docker-net
+    restart: unless-stopped
 
 networks:
   default:
