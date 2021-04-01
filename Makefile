@@ -99,4 +99,4 @@ kill:
 
 # This should be run on production server on each new push to the deployed
 # branch. Kills the old instance, applies migrations, builds and then runs
-deploy:	kill install run-backend apply-migrations build run
+deploy:	install run-backend apply-migrations build run
