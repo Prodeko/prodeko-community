@@ -1,6 +1,6 @@
 version: '3.4'
 services:
-  database:
+  seminar_database:
     container_name: prodeko-seminar-database
     image: postgres:12
     volumes:
@@ -8,24 +8,24 @@ services:
     env_file:
       - .env
 
-  directus:
+  seminar_cms:
     container_name: prodeko-seminar-cms
     image: directus/directus:v9.0.0-rc.51
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
     depends_on:
-      - database
+      - seminar_database
     env_file:
       - .env
 
-  web:
+  seminar_web:
     container_name: prodeko-seminar-web
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - directus
+      - seminar_cms
     env_file:
       - .env
 
