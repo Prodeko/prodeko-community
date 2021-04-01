@@ -1,7 +1,6 @@
 import DirectusSDK from '@directus/sdk-js';
 import * as dotenv from 'dotenv';
 import fs from 'fs';
-import { groupBy } from '../src/utils/groupBy';
 
 const envConfig = dotenv.parse(fs.readFileSync('.env'));
 for (const k in envConfig) {
@@ -53,32 +52,11 @@ const addPk = (func: any) => (item: any) => ({ ...item, pk: func(item) });
   const filteredPermissions = permissions?.filter((p: any) => p.id).map(addPk(getPermissionPk));
   const filteredRelations = relations?.filter((r: any) => !r.system).map(addPk(getRelationPk));
 
-  const groupedFields = groupBy(filteredFields, (field: any) => field.collection);
-
-  const dangerousTypes = ['translations', 'alias', 'o2m', 'm2m', 'm2a'];
-  const dangerousFilter = (field: any) =>
-    dangerousTypes.includes(field.type) || field.collection === 'languages';
-
-  const dangerousFields = filteredFields?.filter(dangerousFilter);
-
-  const collectionsWithFields = filteredCollections?.map((collection: any) => ({
-    ...collection,
-    fields: groupedFields[collection.collection]?.filter((field: any) => !dangerousFilter(field)),
-  }));
-
-  const sortedCollections = collectionsWithFields
-    .sort((a: any, b: any) => (b.collection.includes('translations') ? 1 : -1))
-    .sort((a: any, b: any) => (b.collection === 'languages' ? 1 : -1));
-
-  const systemExtensionFields = Object.entries(groupedFields)
-    ?.filter(([key]) => key.startsWith('directus'))
-    .flatMap(([key, fields]) => fields);
-
   const data = {
-    collections: collectionsWithFields,
+    collections: filteredCollections,
     roles: filteredRoles,
     permissions: filteredPermissions,
-    fields: [...systemExtensionFields, ...dangerousFields],
+    fields: filteredFields,
     relations: filteredRelations,
   };
 
