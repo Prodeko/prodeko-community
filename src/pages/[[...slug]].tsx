@@ -14,7 +14,6 @@ import {
 } from 'types';
 import { getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
-import { Footer } from 'components/Footer';
 import { Navbar } from 'components/Navbar';
 import { Head } from 'components/Head';
 
@@ -114,10 +113,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
         <Navbar />
         {pageMeta}
         <AnimateSharedLayout>
-          <AnimatePresence exitBeforeEnter>
-            {pageComponent}
-            <Footer />
-          </AnimatePresence>
+          <AnimatePresence exitBeforeEnter>{pageComponent}</AnimatePresence>
         </AnimateSharedLayout>
       </LazyMotion>
     </GlobalContext.Provider>

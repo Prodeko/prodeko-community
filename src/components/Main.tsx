@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { m } from 'framer-motion';
 
 import { mainTransitions } from 'components/transitionConfigs';
+import { Footer } from 'components/Footer';
 
 /**
  * Wrapper for main content of page, utilizing CSS grid lines
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Layout_using_Named_Grid_Lines
  */
-export const Main = styled(m.main).attrs({
+const MainWrapper = styled(m.main).attrs({
   initial: 'initial',
   animate: 'enter',
   exit: 'exit',
@@ -25,6 +26,19 @@ export const Main = styled(m.main).attrs({
     grid-column: content;
   }
 
-  // Ensure page always takes up full height
-  margin-bottom: auto;
+  & > footer {
+    grid-column: main;
+  }
+
+  min-height: 100%;
 `;
+
+export const Main: React.FC<React.ComponentProps<typeof MainWrapper>> = ({
+  children,
+  ...props
+}) => (
+  <MainWrapper {...props}>
+    {children}
+    <Footer />
+  </MainWrapper>
+);
