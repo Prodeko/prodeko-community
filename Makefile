@@ -53,7 +53,7 @@ setup: install initial-setup run-backend apply-migrations kill
 
 # Builds the production version of frontend (assuming .env vars set correctly)
 build: run-backend
-	$(COMPOSE) build --no-cache seminar_web
+	$(COMPOSE) build seminar_web
 
 # Helper for being sure CMS migrations contain only wanted changes
 diff-migrations:
