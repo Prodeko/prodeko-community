@@ -13,6 +13,7 @@ import { TextLink } from 'components/TextLink';
 import { ProfileButton } from 'components/Navbar/ProfileButton';
 import { slugify } from 'utils/slugify';
 import { containerTransitions, itemTransitionDown } from 'components/transitionConfigs';
+import { SrOnly } from 'components/SrOnly';
 
 /**
  * The order of nav bar links is currently determined by the order of API calls
@@ -56,6 +57,7 @@ export const Navbar: React.FC = () => {
         <MenuButton onClick={toggleIsOpen} aria-expanded={isOpen}>
           {isOpen && <CrossIcon />}
           {!isOpen && <MenuIcon />}
+          <SrOnly>Menu</SrOnly>
         </MenuButton>
 
         <LogoImageLink href={slugify(routes[language][0].slug)} logo={logo} />
@@ -72,13 +74,15 @@ export const Navbar: React.FC = () => {
                 key={route.slug}
               >
                 <Link href={slugify(route.slug)} passHref>
-                  <TextLink aria-current={route.slug === currentSlug}>{route.title}</TextLink>
+                  <TextLink aria-current={route.slug === currentSlug} tabIndex={isOpen ? 0 : -1}>
+                    {route.title}
+                  </TextLink>
                 </Link>
               </m.li>
             ))}
           </MobileNavLinks>
 
-          <LanguageSwitcher />
+          <LanguageSwitcher focusable={isOpen} />
         </MenuPanel>
       </MobileWrapper>
     </NavbarWrapper>
@@ -87,7 +91,7 @@ export const Navbar: React.FC = () => {
 
 const LogoImageLink: React.FC<{ href: string; logo: string }> = ({ href, logo }) => (
   <Link href={href} passHref>
-    <LogoLink variants={itemTransitionDown}>
+    <LogoLink variants={itemTransitionDown} aria-hidden tabIndex={-1}>
       <Image src={logo} alt="" layout="fill" objectFit="contain" />
     </LogoLink>
   </Link>

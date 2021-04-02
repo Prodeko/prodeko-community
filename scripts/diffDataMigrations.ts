@@ -29,9 +29,13 @@ dotenv.config();
     }
     if (diffResult.updated.length) {
       console.log(`Found ${diffResult.updated.length} updated items in ${collection}:`);
-      console.log(diffResult.updated);
       const olds = getMatchingCollections(diffResult.updated, oldData[collection]);
-      console.log(diffResult.updated.map((updated: any, i) => detailedDiff(olds[i], updated)));
+      console.log(
+        diffResult.updated.map((updated: any, i) => ({
+          ...(detailedDiff(olds[i], updated) as any).updated,
+          pk: updated.pk,
+        }))
+      );
     }
     if (diffResult.removed.length) {
       console.log(`Found ${diffResult.removed.length} deleted items in ${collection}:`);

@@ -9,6 +9,7 @@ import { TextLink } from 'components/TextLink';
 import { FiUser } from 'react-icons/fi';
 import { itemTransitionDown } from 'components/transitionConfigs';
 import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
+import { SrOnly } from 'components/SrOnly';
 
 export const ProfileButton: React.FC = ({ children, ...rest }) => {
   const { user, loginUrl, logout } = useAuth();
@@ -17,7 +18,7 @@ export const ProfileButton: React.FC = ({ children, ...rest }) => {
   const closeModal = () => setModalOpen(false);
 
   const { language, commonData } = useGlobalContext();
-  const { log_out_link_text } = commonData.translations[language];
+  const { log_out_link_text, profile_button_alt_text } = commonData.translations[language];
 
   const onLogout = () => {
     logout();
@@ -34,9 +35,15 @@ export const ProfileButton: React.FC = ({ children, ...rest }) => {
         key="profileButton"
       >
         {user ? (
-          <ProfileImage src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
+          <>
+            <ProfileImage src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
+            <SrOnly>{profile_button_alt_text}</SrOnly>
+          </>
         ) : (
-          '?'
+          <>
+            <span aria-hidden>?</span>
+            <SrOnly>{profile_button_alt_text}</SrOnly>
+          </>
         )}
       </ProfileButtonWrapper>
 

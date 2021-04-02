@@ -73,6 +73,7 @@ export type CommonData = {
     log_in_link_text: string;
     log_out_link_text: string;
     my_info_link_text: string;
+    profile_button_alt_text: string;
 
     alumni_link_text: string;
     department_link_text: string;

@@ -30,6 +30,7 @@ export const Footer: React.FC = () => {
     <FooterWrapper initial="initial" animate="enter" variants={containerTransitions}>
       <LogoLink href={prodeko_link}>
         <Image src={prodeko_logo} alt="" layout="fill" objectFit="contain" />
+        <SrOnly>Prodeko</SrOnly>
       </LogoLink>
 
       <StyledTextLink href={alumni_link}>{alumni_link_text}</StyledTextLink>
