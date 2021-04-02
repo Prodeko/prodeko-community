@@ -9,6 +9,7 @@ import {
   parseFrontPageData,
   parseInfoPageData,
   parseUser,
+  parseArticle,
 } from 'api/parsers';
 import {
   AuthenticationResponse,
@@ -79,8 +80,7 @@ type Query = {
 function createDataFetcher<T>(collection: string, query: Query, parse: (data: any) => T) {
   return async () => {
     const { data } = await directus.items(collection).read(query);
-    const parsedData = parse(data);
-    return parsedData;
+    return parse(data);
   };
 }
 
@@ -107,6 +107,11 @@ const articlesQuery = {
   ],
 };
 const getArticles = createDataFetcher('articles', articlesQuery, parseArticles);
+
+export const getArticleFetcher = (id: number) => async () => {
+  const { data } = await directus.items('articles').read(id, articlesQuery);
+  return parseArticle(data);
+};
 
 const frontPageQuery = {
   ...commonDataQuery,

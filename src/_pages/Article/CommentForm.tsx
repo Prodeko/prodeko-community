@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { mutate } from 'swr';
 import styled from 'styled-components';
 import { AnimatePresence, m } from 'framer-motion';
 import ReactQuill from 'react-quill';
@@ -11,9 +12,10 @@ import { useGlobalContext } from 'api/globalContext';
 import { PillButton } from '_pages/Article/PillButton';
 import { FiEdit, FiSend, FiX } from 'react-icons/fi';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import { Article } from 'types';
 
 type CommentFormProps = {
-  articleId: number;
+  article: Article;
   parentComment?: number;
 };
 
@@ -27,7 +29,7 @@ const quillModules = {
   ],
 };
 
-export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComment }) => {
+export const CommentForm: React.FC<CommentFormProps> = ({ article, parentComment }) => {
   const router = useRouter();
   const { language, commonData } = useGlobalContext();
   const [formOpen, setFormOpen] = useState(false);
@@ -46,17 +48,42 @@ export const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentComme
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const { data } = await createComment({
-      article: articleId,
+
+    const newComment = {
+      article: article.id,
       parent_comment: parentComment,
       body: value,
-    });
-    if (data) {
-      // Refreshes static props of the page, thanks Josh!
-      // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
-      router.replace(router.asPath, undefined, { scroll: false });
-      onClose();
+    };
+
+    let updatedArticleData;
+    if (parentComment) {
+      // Append comment as a subcomment and display data to user immediately
+      const parent = article.comments.find((comment) => comment.id === parentComment)!;
+      const rest = article.comments.filter((comment) => comment.id !== parentComment);
+      updatedArticleData = {
+        ...article,
+        comments: [...rest, { ...parent, subcomments: [...parent.subcomments] }].sort(
+          (a, b) => new Date(a.date_created).getTime() - new Date(b.date_created).getTime()
+        ),
+      };
+    } else {
+      updatedArticleData = {
+        ...article,
+        comments: [
+          ...article.comments,
+          { ...newComment, user_created: user!, date_created: new Date().toUTCString() },
+        ],
+      };
     }
+
+    // Update local data with the new comment first, then actually call the API
+    // to create the new comment, and lastly revalidate the data by fetching it
+    // from the API
+    mutate(`articles/${article.id}`, updatedArticleData, false);
+    await createComment(newComment);
+    mutate(`articles/${article.id}`);
+
+    onClose();
   };
 
   const onClose = () => {

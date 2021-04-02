@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { AnimatePresence, m } from 'framer-motion';
 
-import { Comment as CommentType } from 'types';
+import { Article, Comment as CommentType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { CommentForm } from '_pages/Article/CommentForm';
 import { itemTransitionDown } from 'components/transitionConfigs';
 import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 type CommentProps = {
+  article: Article;
   comment: CommentType;
 };
 
-export const Comment: React.FC<CommentProps> = ({ comment }) => {
+export const Comment: React.FC<CommentProps> = ({ comment, article }) => {
   const { commonData, language } = useGlobalContext();
   const { user_not_found } = commonData.translations[language];
 
@@ -43,15 +44,13 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
             <AnimatePresence>
               {comment.subcomments.map((comment) => (
                 <m.li key={comment.id} variants={itemTransitionDown} layout="position">
-                  <Comment comment={comment} key={comment.id} />
+                  <Comment comment={comment} article={article} key={comment.id} />
                 </m.li>
               ))}
             </AnimatePresence>
           </Subcomments>
         )}
-        {!comment.parent_comment && (
-          <CommentForm articleId={comment.article} parentComment={comment.id} />
-        )}
+        {!comment.parent_comment && <CommentForm article={article} parentComment={comment.id} />}
       </Contents>
     </Wrapper>
   );

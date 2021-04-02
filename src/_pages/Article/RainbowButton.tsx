@@ -1,32 +1,24 @@
+import React, { useState } from 'react';
+import { mutate } from 'swr';
+import { useRouter } from 'next/router';
+import styled, { css } from 'styled-components';
+
+import { Article } from 'types';
 import { likeArticle, unlikeArticle } from 'api';
 import { useAuth } from 'api/useAuth';
-import { RainbowIcon, RainbowIconGrayscale, AnimateIcon } from 'components/RainbowIcon';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
-import { Like } from 'types';
+import { RainbowIcon, AnimateIcon } from 'components/RainbowIcon';
 
 type RainbowButtonProps = React.ComponentPropsWithoutRef<'button'> & {
-  articleId: number;
-  likedBy: Like[];
+  article: Article;
 };
 
-export const RainbowButton: React.FC<RainbowButtonProps> = ({
-  likedBy,
-  articleId,
-  children,
-  ...props
-}) => {
+export const RainbowButton: React.FC<RainbowButtonProps> = ({ article, children, ...props }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
 
-  // Stop disabling the like button only after server has processed the change
-  // and sent it to client
-  useEffect(() => setLoading(false), [likedBy.length]);
-
   if (user) {
-    const userLike = likedBy.find((like) => like.directus_users_id === user.id);
+    const userLike = article.liked_by.find((like) => like.directus_users_id === user.id);
 
     const isPressed = !!userLike;
 
@@ -35,21 +27,32 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({
     if (!userLike) {
       onClick = async () => {
         setLoading(true);
-        const { data } = await likeArticle({
-          articles_id: articleId,
+        const newLike = {
+          articles_id: article.id,
           directus_users_id: user!.id,
-        });
-        if (data) {
-          // Refreshes static props of the page, thanks Josh!
-          // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
-          router.replace(router.asPath, undefined, { scroll: false });
-        }
+        };
+
+        const updatedArticleData = { ...article, liked_by: [...article.liked_by, newLike] };
+
+        // Update local data with the new comment first, then actually call the
+        // API to create the new comment, and lastly revalidate the data by
+        // fetching it from the API
+        mutate(`articles/${article.id}`, updatedArticleData, false);
+        await likeArticle(newLike);
+        mutate(`articles/${article.id}`).then(() => setLoading(false));
       };
     } else {
       onClick = async () => {
         setLoading(true);
+
+        const updatedArticleData = {
+          ...article,
+          liked_by: article.liked_by.filter((like) => like.id !== userLike.id),
+        };
+
+        mutate(`articles/${article.id}`, updatedArticleData, false);
         await unlikeArticle(userLike.id);
-        router.replace(router.asPath, undefined, { scroll: false });
+        mutate(`articles/${article.id}`).then(() => setLoading(false));
       };
     }
 

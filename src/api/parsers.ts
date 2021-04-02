@@ -95,7 +95,7 @@ const parseAuthor = (data: any): Author => ({
   translations: parseTranslationData(data.translations),
 });
 
-const parseArticle = (data: any): Article => ({
+export const parseArticle = (data: any): Article => ({
   ...data,
   author: data.author ? parseAuthor(data.author) : null,
   photo: parseImageUrl(data.photo),

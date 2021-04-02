@@ -19,15 +19,25 @@ import { CommentForm } from '_pages/Article/CommentForm';
 import { Comment } from '_pages/Article/Comment';
 import { RainbowButton } from '_pages/Article/RainbowButton';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import useSWR from 'swr';
+import { getArticleFetcher } from 'api';
 
 type ArticleProps = {
   article: ArticleType;
 };
 
-export const Article: NextPage<ArticleProps> = ({ article }) => {
+export const Article: NextPage<ArticleProps> = (props) => {
+  // We need to be able to dynamically update the article on changes to comments
+  // or likes
+  const { data } = useSWR(`articles/${props.article.id}`, getArticleFetcher(props.article.id), {
+    initialData: props.article,
+  });
+  // Safe assertion as we know the data exists when we get to this page at all
+  const article = data!;
+
   const { language, commonData } = useGlobalContext();
   const { user, loginUrl } = useAuth();
-  const { title, body, ingress, tagline } = article.translations[language];
+  const { title, body, ingress } = article.translations[language];
 
   const {
     like_count_text,
@@ -63,7 +73,7 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
 
             <Contents dangerouslySetInnerHTML={{ __html: body }} />
 
-            <RainbowButton articleId={article.id} likedBy={article.liked_by}>
+            <RainbowButton article={article}>
               {article.liked_by.length} {like_count_text}
             </RainbowButton>
           </ArticleBody>
@@ -86,13 +96,13 @@ export const Article: NextPage<ArticleProps> = ({ article }) => {
                 ?.filter((comment) => comment.parent_comment === null)
                 .map((comment) => (
                   <m.li key={comment.id} variants={itemTransitionDown} layout="position">
-                    <Comment comment={comment} key={comment.id} />
+                    <Comment comment={comment} article={article} key={comment.id} />
                   </m.li>
                 ))}
             </AnimatePresence>
           </CommentsList>
 
-          <CommentForm articleId={article.id} />
+          <CommentForm article={article} />
         </Comments>
       </ContentsWrapper>
     </Main>
