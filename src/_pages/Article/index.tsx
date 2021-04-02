@@ -81,7 +81,7 @@ export const Article: NextPage<ArticleProps> = (props) => {
           {article.author && <Author author={article.author} />}
         </ArticleWrapper>
 
-        <Comments layout>
+        <Comments layout="position">
           <CommentsTitle>{comment_section_title}</CommentsTitle>
 
           {!user && (
