@@ -91,7 +91,6 @@ const RainbowButtonWrapper = styled.button<{ loading?: boolean }>`
   font-weight: 600;
   color: var(--gray-dark);
   background-color: unset;
-  outline: none;
   transition: color 0.5s ease;
 
   &[aria-pressed='true'] {

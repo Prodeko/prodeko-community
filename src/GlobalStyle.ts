@@ -78,6 +78,10 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  button:focus:not(:focus-visible) {
+    outline: none;
+  }
+
   fieldset {
     border: none;
     padding: 0;

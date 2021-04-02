@@ -51,6 +51,10 @@ export const ProfileModal = styled(ModalAdapter).attrs({
     background-color: var(--white);
     box-shadow: var(--dark-shadow);
 
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+
     & > * + * {
       margin-top: var(--spacing-regular);
     }
