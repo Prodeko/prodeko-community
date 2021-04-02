@@ -1,13 +1,18 @@
 version: '3.4'
 services:
+  seminar_database:
+    network_mode: host
+
   seminar_cms:
-    ports:
-      - 8055:8055
+    network_mode: host
 
   seminar_web:
     build:
       dockerfile: Dockerfile.dev
+      network: host
     volumes:
       - ./:/usr/src/app
-    ports:
-      - 3000:3000
+    network_mode: host
+
+  wait:
+    network_mode: host

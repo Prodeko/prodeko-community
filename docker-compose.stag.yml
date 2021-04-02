@@ -1,27 +1,15 @@
 version: '3.4'
 services:
   seminar_database:
-    networks:
-      - prodeko-seminar
+    network_mode: host
 
   seminar_cms:
-    ports:
-      - 8055:8055
-    networks:
-      - prodeko-seminar
+    network_mode: host
 
   seminar_web:
-    container_name: prodeko-seminar-web
     build:
-      network: prodeko-seminar_prodeko-seminar
-    ports:
-      - 3000:3000
-    networks:
-      - prodeko-seminar
+      network: host
+    network_mode: host
 
   wait:
-    networks:
-      - prodeko-seminar
-
-networks:
-  prodeko-seminar:
+    network_mode: host
