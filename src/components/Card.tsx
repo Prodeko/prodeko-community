@@ -80,6 +80,8 @@ const Wrapper = styled.div`
   }
   &:hover,
   &:hover img {
+    // We need !important for these to apply even with Framer Motion's entering/
+    // exiting animations
     transform: scale(1.02) !important;
   }
 

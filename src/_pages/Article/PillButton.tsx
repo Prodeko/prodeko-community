@@ -30,6 +30,8 @@ const buttonBase = css`
   align-items: center;
   padding: 0.4em 0.9em;
 
+  transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s;
+
   & > svg {
     margin-right: 0.5em;
     font-size: 1.2em;
@@ -39,6 +41,15 @@ const buttonBase = css`
     color: var(--gray-light);
     background-color: var(--gray-lighter);
     box-shadow: none;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
   }
 `;
 
