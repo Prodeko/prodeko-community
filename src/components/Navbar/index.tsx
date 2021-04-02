@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
         </NavLinks>
 
         <RightGroup>
-          <LanguageSwitcher />
+          <LanguageSwitcher focusable={isOpen} />
           <ProfileButton />
         </RightGroup>
       </DesktopWrapper>
