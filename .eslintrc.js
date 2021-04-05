@@ -38,7 +38,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
   rules: {
@@ -48,6 +47,8 @@ module.exports = {
     'react/display-name': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '_' }],
     'simple-import-sort/imports': 'error',
     'jsx-a11y/anchor-is-valid': [
       'error',
