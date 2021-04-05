@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { m } from 'framer-motion';
-
-import { mainTransitions } from 'components/transitionConfigs';
 import { Footer } from 'components/Footer';
+import { mainTransitions } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
+import styled from 'styled-components';
 
 /**
  * Wrapper for main content of page, utilizing CSS grid lines

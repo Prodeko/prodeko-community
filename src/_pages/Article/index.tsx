@@ -1,26 +1,24 @@
-import { NextPage } from 'next';
-import styled from 'styled-components';
-import { FiExternalLink } from 'react-icons/fi';
-import { AnimatePresence, m } from 'framer-motion';
-
-import { Article as ArticleType } from 'types';
-import { useGlobalContext } from 'api/globalContext';
-import { useAuth } from 'api/useAuth';
-
-import { Main as MainBase } from 'components/Main';
-import { TextLink } from 'components/TextLink';
-import { ArticleBody } from 'components/ArticleBody';
-import { BlogBanner } from '_pages/Article/BlogBanner';
 import { ArticleInfo } from '_pages/Article/ArticleInfo';
 import { Author } from '_pages/Article/Author';
-import { PodcastBanner } from '_pages/Article/PodcastBanner';
-import { VideoBanner } from '_pages/Article/VideoBanner';
-import { CommentForm } from '_pages/Article/CommentForm';
+import { BlogBanner } from '_pages/Article/BlogBanner';
 import { Comment } from '_pages/Article/Comment';
+import { CommentForm } from '_pages/Article/CommentForm';
+import { PodcastBanner } from '_pages/Article/PodcastBanner';
 import { RainbowButton } from '_pages/Article/RainbowButton';
-import { itemTransitionDown } from 'components/transitionConfigs';
-import useSWR from 'swr';
+import { VideoBanner } from '_pages/Article/VideoBanner';
 import { getArticleFetcher } from 'api';
+import { useGlobalContext } from 'api/globalContext';
+import { useAuth } from 'api/useAuth';
+import { ArticleBody } from 'components/ArticleBody';
+import { Main as MainBase } from 'components/Main';
+import { TextLink } from 'components/TextLink';
+import { itemTransitionDown } from 'components/transitionConfigs';
+import { AnimatePresence, m } from 'framer-motion';
+import { NextPage } from 'next';
+import { FiExternalLink } from 'react-icons/fi';
+import styled from 'styled-components';
+import useSWR from 'swr';
+import { Article as ArticleType } from 'types';
 
 type ArticleProps = {
   article: ArticleType;

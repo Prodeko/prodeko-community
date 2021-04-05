@@ -1,17 +1,16 @@
-import React from 'react';
+import { useGlobalContext } from 'api/globalContext';
+import { Card, CardList } from 'components/Card';
+import { Line } from 'components/Line';
+import { Main as MainBase } from 'components/Main';
+import { itemTransitionUp } from 'components/transitionConfigs';
+import { AnimatePresence, m } from 'framer-motion';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import React from 'react';
 import { FiChevronDown as DownIcon, FiChevronUp as UpIcon } from 'react-icons/fi';
-import { m, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-
-import { ArchivePageData, Article, ArticleType, ARTICLE_TYPES } from 'types';
-import { useGlobalContext } from 'api/globalContext';
-import { Main as MainBase } from 'components/Main';
-import { Line } from 'components/Line';
-import { Card, CardList } from 'components/Card';
+import styled from 'styled-components';
+import { ArchivePageData, Article, ARTICLE_TYPES, ArticleType } from 'types';
 import { groupBy } from 'utils/groupBy';
-import { itemTransitionUp } from 'components/transitionConfigs';
 
 /**
  * Currently supported sort orders, adding more requires a refactor to sort

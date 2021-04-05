@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
-import NextHead from 'next/head';
-
 import { useGlobalContext } from 'api/globalContext';
+import NextHead from 'next/head';
+import { useEffect } from 'react';
 import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 type HeadProps = {

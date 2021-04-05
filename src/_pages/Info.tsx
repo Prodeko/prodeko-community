@@ -1,14 +1,13 @@
-import { NextPage } from 'next';
-import styled from 'styled-components';
-import { m } from 'framer-motion';
-
-import { InfoPageData } from 'types';
 import { useGlobalContext } from 'api/globalContext';
-import { Main as MainBase } from 'components/Main';
 import { ArticleBody } from 'components/ArticleBody';
 import { Banner } from 'components/Banner';
 import { Line } from 'components/Line';
+import { Main as MainBase } from 'components/Main';
 import { itemTransitionUp } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
+import { NextPage } from 'next';
+import styled from 'styled-components';
+import { InfoPageData } from 'types';
 
 export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, translations }) => {
   const { language } = useGlobalContext();

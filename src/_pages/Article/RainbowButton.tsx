@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { mutate } from 'swr';
-import { useRouter } from 'next/router';
-import styled, { css } from 'styled-components';
-
-import { Article } from 'types';
 import { likeArticle, unlikeArticle } from 'api';
 import { useAuth } from 'api/useAuth';
-import { RainbowIcon, AnimateIcon } from 'components/RainbowIcon';
+import { AnimateIcon, RainbowIcon } from 'components/RainbowIcon';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { mutate } from 'swr';
+import { Article } from 'types';
 
 type RainbowButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   article: Article;
@@ -15,7 +13,6 @@ type RainbowButtonProps = React.ComponentPropsWithoutRef<'button'> & {
 export const RainbowButton: React.FC<RainbowButtonProps> = ({ article, children, ...props }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const router = useRouter();
 
   if (user) {
     const userLike = article.liked_by.find((like) => like.directus_users_id === user.id);
@@ -29,7 +26,7 @@ export const RainbowButton: React.FC<RainbowButtonProps> = ({ article, children,
         setLoading(true);
         const newLike = {
           articles_id: article.id,
-          directus_users_id: user!.id,
+          directus_users_id: user.id,
         };
 
         const updatedArticleData = { ...article, liked_by: [...article.liked_by, newLike] };

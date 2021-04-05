@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { m } from 'framer-motion';
-
 import { useGlobalContext } from 'api/globalContext';
 import { useAuth } from 'api/useAuth';
 import { ProfileModal } from 'components/Navbar/ProfileModal';
-import { TextLink } from 'components/TextLink';
-import { FiUser } from 'react-icons/fi';
-import { itemTransitionDown } from 'components/transitionConfigs';
-import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 import { SrOnly } from 'components/SrOnly';
+import { TextLink } from 'components/TextLink';
+import { itemTransitionDown } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
-export const ProfileButton: React.FC = ({ children, ...rest }) => {
+export const ProfileButton: React.FC = (props) => {
   const { user, loginUrl, logout } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
   const toggleModal = () => setModalOpen((prev) => !prev);
@@ -28,7 +26,7 @@ export const ProfileButton: React.FC = ({ children, ...rest }) => {
   return (
     <>
       <ProfileButtonWrapper
-        {...rest}
+        {...props}
         variants={itemTransitionDown}
         onClick={toggleModal}
         loggedIn={!!user}

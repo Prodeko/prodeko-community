@@ -1,24 +1,21 @@
-import { GetStaticPropsContext, InferGetStaticPropsType, GetStaticPaths } from 'next';
-import dynamic from 'next/dynamic';
-import { LazyMotion, domMax, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-
-import { ParsedUrlQuery } from 'querystring';
-
-import {
-  FrontPageData,
-  ArchivePageData,
-  InfoPageData,
-  Article,
-  LANGUAGES,
-  LanguageCode,
-} from 'types';
 import { getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
-import { Navbar } from 'components/Navbar';
 import { Head } from 'components/Head';
-
-import { truncateString } from 'utils/truncateString';
+import { Navbar } from 'components/Navbar';
+import { AnimatePresence, AnimateSharedLayout, domMax, LazyMotion } from 'framer-motion';
+import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import dynamic from 'next/dynamic';
+import { ParsedUrlQuery } from 'querystring';
+import {
+  ArchivePageData,
+  Article,
+  FrontPageData,
+  InfoPageData,
+  LanguageCode,
+  LANGUAGES,
+} from 'types';
 import { stripTags } from 'utils/stripTags';
+import { truncateString } from 'utils/truncateString';
 
 // Lazily load different page components for optimized js bundles
 const FrontPage = dynamic<FrontPageData>(() => import('_pages/Front').then((mod) => mod.Front), {
@@ -58,6 +55,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
 
   // Get the correct component to render with an immediately invoked function execution
   // Pick which meta tags to use as well
+  /* eslint-disable react/jsx-key */
   const [pageMeta, pageComponent] = (() => {
     switch (props.template) {
       case 'front':
@@ -89,6 +87,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
         ];
     }
   })();
+  /* eslint-enable react/jsx-key */
 
   // Generate all links to same content in different language to be passed into global
   // context and used in `LanguageSwitcher`

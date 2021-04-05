@@ -1,21 +1,20 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import styled from 'styled-components';
-import { m } from 'framer-motion';
-
-import { LANGUAGES } from 'types';
 import { useGlobalContext } from 'api/globalContext';
 import { TextLink } from 'components/TextLink';
-import { slugify } from 'utils/slugify';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import styled from 'styled-components';
+import { LANGUAGES } from 'types';
+import { slugify } from 'utils/slugify';
 
 export const LanguageSwitcher: React.FC<{ focusable: boolean }> = ({ focusable }) => {
   const { language, alternativeSlugs } = useGlobalContext();
   const { query } = useRouter();
   // We want to preserve query params other than the current route on language
   // switch so that switching works as expected with archive filters
-  const { slug, ...sluglessQuery } = query;
+  const { slug: _, ...sluglessQuery } = query;
 
   return (
     <LanguagesList variants={itemTransitionDown} key="languages">

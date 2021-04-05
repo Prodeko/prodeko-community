@@ -4,7 +4,7 @@
  * async methods to fulfill that need
  */
 export const asyncLocalStorage = {
-  setItem: async function (key: string, value: any) {
+  setItem: async function (key: string, value: string) {
     return localStorage.setItem(key, value);
   },
   getItem: async function (key: string) {

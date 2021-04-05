@@ -1,12 +1,13 @@
 import { GlobalStyle } from 'GlobalStyle';
 import { AppProps as NextAppProps } from 'next/app';
-import { init } from '../utils/sentry'
 
-init()
+import { init } from '../utils/sentry';
 
-type AppProps  = {
-  err: Error
-} & NextAppProps
+init();
+
+type AppProps = {
+  err: Error;
+} & NextAppProps;
 
 function App({ Component, pageProps, err }: AppProps) {
   return (

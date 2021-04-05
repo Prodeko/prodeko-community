@@ -10,5 +10,5 @@ export function getProductionAssetUrl(url: string) {
   const assetsIndex = urlParts.indexOf('assets');
   const assetParts = urlParts.slice(assetsIndex);
   const assetUrl = assetParts.join('/');
-  return `${PROD_API_URL}/${assetUrl}`;
+  return `${urlBase}/${assetUrl}`;
 }
