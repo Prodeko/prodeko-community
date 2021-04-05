@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
   const currentSlug = query.slug?.[0] || '';
 
   return (
-    <NavbarWrapper>
+    <NavbarWrapper ref={panelRef}>
       <DesktopWrapper initial="initial" animate="enter" variants={containerTransitions}>
         <LogoImageLink href={slugify(routes[language][0].slug)} logo={logo} />
 
@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
 
         <ProfileButton />
 
-        <MenuPanel aria-hidden={!isOpen} ref={panelRef}>
+        <MenuPanel aria-hidden={!isOpen}>
           <MobileNavLinks>
             {routes[language].map((route) => (
               <m.li
