@@ -9,7 +9,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { API_URL } from 'api/config';
+import { PROD_API_URL } from 'api/config';
 import {
   ArchivePageData,
   Article,
@@ -66,7 +66,8 @@ const parseTranslationData = (data: any[]) =>
  * Directus has a specialized assets endpoint, so we need to create custom urls
  * to utilize it
  */
-export const parseImageUrl = (imageId: string) => (imageId ? `${API_URL}/assets/${imageId}` : null);
+export const parseImageUrl = (imageId: string) =>
+  imageId ? `${PROD_API_URL}/assets/${imageId}` : null;
 
 export const parseUser = (data: any): User => ({
   ...data,
