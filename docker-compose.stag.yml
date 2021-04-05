@@ -1,12 +1,12 @@
 version: '3.4'
 services:
-  talks-database:
+  talks_database:
     network_mode: host
 
-  talks-cms:
+  talks_cms:
     network_mode: host
 
-  talks-web:
+  talks_web:
     build:
       network: host
     network_mode: host

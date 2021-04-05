@@ -1,11 +1,11 @@
 version: '3.4'
 services:
-  talks-cms:
+  talks_cms:
     ports:
       - 8055:8055
     restart: unless-stopped
 
-  talks-web:
+  talks_web:
     build:
       network: prodeko-docker-net
     restart: unless-stopped
