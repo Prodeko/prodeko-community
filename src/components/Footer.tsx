@@ -1,17 +1,16 @@
-import React from 'react';
+import { useGlobalContext } from 'api/globalContext';
+import { SrOnly } from 'components/SrOnly';
+import { TextLink } from 'components/TextLink';
+import { containerTransitions } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
 import Image from 'next/image';
-import styled from 'styled-components';
+import React from 'react';
 import {
   FiFacebook as FacebookIcon,
   FiInstagram as InstagramIcon,
   FiLinkedin as LinkedInIcon,
 } from 'react-icons/fi';
-import { m } from 'framer-motion';
-
-import { useGlobalContext } from 'api/globalContext';
-import { SrOnly } from 'components/SrOnly';
-import { TextLink } from 'components/TextLink';
-import { containerTransitions } from 'components/transitionConfigs';
+import styled from 'styled-components';
 
 export const Footer: React.FC = () => {
   const { language, commonData } = useGlobalContext();

@@ -1,12 +1,12 @@
 version: '3.4'
 services:
-  seminar_database:
+  talks-database:
     network_mode: host
 
-  seminar_cms:
+  talks-cms:
     network_mode: host
 
-  seminar_web:
+  talks-web:
     build:
       dockerfile: Dockerfile.dev
       network: host

@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { createGlobalState, useCookie } from 'react-use';
-
 import { directus, getAccessToken, getMe } from 'api';
-import { User } from 'types';
 import { API_URL } from 'api/config';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { createGlobalState, useCookie } from 'react-use';
+import { User } from 'types';
 
 const useGlobalValue = createGlobalState<User | null>(null);
 

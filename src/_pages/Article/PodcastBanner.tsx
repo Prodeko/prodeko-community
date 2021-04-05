@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-
 import { Line } from 'components/Line';
 import { LoadingSkeleton } from 'components/LoadingSkeleton';
+import styled from 'styled-components';
 
 type PodcastBannerProps = {
   title: string;
@@ -43,7 +42,14 @@ export const PodcastBanner: React.FC<PodcastBannerProps> = ({ title, podcastEmbe
       <Line variant="long" />
 
       <LoadingWrapper>
-        <iframe src={embedUrl} width="100%" height="232" frameBorder="0" allow="encrypted-media" />
+        <iframe
+          src={embedUrl}
+          width="100%"
+          height="232"
+          frameBorder="0"
+          allow="encrypted-media"
+          title="spotify-embed"
+        />
       </LoadingWrapper>
     </PodcastBannerWrapper>
   );

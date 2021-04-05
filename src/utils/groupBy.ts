@@ -17,6 +17,7 @@
  *  "Cat": [{type:"Cat", name:"Tiger"}, {type:"Cat", name:"Leo"}]
  * }
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function groupBy<T, K extends keyof any>(items: T[], getKey: (item: T) => K) {
   return items.reduce((acc, curr) => {
     (acc[getKey(curr)] = acc[getKey(curr)] || []).push(curr);

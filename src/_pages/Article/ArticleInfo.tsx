@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-
-import { Article } from 'types';
 import { ArticleStats } from 'components/ArticleStats';
+import styled from 'styled-components';
+import { Article } from 'types';
 
 export const ArticleInfo: React.FC<{ article: Article }> = ({ article }) => (
   <ArticleInfoWrapper>

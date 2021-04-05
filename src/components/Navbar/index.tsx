@@ -1,30 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import styled from 'styled-components';
-import { m } from 'framer-motion';
-
-import { FiX as CrossIcon, FiMenu as MenuIcon } from 'react-icons/fi';
-
 import { useGlobalContext } from 'api/globalContext';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
-import { TextLink } from 'components/TextLink';
 import { ProfileButton } from 'components/Navbar/ProfileButton';
-import { slugify } from 'utils/slugify';
-import { containerTransitions, itemTransitionDown } from 'components/transitionConfigs';
 import { SrOnly } from 'components/SrOnly';
+import { TextLink } from 'components/TextLink';
+import { containerTransitions, itemTransitionDown } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
+import { FiMenu as MenuIcon, FiX as CrossIcon } from 'react-icons/fi';
+import { useClickAway } from 'react-use';
+import styled from 'styled-components';
+import { slugify } from 'utils/slugify';
 
 /**
  * The order of nav bar links is currently determined by the order of API calls
  * in `getAllPages`
  */
 export const Navbar: React.FC = () => {
+  const { language, commonData, routes } = useGlobalContext();
+  const { query, asPath } = useRouter();
+  const panelRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleIsOpen = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
-  const { query, asPath } = useRouter();
-  const { language, commonData, routes } = useGlobalContext();
+
+  useClickAway(panelRef, close);
+
   const { logo } = commonData;
 
   // Close the navbar whenever path changes, i.e. user navigated somewhere
@@ -64,7 +68,7 @@ export const Navbar: React.FC = () => {
 
         <ProfileButton />
 
-        <MenuPanel aria-hidden={!isOpen}>
+        <MenuPanel aria-hidden={!isOpen} ref={panelRef}>
           <MobileNavLinks>
             {routes[language].map((route) => (
               <m.li

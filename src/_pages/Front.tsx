@@ -1,12 +1,11 @@
-import { NextPage } from 'next';
-import styled from 'styled-components';
-
-import { Article, FrontPageData } from 'types';
 import { useGlobalContext } from 'api/globalContext';
-import { Main as MainBase } from 'components/Main';
 import { Banner } from 'components/Banner';
 import { Card, CardList, CardWrapper } from 'components/Card';
 import { Line } from 'components/Line';
+import { Main as MainBase } from 'components/Main';
+import { NextPage } from 'next';
+import styled from 'styled-components';
+import { Article, FrontPageData } from 'types';
 
 export const Front: NextPage<FrontPageData> = ({
   background_banner,

@@ -1,10 +1,9 @@
-import styled from 'styled-components';
-import { m } from 'framer-motion';
-
-import { Author as AuthorType } from 'types';
 import { useGlobalContext } from 'api/globalContext';
-import { containerTransitions, itemTransitionLeft } from 'components/transitionConfigs';
 import { AnimatedImage } from 'components/AnimatedImage';
+import { containerTransitions, itemTransitionLeft } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
+import styled from 'styled-components';
+import { Author as AuthorType } from 'types';
 
 type AuthorProps = {
   author: AuthorType;

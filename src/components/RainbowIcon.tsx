@@ -36,7 +36,7 @@ export const RainbowIcon = () => (
  */
 export const AnimateIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 58 57">
-    <g id="Group" fill="none" fill-rule="evenodd">
+    <g id="Group" fill="none" fillRule="evenodd">
       <g id="rainbow">
         <g transform="scale(1.5) translate(7 7)">
           <path d="M12 21.5C12 14 14 12 21.5 12" stroke="#002E7D" strokeWidth="2.5" />

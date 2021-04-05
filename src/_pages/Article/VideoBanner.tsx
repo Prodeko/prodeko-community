@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import ReactPlayer from 'react-player/youtube';
-
 import { Line } from 'components/Line';
 import { LoadingSkeleton } from 'components/LoadingSkeleton';
+import ReactPlayer from 'react-player/youtube';
+import styled from 'styled-components';
 
 type VideoBannerProps = {
   title: string;

@@ -1,7 +1,6 @@
+import { getPageBySlug } from 'api';
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-
-import { getPageBySlug } from 'api';
 
 /**
  * We are using optimized variable fonts with only a subset of UTF-8

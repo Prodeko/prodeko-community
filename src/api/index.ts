@@ -1,15 +1,14 @@
 import DirectusSDK from '@directus/sdk-js';
-
 import { asyncLocalStorage } from 'api/asyncLocalStorage';
 import { API_URL } from 'api/config';
 import {
   parseArchivePageData,
+  parseArticle,
   parseArticles,
   parseCommonData,
   parseFrontPageData,
   parseInfoPageData,
   parseUser,
-  parseArticle,
 } from 'api/parsers';
 import {
   AuthenticationResponse,
@@ -77,7 +76,7 @@ type Query = {
 /**
  * Generic fetcher 'factory' we can use to keep the API code a bit more DRY
  */
-function createDataFetcher<T>(collection: string, query: Query, parse: (data: any) => T) {
+function createDataFetcher<T>(collection: string, query: Query, parse: (data: unknown) => T) {
   return async () => {
     const { data } = await directus.items(collection).read(query);
     return parse(data);
@@ -185,7 +184,7 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
         if (slug[0] === pageSlug) {
           return {
             template: pageData.template,
-            data: pageData as any,
+            data: pageData as any, // eslint-disable-line @typescript-eslint/no-explicit-any
             language: lang,
             commonData,
             routes,

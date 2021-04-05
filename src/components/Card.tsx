@@ -1,20 +1,19 @@
-import React from 'react';
+import { useGlobalContext } from 'api/globalContext';
+import { AnimatedImage } from 'components/AnimatedImage';
+import { ArticleStats } from 'components/ArticleStats';
+import { Line } from 'components/Line';
+import { SrOnly } from 'components/SrOnly';
+import { containerTransitions, itemTransitionUp } from 'components/transitionConfigs';
+import { m } from 'framer-motion';
 import Link from 'next/link';
-import styled from 'styled-components';
+import React from 'react';
 import {
   FiFileText as ArticleIcon,
   FiVolume2 as PodcastIcon,
   FiYoutube as VideoIcon,
 } from 'react-icons/fi';
-import { m } from 'framer-motion';
-
+import styled from 'styled-components';
 import { Article } from 'types';
-import { Line } from 'components/Line';
-import { useGlobalContext } from 'api/globalContext';
-import { SrOnly } from 'components/SrOnly';
-import { ArticleStats } from 'components/ArticleStats';
-import { containerTransitions, itemTransitionUp } from 'components/transitionConfigs';
-import { AnimatedImage } from 'components/AnimatedImage';
 
 type CardProps = {
   article: Article;

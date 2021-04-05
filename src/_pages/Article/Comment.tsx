@@ -1,10 +1,9 @@
-import styled from 'styled-components';
-import { AnimatePresence, m } from 'framer-motion';
-
-import { Article, Comment as CommentType } from 'types';
-import { useGlobalContext } from 'api/globalContext';
 import { CommentForm } from '_pages/Article/CommentForm';
+import { useGlobalContext } from 'api/globalContext';
 import { itemTransitionDown } from 'components/transitionConfigs';
+import { AnimatePresence, m } from 'framer-motion';
+import styled from 'styled-components';
+import { Article, Comment as CommentType } from 'types';
 import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 type CommentProps = {

@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import { FiMessageCircle as CommentIcon } from 'react-icons/fi';
-
 import { useGlobalContext } from 'api/globalContext';
-import { SrOnly } from 'components/SrOnly';
 import { RainbowIconGrayscale } from 'components/RainbowIcon';
+import { SrOnly } from 'components/SrOnly';
+import { FiMessageCircle as CommentIcon } from 'react-icons/fi';
+import styled from 'styled-components';
 import { Article } from 'types';
 
 type ArticleStatsProps = {

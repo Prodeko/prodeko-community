@@ -1,9 +1,8 @@
+import { AnimatedImage } from 'components/AnimatedImage';
+import { SrOnly } from 'components/SrOnly';
+import { m } from 'framer-motion';
 import React from 'react';
 import styled from 'styled-components';
-import { m } from 'framer-motion';
-
-import { SrOnly } from 'components/SrOnly';
-import { AnimatedImage } from 'components/AnimatedImage';
 
 type BannerProps = {
   bannerUrl: string;

@@ -1,11 +1,11 @@
 version: '3.4'
 services:
-  seminar_cms:
+  talks-cms:
     ports:
       - 8055:8055
     restart: unless-stopped
 
-  seminar_web:
+  talks-web:
     build:
       network: prodeko-docker-net
     restart: unless-stopped

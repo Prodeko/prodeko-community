@@ -7,7 +7,7 @@
  * as `any`.
  */
 
-// eslint-disable @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { API_URL } from 'api/config';
 import {

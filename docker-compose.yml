@@ -1,31 +1,31 @@
 version: '3.4'
 services:
-  seminar_database:
-    container_name: prodeko-seminar-database
+  talks-database:
+    container_name: talks-database
     image: postgres:12
     volumes:
       - ./data/database:/var/lib/postgresql/data
     env_file:
       - .env
 
-  seminar_cms:
-    container_name: prodeko-seminar-cms
+  talks-cms:
+    container_name: talks-cms
     image: directus/directus:v9.0.0-rc.51
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
     depends_on:
-      - seminar_database
+      - talks-database
     env_file:
       - .env
 
-  seminar_web:
-    container_name: prodeko-seminar-web
+  talks-web:
+    container_name: talks-web
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - seminar_cms
+      - talks-cms
     env_file:
       - .env
 
