@@ -19,9 +19,9 @@ else
 	else
 		RUN = $(COMPOSE) up
 	endif
-	SEED = cat ./directus/seed.sql | docker-compose exec -T seminar_database psql -U ${DB_USER} -d ${DB_DATABASE}
+	SEED = cat ./directus/seed.sql | docker-compose exec -T talks-database psql -U ${DB_USER} -d ${DB_DATABASE}
 	WAIT = $(COMPOSE) run wait -c ${DB_HOST}:${DB_PORT}
-	DATABASE = $(COMPOSE) up -d seminar_database
+	DATABASE = $(COMPOSE) up -d talks-database
 endif
 
 # Default for `make` without any args
@@ -53,7 +53,7 @@ setup: install initial-setup run-backend apply-migrations kill
 
 # Builds the production version of frontend (assuming .env vars set correctly)
 build: run-backend
-	$(COMPOSE) build seminar_web
+	$(COMPOSE) build talks-web
 
 # Helper for being sure CMS migrations contain only wanted changes
 diff-migrations:
@@ -90,12 +90,12 @@ run:
 # builds et cetera
 run-backend:
 	$(DATABASE)
-	$(COMPOSE) up -d seminar_cms
+	$(COMPOSE) up -d talks-cms
 	$(WAIT)
 
 # Shut down all project containers
 kill:
-	docker-compose kill seminar_database seminar_cms seminar_web
+	docker-compose kill
 
 # This should be run on production server on each new push to the deployed
 # branch. Kills the old instance, applies migrations, builds and then runs

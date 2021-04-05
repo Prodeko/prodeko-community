@@ -1,4 +1,4 @@
-# Prodeko Seminar
+# Prodeko Talks
 
 TODO: docs
 
