@@ -10,10 +10,11 @@ services:
 
   community_cms:
     container_name: community_cms
-    image: directus/directus:v9.0.0-rc.51
+    image: directus/directus:v9.0.0-rc.53
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
+      - ./search-config.json:/directus/extensions/hooks/search-sync/config.json
     depends_on:
       - community_database
     env_file:
@@ -28,6 +29,15 @@ services:
       - community_cms
     env_file:
       - .env
+
+  talks-search:
+    container_name: talks_search
+    image: getmeili/meilisearch:v0.20.0
+    restart: always
+    volumes:
+      - ./search/data.ms:/data.ms
+    ports:
+      - 7700:7700
 
   wait:
     image: dokku/wait

@@ -1,0 +1,22 @@
+{
+  "server": {
+	"type": "meilisearch",
+	"host": "http://localhost:7700",
+	"key": "secretkey12345"
+  },
+  "reindexOnStart": true,
+  "collections": {
+	"articles": {
+	  "fields": [
+		"translations.languages_code",
+		"translations.title",
+		"translations.ingress",
+		"translations.tagline",
+		"translations.body",
+		"author.name"
+	  ],
+	  "flatten": true,
+	  "stripHtml": true
+	}
+  }
+}
