@@ -36,7 +36,6 @@ env-test:
 # image optimization
 install:
 	npm install
-	rm -rf node_modules/sharp
 	npm run build:extensions
 
 # This shouldn't be ran manually, instead `setup` should be used.

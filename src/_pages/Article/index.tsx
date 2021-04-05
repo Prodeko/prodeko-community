@@ -109,16 +109,13 @@ export const Article: NextPage<ArticleProps> = (props) => {
 
 const Main = styled(MainBase)`
   justify-items: center;
-
-  // This needs to be synced with main element minimum paddings
-  --pad: var(--spacing-regular);
 `;
 
 const ArticleWrapper = styled.div`
   display: flex;
 
   aside {
-    margin-left: calc(var(--pad) + var(--spacing-xlarge));
+    margin-left: calc(var(--main-padding) + var(--spacing-regular));
     border-left: 1px solid var(--black);
     padding-left: var(--article-spacing);
     margin-top: calc(var(--navbar-height) + var(--article-top-padding));

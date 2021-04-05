@@ -1,9 +1,9 @@
 import { useGlobalContext } from 'api/globalContext';
+import { AnimatedImage } from 'components/AnimatedImage';
 import { SrOnly } from 'components/SrOnly';
 import { TextLink } from 'components/TextLink';
 import { containerTransitions } from 'components/transitionConfigs';
 import { m } from 'framer-motion';
-import Image from 'next/image';
 import React from 'react';
 import {
   FiFacebook as FacebookIcon,
@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
   return (
     <FooterWrapper initial="initial" animate="enter" variants={containerTransitions}>
       <LogoLink href={prodeko_link}>
-        <Image src={prodeko_logo} alt="" layout="fill" objectFit="contain" />
+        <AnimatedImage src={prodeko_logo} alt="" layout="fill" objectFit="contain" />
         <SrOnly>Prodeko</SrOnly>
       </LogoLink>
 

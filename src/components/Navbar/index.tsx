@@ -1,11 +1,11 @@
 import { useGlobalContext } from 'api/globalContext';
+import { AnimatedImage } from 'components/AnimatedImage';
 import { LanguageSwitcher } from 'components/LanguageSwitcher';
 import { ProfileButton } from 'components/Navbar/ProfileButton';
 import { SrOnly } from 'components/SrOnly';
 import { TextLink } from 'components/TextLink';
 import { containerTransitions, itemTransitionDown } from 'components/transitionConfigs';
 import { m } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -96,7 +96,7 @@ export const Navbar: React.FC = () => {
 const LogoImageLink: React.FC<{ href: string; logo: string }> = ({ href, logo }) => (
   <Link href={href} passHref>
     <LogoLink variants={itemTransitionDown} aria-hidden tabIndex={-1}>
-      <Image src={logo} alt="" layout="fill" objectFit="contain" />
+      <AnimatedImage src={logo} alt="" layout="fill" objectFit="contain" />
     </LogoLink>
   </Link>
 );

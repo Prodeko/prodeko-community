@@ -27,7 +27,9 @@ export const Banner: React.FC<BannerProps> = ({ bannerUrl, logoUrl, logoText, de
 );
 
 const BannerWrapper = styled(m.header)`
-  grid-column: main;
+  && {
+    grid-column: main;
+  }
   position: relative;
   width: 100%;
   height: var(--banner-height);

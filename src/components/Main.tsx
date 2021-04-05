@@ -23,10 +23,12 @@ const MainWrapper = styled(m.main).attrs({
 
   & > * {
     grid-column: content;
+    max-width: 100%;
   }
 
   & > footer {
     grid-column: main;
+    width: 100%;
   }
 
   min-height: 100%;

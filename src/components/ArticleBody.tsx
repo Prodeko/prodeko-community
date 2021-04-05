@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const ArticleBody = styled.article`
-  max-width: var(--text-width);
+  && {
+    max-width: var(--text-width);
+  }
   background-color: var(--white);
 
   & > * + * {

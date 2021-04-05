@@ -7,6 +7,14 @@ type AnimatedImageProps = ImageProps & {
 };
 
 /**
+ * A custom Next.js Image loader so that it knows how to use Directus' built in
+ * asset optimization
+ */
+function directusLoader({ src, width, quality }: { src: string; width: number; quality?: number }) {
+  return `${src}?width=${width}&quality=${quality || 75}`;
+}
+
+/**
  * Next.js doesn't have placeholders for image loading, so instead we wait for
  * them to load lazily and afterwards fade in opacity
  */
@@ -24,7 +32,7 @@ export const AnimatedImage: React.FC<AnimatedImageProps> = ({
 
   return (
     <TransitionWrapper visible={visible} transitionUpwards={transitionUpwards}>
-      <Image {...props} onLoad={onImageLoad} />
+      <Image {...props} onLoad={onImageLoad} loader={directusLoader} />
     </TransitionWrapper>
   );
 };

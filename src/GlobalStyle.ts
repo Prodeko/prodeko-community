@@ -167,8 +167,8 @@ export const GlobalStyle = createGlobalStyle`
 
 
     /* Text sizes */
-    --text-title: 4rem;
-    --text-subtitle: 3rem;
+    --text-title: 3rem;
+    --text-subtitle: 2.5rem;
     --text-ingress: 1.75rem;
     --text-card-title: 1.75rem;
     --text-navigation: 1.5rem;
@@ -190,7 +190,8 @@ export const GlobalStyle = createGlobalStyle`
 
     --text-width: 75ch;
     --content-width: 65rem;
-    --min-content-width: calc(100% - 2 * var(--spacing-large));
+    --main-padding: var(--spacing-large);
+    --min-content-width: calc(100% - 2 * var(--main-padding));
 
     --article-padding: var(--spacing-medium) var(--spacing-large);
     --article-spacing: var(--spacing-large);
@@ -218,15 +219,10 @@ export const GlobalStyle = createGlobalStyle`
 
     // x-large; 1200px
     @media (max-width: 75em) {
-      --text-title: 3rem;
-      --text-subtitle: 2.5rem;
       --text-card-title: 1.5rem;
       --text-navigation: 1.25rem;
       --text-author-bio: 1rem;
 
-      --content-width: 55rem;
-
-      --card-height: 20rem;
     }
 
     // large; 880px
@@ -240,7 +236,9 @@ export const GlobalStyle = createGlobalStyle`
 
     // medium; 640px 
     @media (max-width: 40em) {
-      --min-content-width: calc(100% - 2 * var(--spacing-regular));
+      --card-height: 20rem;
+      --card-min-width: 14rem;
+      --main-padding: var(--spacing-regular);
       --article-padding: var(--spacing-medium) var(--spacing-regular);
       --text-filter: 1rem;
 
@@ -251,7 +249,7 @@ export const GlobalStyle = createGlobalStyle`
 
     // small; 480px
     @media (max-width: 30em) {
-      --min-content-width: calc(100% - 2 * var(--spacing-small));
+      --main-padding: var(--spacing-small);
 
       --navbar-logo-width: 10rem;
       --banner-logo-offset: -10rem;
