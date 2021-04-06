@@ -1,5 +1,6 @@
 import { ArticleBlock } from '_pages/Archive/ArticleBlock';
 import { Filters } from '_pages/Archive/Filters';
+import { NoResults } from '_pages/Archive/NoResults';
 import { Search } from '_pages/Archive/Search';
 import { ArticlesContext } from '_pages/Archive/useArticlesContext';
 import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
@@ -40,10 +41,10 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
 
         <Filters translations={translations} />
 
-        <SearchResultsWrapper>
-          <Search
-            defaultView={
-              <ol>
+        <Search
+          defaultView={
+            visibleArticles.length !== 0 ? (
+              <YearlyListing>
                 <AnimatePresence>
                   {visibleArticles.map(([year, articles]) => (
                     <ArticleBlockWrapper variants={itemTransitionUp} key={year} layout="position">
@@ -51,10 +52,12 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
                     </ArticleBlockWrapper>
                   ))}
                 </AnimatePresence>
-              </ol>
-            }
-          />
-        </SearchResultsWrapper>
+              </YearlyListing>
+            ) : (
+              <NoResults />
+            )
+          }
+        />
       </ArticlesContext.Provider>
     </Main>
   );
@@ -70,10 +73,7 @@ const Main = styled(MainBase)`
   padding-top: calc(var(--navbar-height) + var(--spacing-xlarge));
 
   grid-template-rows: min-content min-content 1fr;
-
-  & > * + * {
-    margin-top: var(--spacing-xlarge);
-  }
+  grid-row-gap: var(--spacing-large);
 `;
 
 const ArticleBlockWrapper = styled(m.li)`
@@ -91,4 +91,6 @@ const ArticleBlockWrapper = styled(m.li)`
   }
 `;
 
-const SearchResultsWrapper = styled.div``;
+const YearlyListing = styled.ol`
+  margin-top: var(--spacing-large);
+`;

@@ -18,8 +18,12 @@ export const Filters: React.FC<FiltersProps> = ({ translations }) => {
   return (
     <FilterWrapper>
       <SortWrapper>
-        <SortLabel>{sort_order_label}</SortLabel>
-        <SortButton onClick={sortOnClick} aria-pressed={order !== 'newest'}>
+        <SortLabel id="sort-label">{sort_order_label}</SortLabel>
+        <SortButton
+          onClick={sortOnClick}
+          aria-pressed={order !== 'newest'}
+          aria-describedby="sort-label"
+        >
           <ButtonContents>
             {newest_first} <DownIcon />
           </ButtonContents>
@@ -29,8 +33,8 @@ export const Filters: React.FC<FiltersProps> = ({ translations }) => {
         </SortButton>
       </SortWrapper>
 
-      <PillGroup>
-        <PillGroupLabel>{filter_label}</PillGroupLabel>
+      <PillGroup aria-labelledby="pill-label">
+        <PillGroupLabel id="pill-label">{filter_label}</PillGroupLabel>
         <PillWrapper>
           {ARTICLE_TYPES.map((type) => (
             <Pill
