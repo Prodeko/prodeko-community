@@ -1,9 +1,9 @@
 import 'react-quill/dist/quill.bubble.css';
 
-import { PillButton } from '_pages/Article/PillButton';
 import { createComment } from 'api';
 import { useGlobalContext } from 'api/globalContext';
 import { useAuth } from 'api/useAuth';
+import { PillButton } from 'components/PillButton';
 import { itemTransitionDown } from 'components/transitionConfigs';
 import { AnimatePresence, m } from 'framer-motion';
 import React, { useState } from 'react';

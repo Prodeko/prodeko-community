@@ -1,3 +1,4 @@
+import { useArticlesContext } from '_pages/Archive/useArticlesContext';
 import { useRouter } from 'next/router';
 import { Article, ArticleType } from 'types';
 import { groupBy } from 'utils/groupBy';
@@ -16,10 +17,20 @@ function sortBy<T>(a: T, b: T, getValue: (x: T) => number, order: Order) {
   return order === 'oldest' ? getValue(a) - getValue(b) : getValue(b) - getValue(a);
 }
 
-export const useBasicFiltering = (articles: Article[]) => {
+export const useBasicFiltering = (baseArticles?: Article[]) => {
+  const { articles: contextArticles } = useArticlesContext();
+  const articles = baseArticles ?? contextArticles;
   const router = useRouter();
   const { query } = router;
   const order = (query.order ?? 'newest') as Order;
+
+  const updateRouterQuery = (key: string, newValue?: string | string[]) =>
+    router.replace({ query: { ...query, [key]: newValue } }, undefined, { shallow: true });
+
+  const clearRouterQuery = (key: string) => {
+    const { [key]: _, ...restQuery } = query;
+    router.replace({ query: restQuery }, undefined, { shallow: true });
+  };
 
   /**
    * Set query parameter for sort appropriately.
@@ -27,9 +38,9 @@ export const useBasicFiltering = (articles: Article[]) => {
    */
   const sortOnClick = () => {
     if (order === 'newest') {
-      router.replace({ query: { ...query, order: 'oldest' } }, undefined, { shallow: true });
+      updateRouterQuery('order', 'oldest');
     } else {
-      router.replace({ query: { ...query, order: 'newest' } }, undefined, { shallow: true });
+      updateRouterQuery('order', 'newest');
     }
   };
 
@@ -53,6 +64,10 @@ export const useBasicFiltering = (articles: Article[]) => {
    */
   const getPillOnClick = (type: ArticleType) => () => {
     if (filteredTypes.includes(type)) {
+      updateRouterQuery(
+        'filter',
+        filteredTypes.filter((x) => x !== type)
+      );
       router.replace(
         {
           query: { ...query, filter: filteredTypes.filter((x) => x !== type) },
@@ -61,13 +76,7 @@ export const useBasicFiltering = (articles: Article[]) => {
         { shallow: true }
       );
     } else {
-      router.replace(
-        {
-          query: { ...query, filter: [...getFilteredTypes(query.filter), type] },
-        },
-        undefined,
-        { shallow: true }
-      );
+      updateRouterQuery('filter', [...getFilteredTypes(query.filter), type]);
     }
   };
 
@@ -86,5 +95,14 @@ export const useBasicFiltering = (articles: Article[]) => {
         ] as const
     );
 
-  return { visibleArticles, filteredArticles, order, sortOnClick, filteredTypes, getPillOnClick };
+  return {
+    visibleArticles,
+    filteredArticles,
+    order,
+    sortOnClick,
+    filteredTypes,
+    getPillOnClick,
+    updateRouterQuery,
+    clearRouterQuery,
+  };
 };

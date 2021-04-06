@@ -5,6 +5,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { useGlobalContext } from 'api/globalContext';
 import { Card } from 'components/Card';
 import { SrOnly } from 'components/SrOnly';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
 import { Hit as HitType, StateResultsProvided } from 'react-instantsearch-core';
@@ -46,9 +47,16 @@ type SearchProps = {
 
 export const Search: React.FC<SearchProps> = ({ defaultView }) => {
   const { language } = useGlobalContext();
+  const {
+    query: { search: query },
+  } = useRouter();
 
   return (
-    <InstantSearch indexName={`articles_${language}`} searchClient={searchClient}>
+    <InstantSearch
+      indexName={`articles_${language}`}
+      searchClient={searchClient}
+      searchState={{ query }}
+    >
       <Configure
         attributesToSnippet={snippetAttributes.map((key) => `${key}:${SNIPPET_MAX_LENGTH}`)}
         snippetEllipsisText={'...'}
@@ -61,25 +69,38 @@ export const Search: React.FC<SearchProps> = ({ defaultView }) => {
   );
 };
 
-const SearchBox = connectSearchBox(({ currentRefinement, refine }) => (
-  <SearchBoxWrapper>
-    <SearchLabel>Hae</SearchLabel>
-    <InputWrapper>
-      <SearchIcon />
-      <SearchInput
-        type="search"
-        value={currentRefinement}
-        onChange={(event) => refine(event.currentTarget.value)}
-      />
-      {currentRefinement && currentRefinement !== '' && (
-        <ClearButton onClick={() => refine('')}>
-          <FiX />
-          <SrOnly>Tyhjennä haku</SrOnly>
-        </ClearButton>
-      )}
-    </InputWrapper>
-  </SearchBoxWrapper>
-));
+const SearchBox = connectSearchBox(({ currentRefinement }) => {
+  const { updateRouterQuery, clearRouterQuery } = useBasicFiltering();
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    if (value === '') {
+      clearRouterQuery('search');
+    } else {
+      updateRouterQuery('search', value);
+    }
+  };
+
+  const onClear = () => {
+    clearRouterQuery('search');
+  };
+
+  return (
+    <SearchBoxWrapper>
+      <SearchLabel>Hae</SearchLabel>
+      <InputWrapper>
+        <SearchIcon />
+        <SearchInput type="search" value={currentRefinement} onChange={onChange} />
+        {currentRefinement && currentRefinement !== '' && (
+          <ClearButton onClick={onClear}>
+            <FiX />
+            <SrOnly>Tyhjennä haku</SrOnly>
+          </ClearButton>
+        )}
+      </InputWrapper>
+    </SearchBoxWrapper>
+  );
+});
 
 const SearchBoxWrapper = styled.div`
   font-size: var(--text-filter);

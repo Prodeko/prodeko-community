@@ -1,4 +1,3 @@
-import { useArticlesContext } from '_pages/Archive/useArticlesContext';
 import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
 import { useGlobalContext } from 'api/globalContext';
 import { FiChevronDown as DownIcon, FiChevronUp as UpIcon } from 'react-icons/fi';
@@ -10,10 +9,9 @@ type FiltersProps = {
 };
 
 export const Filters: React.FC<FiltersProps> = ({ translations }) => {
-  const { articles } = useArticlesContext();
   const { language, commonData } = useGlobalContext();
   const { filter_label, sort_order_label, newest_first, oldest_first } = translations[language];
-  const { order, sortOnClick, getPillOnClick, filteredTypes } = useBasicFiltering(articles);
+  const { order, sortOnClick, getPillOnClick, filteredTypes } = useBasicFiltering();
 
   return (
     <FilterWrapper>
