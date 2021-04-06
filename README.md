@@ -1,4 +1,4 @@
-# Prodeko Talks
+# Prodeko Community
 
 TODO: docs
 

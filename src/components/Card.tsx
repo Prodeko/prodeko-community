@@ -73,6 +73,11 @@ const Wrapper = styled.div`
   height: var(--card-height);
   box-shadow: var(--card-shadow);
 
+  // Fix Safari issue with transitioning overflowing elements with border radius
+  // sigh...
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+
   &,
   & img {
     transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) 0.8s;

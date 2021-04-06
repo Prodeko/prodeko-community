@@ -1,12 +1,12 @@
 version: '3.4'
 services:
-  talks-database:
+  community_database:
     network_mode: host
 
-  talks-cms:
+  community_cms:
     network_mode: host
 
-  talks-web:
+  community_web:
     build:
       dockerfile: Dockerfile.dev
       network: host
