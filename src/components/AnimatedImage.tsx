@@ -47,7 +47,7 @@ const TransitionWrapper = styled.div<{
   top: 0;
   left: 0;
   transition-property: transform, opacity;
-  transition-duration: 1s, 0.7s;
+  transition-duration: 0.7s, 0.5s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1), ease-in-out;
 
   --shift-amount: 0;

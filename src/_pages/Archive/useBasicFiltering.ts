@@ -6,7 +6,7 @@ import { groupBy } from 'utils/groupBy';
  * Currently supported sort orders, adding more requires a refactor to sort
  * selection buttons.
  */
-export type Order = 'newest' | 'oldest';
+type Order = 'newest' | 'oldest';
 
 /**
  * Callback to give to `Array.sort()` to compare `a` and `b` by the field
@@ -86,5 +86,5 @@ export const useBasicFiltering = (articles: Article[]) => {
         ] as const
     );
 
-  return { visibleArticles, order, sortOnClick, filteredTypes, getPillOnClick };
+  return { visibleArticles, filteredArticles, order, sortOnClick, filteredTypes, getPillOnClick };
 };

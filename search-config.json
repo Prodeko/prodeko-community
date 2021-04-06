@@ -1,22 +1,46 @@
 {
   "server": {
-	"type": "meilisearch",
-	"host": "http://localhost:7700",
-	"key": "secretkey12345"
+    "type": "meilisearch",
+    "host": "http://localhost:7700",
+    "key": "secretkey12345"
   },
   "reindexOnStart": true,
   "collections": {
-	"articles": {
-	  "fields": [
-		"translations.languages_code",
-		"translations.title",
-		"translations.ingress",
-		"translations.tagline",
-		"translations.body",
-		"author.name"
-	  ],
-	  "flatten": true,
-	  "stripHtml": true
-	}
+    "articles_fi": {
+      "collection": "articles_translations",
+      "fields": [
+        "title",
+        "ingress",
+        "tagline",
+        "body",
+        "articles_id.id",
+        "articles_id.author.name"
+      ],
+      "filter": {
+        "languages_code": {
+          "_eq": "fi-FI"
+        }
+      },
+      "flatten": true,
+      "stripHtml": true
+    },
+    "articles_en": {
+      "collection": "articles_translations",
+      "fields": [
+        "title",
+        "ingress",
+        "tagline",
+        "body",
+        "articles_id.id",
+        "articles_id.author.name"
+      ],
+      "filter": {
+        "languages_code": {
+          "_eq": "en-US"
+        }
+      },
+      "flatten": true,
+      "stripHtml": true
+    }
   }
 }

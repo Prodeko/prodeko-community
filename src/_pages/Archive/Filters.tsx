@@ -1,4 +1,5 @@
-import { Order, useBasicFiltering } from '_pages/Archive/useBasicFiltering';
+import { useArticlesContext } from '_pages/Archive/useArticlesContext';
+import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
 import { useGlobalContext } from 'api/globalContext';
 import { FiChevronDown as DownIcon, FiChevronUp as UpIcon } from 'react-icons/fi';
 import styled from 'styled-components';
@@ -6,21 +7,13 @@ import { ArchivePageData, ARTICLE_TYPES } from 'types';
 
 type FiltersProps = {
   translations: ArchivePageData['translations'];
-  sortOnClick: () => void;
-  order: Order;
-  getPillOnClick: ReturnType<typeof useBasicFiltering>['getPillOnClick'];
-  filteredTypes: string[];
 };
 
-export const Filters: React.FC<FiltersProps> = ({
-  translations,
-  sortOnClick,
-  order,
-  getPillOnClick,
-  filteredTypes,
-}) => {
+export const Filters: React.FC<FiltersProps> = ({ translations }) => {
+  const { articles } = useArticlesContext();
   const { language, commonData } = useGlobalContext();
   const { filter_label, sort_order_label, newest_first, oldest_first } = translations[language];
+  const { order, sortOnClick, getPillOnClick, filteredTypes } = useBasicFiltering(articles);
 
   return (
     <FilterWrapper>
