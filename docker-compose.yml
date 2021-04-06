@@ -1,31 +1,31 @@
 version: '3.4'
 services:
-  talks-database:
-    container_name: talks_database
+  community_database:
+    container_name: community_database
     image: postgres:12
     volumes:
       - ./data/database:/var/lib/postgresql/data
     env_file:
       - .env
 
-  talks-cms:
-    container_name: talks_cms
+  community_cms:
+    container_name: community_cms
     image: directus/directus:v9.0.0-rc.51
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
     depends_on:
-      - talks-database
+      - community_database
     env_file:
       - .env
 
-  talks-web:
-    container_name: talks_web
+  community_web:
+    container_name: community_web
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - talks-cms
+      - community_cms
     env_file:
       - .env
 
