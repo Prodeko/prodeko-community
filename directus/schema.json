@@ -6228,7 +6228,7 @@
         "width": "half",
         "group": null,
         "translations": null,
-        "note": "Big hero image banner on top of the page"
+        "note": "Big hero image banner on top of the page before the video loads"
       },
       "pk": "front_page/background_banner"
     },
@@ -6266,7 +6266,7 @@
         "readonly": false,
         "hidden": false,
         "sort": 4,
-        "width": "half",
+        "width": "full",
         "group": null,
         "translations": null,
         "note": "Site logo overlaid on the banner"
@@ -6306,13 +6306,54 @@
         "display_options": null,
         "readonly": true,
         "hidden": true,
-        "sort": null,
+        "sort": 9,
         "width": "full",
         "group": null,
         "translations": null,
         "note": "Template used by front end to determine which page to render"
       },
       "pk": "front_page/template"
+    },
+    {
+      "collection": "front_page",
+      "field": "background_animation",
+      "type": "uuid",
+      "schema": {
+        "name": "background_animation",
+        "table": "front_page",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 180,
+        "collection": "front_page",
+        "field": "background_animation",
+        "special": null,
+        "interface": "file",
+        "options": null,
+        "display": "file",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 6,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Animation to play on the main background. Should be either a .mp4 or .webm video file, and preferably under 1mb in file size"
+      },
+      "pk": "front_page/background_animation"
     },
     {
       "collection": "front_page_translations",
@@ -6859,7 +6900,7 @@
         "display_options": null,
         "readonly": true,
         "hidden": true,
-        "sort": 7,
+        "sort": 8,
         "width": "full",
         "group": null,
         "translations": null,
@@ -6901,7 +6942,7 @@
         "readonly": false,
         "hidden": false,
         "sort": 4,
-        "width": "half",
+        "width": "full",
         "group": null,
         "translations": null,
         "note": "Site logo overlaid on the banner"
@@ -6948,6 +6989,47 @@
         "note": "Big hero image banner on top of the page"
       },
       "pk": "info_page/background_banner"
+    },
+    {
+      "collection": "info_page",
+      "field": "background_animation",
+      "type": "uuid",
+      "schema": {
+        "name": "background_animation",
+        "table": "info_page",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 181,
+        "collection": "info_page",
+        "field": "background_animation",
+        "special": null,
+        "interface": "file",
+        "options": null,
+        "display": "file",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 6,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Animation to play on the main background. Should be either a .mp4 or .webm video file, and preferably under 1mb in file size"
+      },
+      "pk": "info_page/background_animation"
     },
     {
       "collection": "info_page_translations",
@@ -7553,32 +7635,6 @@
       "pk": "authors/translations"
     },
     {
-      "collection": "front_page",
-      "field": "translations",
-      "type": "translations",
-      "schema": null,
-      "meta": {
-        "id": 59,
-        "collection": "front_page",
-        "field": "translations",
-        "special": [
-          "translations"
-        ],
-        "interface": "translations",
-        "options": null,
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
-        "sort": null,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "front_page/translations"
-    },
-    {
       "collection": "common_data_translations",
       "field": "profile_dropdown_divider",
       "type": "alias",
@@ -7703,6 +7759,32 @@
       "pk": "common_data_translations/footer_divider"
     },
     {
+      "collection": "front_page",
+      "field": "translations",
+      "type": "translations",
+      "schema": null,
+      "meta": {
+        "id": 59,
+        "collection": "front_page",
+        "field": "translations",
+        "special": [
+          "translations"
+        ],
+        "interface": "translations",
+        "options": null,
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 7,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "front_page/translations"
+    },
+    {
       "collection": "articles",
       "field": "comments",
       "type": "o2m",
@@ -7786,37 +7868,30 @@
       "pk": "comments/subcomments"
     },
     {
-      "collection": "front_page",
-      "field": "highlighted_articles",
-      "type": "o2m",
+      "collection": "info_page",
+      "field": "translations",
+      "type": "translations",
       "schema": null,
       "meta": {
-        "id": 85,
-        "collection": "front_page",
-        "field": "highlighted_articles",
+        "id": 100,
+        "collection": "info_page",
+        "field": "translations",
         "special": [
-          "o2m"
+          "translations"
         ],
-        "interface": "one-to-many",
-        "options": {
-          "fields": [
-            "title",
-            "type"
-          ]
-        },
-        "display": "related-values",
-        "display_options": {
-          "template": "{{title}} {{type}}"
-        },
+        "interface": "translations",
+        "options": null,
+        "display": null,
+        "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": null,
+        "sort": 7,
         "width": "full",
         "group": null,
         "translations": null,
         "note": null
       },
-      "pk": "front_page/highlighted_articles"
+      "pk": "info_page/translations"
     },
     {
       "collection": "common_data_translations",
@@ -7882,30 +7957,37 @@
       "pk": "common_data_translations/icon_explanation"
     },
     {
-      "collection": "info_page",
-      "field": "translations",
-      "type": "translations",
+      "collection": "front_page",
+      "field": "highlighted_articles",
+      "type": "o2m",
       "schema": null,
       "meta": {
-        "id": 100,
-        "collection": "info_page",
-        "field": "translations",
+        "id": 85,
+        "collection": "front_page",
+        "field": "highlighted_articles",
         "special": [
-          "translations"
+          "o2m"
         ],
-        "interface": "translations",
-        "options": null,
-        "display": null,
-        "display_options": null,
+        "interface": "one-to-many",
+        "options": {
+          "fields": [
+            "title",
+            "type"
+          ]
+        },
+        "display": "related-values",
+        "display_options": {
+          "template": "{{title}} {{type}}"
+        },
         "readonly": false,
         "hidden": false,
-        "sort": 6,
+        "sort": 8,
         "width": "full",
         "group": null,
         "translations": null,
         "note": null
       },
-      "pk": "info_page/translations"
+      "pk": "front_page/highlighted_articles"
     },
     {
       "collection": "directus_users",
@@ -8651,6 +8733,34 @@
       "junction_field": null,
       "sort_field": null,
       "pk": 36
+    },
+    {
+      "id": 38,
+      "many_collection": "front_page",
+      "many_field": "background_animation",
+      "many_primary": "id",
+      "one_collection": "directus_files",
+      "one_field": null,
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 38
+    },
+    {
+      "id": 39,
+      "many_collection": "info_page",
+      "many_field": "background_animation",
+      "many_primary": "id",
+      "one_collection": "directus_files",
+      "one_field": null,
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 39
     }
   ]
 }
