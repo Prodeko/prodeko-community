@@ -9,13 +9,23 @@ import { NextPage } from 'next';
 import styled from 'styled-components';
 import { InfoPageData } from 'types';
 
-export const Info: NextPage<InfoPageData> = ({ background_banner, main_logo, translations }) => {
+export const Info: NextPage<InfoPageData> = ({
+  background_animation,
+  background_banner,
+  main_logo,
+  translations,
+}) => {
   const { language } = useGlobalContext();
   const { page_title, body } = translations[language];
 
   return (
     <Main>
-      <Banner bannerUrl={background_banner} logoUrl={main_logo} decorative />
+      <Banner
+        bannerUrl={background_banner}
+        animationUrl={background_animation}
+        logoUrl={main_logo}
+        decorative
+      />
 
       <Article initial="initial" animate="enter" variants={itemTransitionUp}>
         <h1>{page_title}</h1>

@@ -109,6 +109,7 @@ export const parseArticles = (data: any): Article[] => data.map(parseArticle);
 export const parseFrontPageData = (data: any): FrontPageData => ({
   ...data,
   background_banner: parseImageUrl(data.background_banner),
+  background_animation: parseImageUrl(data.background_animation),
   main_logo: parseImageUrl(data.main_logo),
   translations: parseTranslationData(data.translations),
   highlighted_articles: data.highlighted_articles.map(parseArticle),
@@ -117,6 +118,7 @@ export const parseFrontPageData = (data: any): FrontPageData => ({
 export const parseInfoPageData = (data: any): InfoPageData => ({
   ...data,
   background_banner: parseImageUrl(data.background_banner),
+  background_animation: parseImageUrl(data.background_animation),
   main_logo: parseImageUrl(data.main_logo),
   translations: parseTranslationData(data.translations),
 });

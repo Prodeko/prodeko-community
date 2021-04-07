@@ -9,6 +9,7 @@ import { Article, FrontPageData } from 'types';
 
 export const Front: NextPage<FrontPageData> = ({
   background_banner,
+  background_animation,
   main_logo,
   highlighted_articles,
   translations,
@@ -25,7 +26,12 @@ export const Front: NextPage<FrontPageData> = ({
 
   return (
     <Main>
-      <Banner bannerUrl={background_banner} logoUrl={main_logo} logoText={logo_alternative_text} />
+      <Banner
+        bannerUrl={background_banner}
+        animationUrl={background_animation}
+        logoUrl={main_logo}
+        logoText={logo_alternative_text}
+      />
 
       <CardSection articles={mockArticles} type="video" title={videos_title} />
 

@@ -172,6 +172,7 @@ export type FrontPageData = {
   template: 'front';
   date_updated?: string;
   background_banner: string;
+  background_animation: string;
   main_logo: string;
   translations: Translated<{
     id: number;
@@ -190,6 +191,7 @@ export type InfoPageData = {
   template: 'info';
   date_updated?: string;
   background_banner: string;
+  background_animation: string;
   main_logo: string;
   translations: Translated<{
     id: number;

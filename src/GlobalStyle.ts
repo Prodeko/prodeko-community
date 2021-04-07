@@ -188,7 +188,7 @@ export const GlobalStyle = createGlobalStyle`
     --navbar-height: 4rem;
     --navbar-logo-width: 12rem;
 
-    --banner-height: 40rem;
+    --banner-height: min(80vh, 50rem);
     --banner-logo-offset: -5rem;
     --below-banner-offset: calc(var(--banner-height) / -4.5);
 
@@ -231,9 +231,6 @@ export const GlobalStyle = createGlobalStyle`
 
     // large; 880px
     @media (max-width: 55em) {
-      --banner-height: 30rem;
-      --below-banner-offset: calc(var(--banner-height) / -3.5);
-
       --text-ingress: 1.5rem;
       --text-filter: 1.125rem;
     }
@@ -257,7 +254,6 @@ export const GlobalStyle = createGlobalStyle`
 
       --navbar-logo-width: 10rem;
       --banner-logo-offset: -10rem;
-      --below-banner-offset: calc(var(--banner-height) / -2.5);
 
       --article-padding: var(--spacing-regular) var(--spacing-small);
       --article-banner-height: 100%;
