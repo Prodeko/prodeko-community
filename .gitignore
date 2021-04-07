@@ -4,6 +4,7 @@ directus/uploads
 directus/schema.current.json
 directus/schema.previous.json
 data
+search
 
 # dependencies
 /node_modules

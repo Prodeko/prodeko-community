@@ -5,6 +5,7 @@
 .next/                # Existing Next.js builds
 node_modules/         # Installed inside container
 data/
+search/
 directus/
 .dockerignore
 Dockerfile

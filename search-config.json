@@ -1,0 +1,25 @@
+{
+  "server": {
+    "type": "meilisearch"
+  },
+  "reindexOnStart": true,
+  "collections": {
+    "articles": {
+      "fields": [
+        "id",
+        "author.name",
+        "translations.title",
+        "translations.ingress",
+        "translations.tagline",
+        "translations.body",
+        "translations.languages_code"
+      ],
+      "translations": {
+        "fi-FI": "articles_fi",
+        "en-US": "articles_en"
+      },
+      "flatten": true,
+      "stripHtml": true
+    }
+  }
+}

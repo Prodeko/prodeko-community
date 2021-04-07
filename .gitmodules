@@ -1,3 +1,6 @@
 [submodule "directus/extensions/interfaces/conditional-fields"]
 	path = directus/extensions/interfaces/conditional-fields
 	url = https://github.com/Jonesus/directus-conditional-fields.git
+[submodule "directus/extensions/hooks/search-sync"]
+	path = directus/extensions/hooks/search-sync
+	url = https://github.com/Jonesus/directus-extension-searchsync.git

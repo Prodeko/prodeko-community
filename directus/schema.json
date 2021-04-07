@@ -348,20 +348,6 @@
   ],
   "roles": [
     {
-      "id": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
-      "name": "Editor",
-      "icon": "create",
-      "description": "Role that has permissions to edit general website contents",
-      "ip_access": null,
-      "enforce_tfa": false,
-      "module_list": null,
-      "collection_list": null,
-      "admin_access": false,
-      "app_access": true,
-      "users": [],
-      "pk": "d41a70eb-9f69-44c5-9193-c22b52400fe0"
-    },
-    {
       "id": "64a13c83-5640-4671-aeea-c3891d4ac53d",
       "name": "Guild member",
       "icon": "people",
@@ -374,6 +360,20 @@
       "app_access": false,
       "users": [],
       "pk": "64a13c83-5640-4671-aeea-c3891d4ac53d"
+    },
+    {
+      "id": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "name": "Editor",
+      "icon": "create",
+      "description": "Role that has permissions to edit general website contents",
+      "ip_access": null,
+      "enforce_tfa": false,
+      "module_list": null,
+      "collection_list": null,
+      "admin_access": false,
+      "app_access": true,
+      "users": [],
+      "pk": "d41a70eb-9f69-44c5-9193-c22b52400fe0"
     }
   ],
   "permissions": [
@@ -628,6 +628,24 @@
       ],
       "limit": null,
       "pk": 18
+    },
+    {
+      "id": 20,
+      "role": null,
+      "collection": "directus_users",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "first_name",
+        "last_name",
+        "avatar",
+        "description",
+        "language"
+      ],
+      "limit": null,
+      "pk": 20
     },
     {
       "id": 21,
@@ -1342,52 +1360,6 @@
       "pk": 73
     },
     {
-      "id": 79,
-      "role": null,
-      "collection": "rainbow_likes",
-      "action": "read",
-      "permissions": null,
-      "validation": null,
-      "presets": null,
-      "fields": [
-        "*"
-      ],
-      "limit": null,
-      "pk": 79
-    },
-    {
-      "id": 75,
-      "role": null,
-      "collection": "comments",
-      "action": "read",
-      "permissions": null,
-      "validation": null,
-      "presets": null,
-      "fields": [
-        "*"
-      ],
-      "limit": null,
-      "pk": 75
-    },
-    {
-      "id": 78,
-      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
-      "collection": "rainbow_likes",
-      "action": "create",
-      "permissions": null,
-      "validation": {
-        "directus_users_id": {
-          "_eq": "$CURRENT_USER"
-        }
-      },
-      "presets": null,
-      "fields": [
-        "*"
-      ],
-      "limit": null,
-      "pk": 78
-    },
-    {
       "id": 74,
       "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
       "collection": "directus_users",
@@ -1407,22 +1379,18 @@
       "pk": 74
     },
     {
-      "id": 20,
+      "id": 75,
       "role": null,
-      "collection": "directus_users",
+      "collection": "comments",
       "action": "read",
       "permissions": null,
       "validation": null,
       "presets": null,
       "fields": [
-        "first_name",
-        "last_name",
-        "avatar",
-        "description",
-        "language"
+        "*"
       ],
       "limit": null,
-      "pk": 20
+      "pk": 75
     },
     {
       "id": 76,
@@ -1446,6 +1414,52 @@
       "pk": 76
     },
     {
+      "id": 77,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "rainbow_likes",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 77
+    },
+    {
+      "id": 78,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "rainbow_likes",
+      "action": "create",
+      "permissions": null,
+      "validation": {
+        "directus_users_id": {
+          "_eq": "$CURRENT_USER"
+        }
+      },
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 78
+    },
+    {
+      "id": 79,
+      "role": null,
+      "collection": "rainbow_likes",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 79
+    },
+    {
       "id": 80,
       "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
       "collection": "rainbow_likes",
@@ -1460,20 +1474,6 @@
       "fields": null,
       "limit": null,
       "pk": 80
-    },
-    {
-      "id": 77,
-      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
-      "collection": "rainbow_likes",
-      "action": "read",
-      "permissions": null,
-      "validation": null,
-      "presets": null,
-      "fields": [
-        "*"
-      ],
-      "limit": null,
-      "pk": 77
     },
     {
       "id": 94,
@@ -1602,6 +1602,20 @@
       "pk": 106
     },
     {
+      "id": 107,
+      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
+      "collection": "info_page",
+      "action": "create",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 107
+    },
+    {
       "id": 108,
       "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
       "collection": "info_page",
@@ -1614,20 +1628,6 @@
       ],
       "limit": null,
       "pk": 108
-    },
-    {
-      "id": 110,
-      "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
-      "collection": "info_page",
-      "action": "delete",
-      "permissions": null,
-      "validation": null,
-      "presets": null,
-      "fields": [
-        "*"
-      ],
-      "limit": null,
-      "pk": 110
     },
     {
       "id": 109,
@@ -1644,10 +1644,10 @@
       "pk": 109
     },
     {
-      "id": 107,
+      "id": 110,
       "role": "d41a70eb-9f69-44c5-9193-c22b52400fe0",
       "collection": "info_page",
-      "action": "create",
+      "action": "delete",
       "permissions": null,
       "validation": null,
       "presets": null,
@@ -1655,7 +1655,7 @@
         "*"
       ],
       "limit": null,
-      "pk": 107
+      "pk": 110
     },
     {
       "id": 111,
@@ -2352,6 +2352,178 @@
         "note": "Label for filter widget"
       },
       "pk": "archive_page_translations/filter_label"
+    },
+    {
+      "collection": "archive_page_translations",
+      "field": "search_bar_label",
+      "type": "string",
+      "schema": {
+        "name": "search_bar_label",
+        "table": "archive_page_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 176,
+        "collection": "archive_page_translations",
+        "field": "search_bar_label",
+        "special": null,
+        "interface": "text-input",
+        "options": {
+          "iconLeft": "search"
+        },
+        "display": "raw",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 13,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "archive_page_translations/search_bar_label"
+    },
+    {
+      "collection": "archive_page_translations",
+      "field": "clear_search_button",
+      "type": "string",
+      "schema": {
+        "name": "clear_search_button",
+        "table": "archive_page_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 177,
+        "collection": "archive_page_translations",
+        "field": "clear_search_button",
+        "special": null,
+        "interface": "text-input",
+        "options": {
+          "iconLeft": "clear"
+        },
+        "display": "raw",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 14,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Alternative text for the cross icon button"
+      },
+      "pk": "archive_page_translations/clear_search_button"
+    },
+    {
+      "collection": "archive_page_translations",
+      "field": "no_results_prompt",
+      "type": "string",
+      "schema": {
+        "name": "no_results_prompt",
+        "table": "archive_page_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 178,
+        "collection": "archive_page_translations",
+        "field": "no_results_prompt",
+        "special": null,
+        "interface": "text-input",
+        "options": {
+          "iconLeft": "not_interested"
+        },
+        "display": "raw",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 15,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Shown if user filters so that no results remain"
+      },
+      "pk": "archive_page_translations/no_results_prompt"
+    },
+    {
+      "collection": "archive_page_translations",
+      "field": "reset_filters_button",
+      "type": "string",
+      "schema": {
+        "name": "reset_filters_button",
+        "table": "archive_page_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 179,
+        "collection": "archive_page_translations",
+        "field": "reset_filters_button",
+        "special": null,
+        "interface": "text-input",
+        "options": {
+          "iconLeft": "autorenew"
+        },
+        "display": "raw",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 16,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Shown if all results filtered out, prompting to reset all filters and search"
+      },
+      "pk": "archive_page_translations/reset_filters_button"
     },
     {
       "collection": "articles",
@@ -7769,13 +7941,13 @@
     },
     {
       "collection": "archive_page_translations",
-      "field": "sort_divider",
+      "field": "search_divider",
       "type": "alias",
       "schema": null,
       "meta": {
-        "id": 124,
+        "id": 175,
         "collection": "archive_page_translations",
-        "field": "sort_divider",
+        "field": "search_divider",
         "special": [
           "alias",
           "no-data"
@@ -7783,8 +7955,8 @@
         "interface": "divider",
         "options": {
           "color": "#607D8B",
-          "icon": "sort_by_alpha",
-          "title": "Sort option labels",
+          "icon": "search",
+          "title": "Search Translations",
           "marginTop": true,
           "inlineTitle": true
         },
@@ -7792,13 +7964,13 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 7,
+        "sort": 12,
         "width": "full",
         "group": null,
         "translations": null,
         "note": null
       },
-      "pk": "archive_page_translations/sort_divider"
+      "pk": "archive_page_translations/search_divider"
     },
     {
       "collection": "archive_page",
@@ -7954,6 +8126,39 @@
         "note": null
       },
       "pk": "common_data_translations/article_urls_note"
+    },
+    {
+      "collection": "archive_page_translations",
+      "field": "sort_divider",
+      "type": "alias",
+      "schema": null,
+      "meta": {
+        "id": 124,
+        "collection": "archive_page_translations",
+        "field": "sort_divider",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "interface": "divider",
+        "options": {
+          "color": "#607D8B",
+          "icon": "sort_by_alpha",
+          "title": "Sort option labels",
+          "marginTop": true,
+          "inlineTitle": true
+        },
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 7,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "archive_page_translations/sort_divider"
     }
   ],
   "relations": [
@@ -8042,6 +8247,20 @@
       "pk": 6
     },
     {
+      "id": 7,
+      "many_collection": "articles",
+      "many_field": "photo",
+      "many_primary": "id",
+      "one_collection": "directus_files",
+      "one_field": null,
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 7
+    },
+    {
       "id": 8,
       "many_collection": "authors",
       "many_field": "user_updated",
@@ -8096,6 +8315,20 @@
       "junction_field": "authors_id",
       "sort_field": null,
       "pk": 11
+    },
+    {
+      "id": 12,
+      "many_collection": "articles",
+      "many_field": "author",
+      "many_primary": "id",
+      "one_collection": "authors",
+      "one_field": "articles",
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 12
     },
     {
       "id": 13,
@@ -8196,20 +8429,6 @@
       "pk": 19
     },
     {
-      "id": 21,
-      "many_collection": "comments",
-      "many_field": "article",
-      "many_primary": "id",
-      "one_collection": "articles",
-      "one_field": "comments",
-      "one_primary": "id",
-      "one_collection_field": null,
-      "one_allowed_collections": null,
-      "junction_field": null,
-      "sort_field": null,
-      "pk": 21
-    },
-    {
       "id": 20,
       "many_collection": "comments",
       "many_field": "user_created",
@@ -8224,6 +8443,20 @@
       "pk": 20
     },
     {
+      "id": 21,
+      "many_collection": "comments",
+      "many_field": "article",
+      "many_primary": "id",
+      "one_collection": "articles",
+      "one_field": "comments",
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 21
+    },
+    {
       "id": 22,
       "many_collection": "comments",
       "many_field": "parent_comment",
@@ -8236,20 +8469,6 @@
       "junction_field": null,
       "sort_field": null,
       "pk": 22
-    },
-    {
-      "id": 12,
-      "many_collection": "articles",
-      "many_field": "author",
-      "many_primary": "id",
-      "one_collection": "authors",
-      "one_field": "articles",
-      "one_primary": "id",
-      "one_collection_field": null,
-      "one_allowed_collections": null,
-      "junction_field": null,
-      "sort_field": null,
-      "pk": 12
     },
     {
       "id": 24,
@@ -8378,20 +8597,6 @@
       "pk": 32
     },
     {
-      "id": 34,
-      "many_collection": "rainbow_likes",
-      "many_field": "directus_users_id",
-      "many_primary": "id",
-      "one_collection": "directus_users",
-      "one_field": "has_liked",
-      "one_primary": "id",
-      "one_collection_field": null,
-      "one_allowed_collections": null,
-      "junction_field": "articles_id",
-      "sort_field": null,
-      "pk": 34
-    },
-    {
       "id": 33,
       "many_collection": "rainbow_likes",
       "many_field": "articles_id",
@@ -8404,6 +8609,20 @@
       "junction_field": "directus_users_id",
       "sort_field": null,
       "pk": 33
+    },
+    {
+      "id": 34,
+      "many_collection": "rainbow_likes",
+      "many_field": "directus_users_id",
+      "many_primary": "id",
+      "one_collection": "directus_users",
+      "one_field": "has_liked",
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": "articles_id",
+      "sort_field": null,
+      "pk": 34
     },
     {
       "id": 35,
@@ -8432,20 +8651,6 @@
       "junction_field": null,
       "sort_field": null,
       "pk": 36
-    },
-    {
-      "id": 7,
-      "many_collection": "articles",
-      "many_field": "photo",
-      "many_primary": "id",
-      "one_collection": "directus_files",
-      "one_field": null,
-      "one_primary": "id",
-      "one_collection_field": null,
-      "one_allowed_collections": null,
-      "junction_field": null,
-      "sort_field": null,
-      "pk": 7
     }
   ]
 }

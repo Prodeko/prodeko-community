@@ -41,3 +41,13 @@ Most often we want to develop and test changes locally, for which we just use th
 **CAUTION!** When pushing to `main` branch, we automatically run migrations against the production database. Be sure to test properly before deploying!
 
 After applying a migration, the previous schema gets saved as `./directus/schema.previous.json`. In case of an unwanted migration, this can be of help, but it should not be relied upon. For a recovery attempt, run `make restore-migrations` (overwriting the version controlled file), check if the printed diff looks like it would help, and try applying it with `make apply-migrations`. This procedure cannot bring back any data lost via removing tables or columns, but the tables or columns themselves might be restorable. If the restoration did not help, use the database backup you saved before attempting to migrate ;)
+
+## Search
+
+Provided by MeiliSearch
+
+Gotta [get public API key by using master](https://docs.meilisearch.com/reference/features/authentication.html), for example with `curl` (substituting angle-bracketed variables as per current configuration):
+
+```sh
+curl -i -H "x-Meili-API-Key: <MEILI_MASTER_KEY>" <MEILI_HOST>:<MEILI_PORT>/keys
+```

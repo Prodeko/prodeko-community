@@ -10,10 +10,11 @@ services:
 
   community_cms:
     container_name: community_cms
-    image: directus/directus:v9.0.0-rc.51
+    image: directus/directus:v9.0.0-rc.53
     volumes:
       - ./directus/extensions:/directus/extensions
       - ./directus/uploads:/directus/uploads
+      - ./search-config.json:/directus/extensions/hooks/search-sync/config.json
     depends_on:
       - community_database
     env_file:
@@ -26,6 +27,14 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - community_cms
+    env_file:
+      - .env
+
+  community_search:
+    container_name: community_search
+    image: getmeili/meilisearch:v0.20.0
+    volumes:
+      - ./search/data.ms:/data.ms
     env_file:
       - .env
 
