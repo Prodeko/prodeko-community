@@ -48,6 +48,7 @@ export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverr
         alt=""
         layout="fill"
         objectFit="cover"
+        sizes="40vw"
       />
       <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>

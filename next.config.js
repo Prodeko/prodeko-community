@@ -15,7 +15,7 @@ const withTM = require('next-transpile-modules')(['@directus/sdk-js']);
 module.exports = withTM({
   images: {
     domains: ['localhost', 'community_cms'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    deviceSizes: [320, 420, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   webpack: (config, options) => {

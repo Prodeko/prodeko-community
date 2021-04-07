@@ -15,7 +15,7 @@ export const Author: React.FC<AuthorProps> = ({ author }) => {
   return (
     <AuthorWrapper initial="initial" animate="enter" exit="exit" variants={containerTransitions}>
       <AuthorPhotoWrapper>
-        <AnimatedImage src={author.photo} alt="" layout="fill" objectFit="cover" />
+        <AnimatedImage src={author.photo} alt="" layout="fill" objectFit="cover" sizes="30vw" />
       </AuthorPhotoWrapper>
 
       <AuthorName>{author.name}</AuthorName>
