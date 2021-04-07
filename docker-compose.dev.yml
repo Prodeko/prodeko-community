@@ -14,5 +14,8 @@ services:
       - ./:/usr/src/app
     network_mode: host
 
+  community_search:
+    network_mode: host
+
   wait:
     network_mode: host

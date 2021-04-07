@@ -41,23 +41,25 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
 
         <Filters translations={translations} />
 
-        <Search
-          defaultView={
-            visibleArticles.length !== 0 ? (
-              <YearlyListing>
-                <AnimatePresence>
-                  {visibleArticles.map(([year, articles]) => (
-                    <ArticleBlockWrapper variants={itemTransitionUp} key={year} layout="position">
-                      <ArticleBlock articles={articles} year={year} />
-                    </ArticleBlockWrapper>
-                  ))}
-                </AnimatePresence>
-              </YearlyListing>
-            ) : (
-              <NoResults />
-            )
-          }
-        />
+        <SearchWrapper>
+          <Search
+            defaultView={
+              visibleArticles.length !== 0 ? (
+                <YearlyListing>
+                  <AnimatePresence>
+                    {visibleArticles.map(([year, articles]) => (
+                      <ArticleBlockWrapper variants={itemTransitionUp} key={year} layout="position">
+                        <ArticleBlock articles={articles} year={year} />
+                      </ArticleBlockWrapper>
+                    ))}
+                  </AnimatePresence>
+                </YearlyListing>
+              ) : (
+                <NoResults />
+              )
+            }
+          />
+        </SearchWrapper>
       </ArticlesContext.Provider>
     </Main>
   );
@@ -93,4 +95,10 @@ const ArticleBlockWrapper = styled(m.li)`
 
 const YearlyListing = styled.ol`
   margin-top: var(--spacing-large);
+`;
+
+const SearchWrapper = styled.div`
+  & > * + * {
+    margin-top: var(--spacing-large);
+  }
 `;

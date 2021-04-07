@@ -2,6 +2,7 @@ import { NoResults } from '_pages/Archive/NoResults';
 import { useArticlesContext } from '_pages/Archive/useArticlesContext';
 import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
+import { SEARCH_KEY, SEARCH_URL } from 'api/config';
 import { useGlobalContext } from 'api/globalContext';
 import { Card } from 'components/Card';
 import { SrOnly } from 'components/SrOnly';
@@ -18,28 +19,26 @@ import {
   Snippet,
 } from 'react-instantsearch-dom';
 import styled, { css } from 'styled-components';
-import { Article } from 'types';
+import { Article, LANGUAGE_KEYS } from 'types';
 
 const SNIPPET_MAX_LENGTH = 200;
 
-const textFieldKeys = ['title', 'ingress', 'tagline', 'body'] as const;
-type TextFieldKey = typeof textFieldKeys[number];
-
-const snippetAttributes = [...textFieldKeys, 'articles_id.author.name'] as const;
+const snippetAttributes = [
+  'author.name',
+  'translations.title',
+  'translations.ingress',
+  'translations.tagline',
+  'translations.body',
+] as const;
 type SnippetAttribute = typeof snippetAttributes[number];
 
-interface SearchHit extends Record<TextFieldKey, string | null> {
+interface SearchHit extends Record<SnippetAttribute, string | null> {
   id: number;
-  'articles_id.id': number;
-  'articles_id.author'?: null;
-  'articles_id.author.name'?: string;
+  'translations.languages_code': keyof typeof LANGUAGE_KEYS;
   _snippetResult: Record<SnippetAttribute, { value: string }>;
 }
 
-const searchClient = instantMeiliSearch(
-  'http://localhost:7700',
-  'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25'
-);
+const searchClient = instantMeiliSearch(SEARCH_URL, SEARCH_KEY);
 
 type SearchProps = {
   defaultView: React.ReactNode;
@@ -179,10 +178,15 @@ const Results = connectStateResults<ResultsProps>(
 );
 
 const Hits = connectHits<SearchHit>(({ hits }) => {
+  const { language } = useGlobalContext();
   const { articles } = useArticlesContext();
   const { filteredArticles } = useBasicFiltering(articles);
   const articleIds = filteredArticles.map((article) => article.id);
-  const filteredHits = hits.filter((hit) => articleIds.includes(hit['articles_id.id']));
+  const filteredHits = hits.filter(
+    (hit) =>
+      articleIds.includes(hit['id']) &&
+      LANGUAGE_KEYS[hit['translations.languages_code']] === language
+  );
 
   if (filteredHits.length === 0) {
     return <NoResults />;
@@ -193,7 +197,7 @@ const Hits = connectHits<SearchHit>(({ hits }) => {
       {filteredHits.map((hit) => (
         <Hit
           hit={hit}
-          article={articles.find((article) => article.id === hit['articles_id.id'])!}
+          article={articles.find((article) => article.id === hit['id'])!}
           key={hit.id}
         />
       ))}
@@ -228,16 +232,20 @@ const Hit: React.FC<HitProps> = ({ hit, article }) => {
     <HitWrapper>
       <Card article={article} />
       <HitContents>
-        <HitTitle>{getSearchResultContent(hit, 'title', highlightedAttributes, true)}</HitTitle>
-        {hit['articles_id.author.name'] && (
+        <HitTitle>
+          {getSearchResultContent(hit, 'translations.title', highlightedAttributes, true)}
+        </HitTitle>
+        {hit['author.name'] && (
           <HitAuthor>
-            {getSearchResultContent(hit, 'articles_id.author.name', highlightedAttributes, true)}
+            {getSearchResultContent(hit, 'author.name', highlightedAttributes, true)}
           </HitAuthor>
         )}
-        {hit['ingress'] && (
-          <Ingress>{getSearchResultContent(hit, 'ingress', highlightedAttributes)}</Ingress>
+        {hit['translations.ingress'] && (
+          <Ingress>
+            {getSearchResultContent(hit, 'translations.ingress', highlightedAttributes)}
+          </Ingress>
         )}
-        <Body>{getSearchResultContent(hit, 'body', highlightedAttributes)}</Body>
+        <Body>{getSearchResultContent(hit, 'translations.body', highlightedAttributes)}</Body>
       </HitContents>
     </HitWrapper>
   );
@@ -260,8 +268,9 @@ function getSearchResultContent(
   attributes: Record<SnippetAttribute, boolean>,
   strip: boolean | undefined = false
 ): React.ReactNode {
+  console.log(hit, key, attributes, strip);
   return attributes[key] ? (
-    <Snippet attribute={[key]} hit={strip ? stripEllipses(hit, key) : hit} />
+    <Snippet attribute={[key]} hit={strip ? stripEllipses(hit, key) : hit} tagName="mark" />
   ) : (
     hit[key]
   );
@@ -292,11 +301,6 @@ const HitWrapper = styled.li`
     ${HitTitle} {
       display: none;
     }
-  }
-
-  & em {
-    font-style: inherit;
-    background-color: var(--highlight);
   }
 `;
 

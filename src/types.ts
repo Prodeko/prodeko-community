@@ -6,7 +6,7 @@
  * nested.
  */
 
-export const LANGUAGE_KEYS = { 'fi-FI': 'fi', 'en-US': 'en' };
+export const LANGUAGE_KEYS = { 'fi-FI': 'fi', 'en-US': 'en' } as const;
 export const LANGUAGES = ['fi', 'en'] as const;
 export type LanguageCode = typeof LANGUAGES[number];
 

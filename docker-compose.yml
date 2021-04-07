@@ -30,14 +30,13 @@ services:
     env_file:
       - .env
 
-  talks-search:
-    container_name: talks_search
+  community_search:
+    container_name: community_search
     image: getmeili/meilisearch:v0.20.0
-    restart: always
     volumes:
       - ./search/data.ms:/data.ms
-    ports:
-      - 7700:7700
+    env_file:
+      - .env
 
   wait:
     image: dokku/wait

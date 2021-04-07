@@ -121,6 +121,10 @@ export const GlobalStyle = createGlobalStyle`
     font-style: italic;
   }
 
+  mark {
+    background-color: var(--highlight);
+  }
+
 
 
   /* Remove all animations and transitions for people that prefer not to see them */

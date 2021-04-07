@@ -10,6 +10,9 @@ services:
       network: prodeko-docker-net
     restart: unless-stopped
 
+  community_search:
+    restart: unless-stopped
+
 networks:
   default:
     external:
