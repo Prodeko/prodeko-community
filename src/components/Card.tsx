@@ -17,10 +17,12 @@ import { Article } from 'types';
 
 type CardProps = {
   article: Article;
+  titleOverride?: React.ReactNode;
+  taglineOverride?: React.ReactNode;
 };
 
 /** Card component for displaying a single article, be that a video, podcast or a blog post */
-export const Card: React.FC<CardProps> = ({ article }) => {
+export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverride }) => {
   const { language, commonData } = useGlobalContext();
 
   const { type, photo } = article;
@@ -49,9 +51,9 @@ export const Card: React.FC<CardProps> = ({ article }) => {
       />
       <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
         <LinkContents>
-          <Title>{title}</Title>
+          <Title>{titleOverride || title}</Title>
           <Line />
-          <Tagline>{tagline}</Tagline>
+          <Tagline>{taglineOverride || tagline}</Tagline>
 
           <IconRow>
             <MediaIcon />

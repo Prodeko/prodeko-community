@@ -231,7 +231,21 @@ const Hit: React.FC<HitProps> = ({ hit, article }) => {
 
   return (
     <HitWrapper>
-      <Card article={article} />
+      <Card
+        article={article}
+        titleOverride={getSearchResultContent(
+          hit,
+          'translations.title',
+          highlightedAttributes,
+          true
+        )}
+        taglineOverride={getSearchResultContent(
+          hit,
+          'translations.tagline',
+          highlightedAttributes,
+          true
+        )}
+      />
       <HitContents>
         <HitTitle>
           {getSearchResultContent(hit, 'translations.title', highlightedAttributes, true)}
