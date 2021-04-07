@@ -213,6 +213,11 @@ export type ArchivePageData = {
     filter_label: string;
     newest_first: string;
     oldest_first: string;
+
+    search_bar_label: string;
+    clear_search_button: string;
+    no_results_prompt: string;
+    reset_filters_button: string;
   }>;
 };
 

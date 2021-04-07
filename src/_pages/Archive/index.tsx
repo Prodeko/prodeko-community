@@ -2,7 +2,7 @@ import { ArticleBlock } from '_pages/Archive/ArticleBlock';
 import { Filters } from '_pages/Archive/Filters';
 import { NoResults } from '_pages/Archive/NoResults';
 import { Search } from '_pages/Archive/Search';
-import { ArticlesContext } from '_pages/Archive/useArticlesContext';
+import { ArchiveContext } from '_pages/Archive/useArchiveContext';
 import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
 import { useGlobalContext } from 'api/globalContext';
 import { Line } from 'components/Line';
@@ -33,7 +33,7 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
 
   return (
     <Main>
-      <ArticlesContext.Provider value={{ articles }}>
+      <ArchiveContext.Provider value={{ articles, translations: translations[language] }}>
         <Header>
           <h1>{page_title}</h1>
           <Line variant="long" />
@@ -60,7 +60,7 @@ export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) =
             }
           />
         </SearchWrapper>
-      </ArticlesContext.Provider>
+      </ArchiveContext.Provider>
     </Main>
   );
 };

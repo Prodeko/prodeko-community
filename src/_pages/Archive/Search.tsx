@@ -1,5 +1,5 @@
 import { NoResults } from '_pages/Archive/NoResults';
-import { useArticlesContext } from '_pages/Archive/useArticlesContext';
+import { useArchiveContext } from '_pages/Archive/useArchiveContext';
 import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SEARCH_KEY, SEARCH_URL } from 'api/config';
@@ -70,6 +70,7 @@ export const Search: React.FC<SearchProps> = ({ defaultView }) => {
 
 const SearchBox = connectSearchBox(({ currentRefinement }) => {
   const { updateRouterQuery, clearRouterQuery } = useBasicFiltering();
+  const { translations } = useArchiveContext();
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
@@ -86,14 +87,14 @@ const SearchBox = connectSearchBox(({ currentRefinement }) => {
 
   return (
     <SearchBoxWrapper>
-      <SearchLabel>Hae</SearchLabel>
+      <SearchLabel>{translations.search_bar_label}</SearchLabel>
       <InputWrapper>
         <SearchIcon />
         <SearchInput type="search" value={currentRefinement} onChange={onChange} />
         {currentRefinement && currentRefinement !== '' && (
           <ClearButton onClick={onClear}>
             <FiX />
-            <SrOnly>Tyhjennä haku</SrOnly>
+            <SrOnly>{translations.clear_search_button}</SrOnly>
           </ClearButton>
         )}
       </InputWrapper>
@@ -179,7 +180,7 @@ const Results = connectStateResults<ResultsProps>(
 
 const Hits = connectHits<SearchHit>(({ hits }) => {
   const { language } = useGlobalContext();
-  const { articles } = useArticlesContext();
+  const { articles } = useArchiveContext();
   const { filteredArticles } = useBasicFiltering(articles);
   const articleIds = filteredArticles.map((article) => article.id);
   const filteredHits = hits.filter(

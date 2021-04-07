@@ -1,4 +1,4 @@
-import { useArticlesContext } from '_pages/Archive/useArticlesContext';
+import { useArchiveContext } from '_pages/Archive/useArchiveContext';
 import { useRouter } from 'next/router';
 import { Article, ArticleType } from 'types';
 import { groupBy } from 'utils/groupBy';
@@ -18,7 +18,7 @@ function sortBy<T>(a: T, b: T, getValue: (x: T) => number, order: Order) {
 }
 
 export const useBasicFiltering = (baseArticles?: Article[]) => {
-  const { articles: contextArticles } = useArticlesContext();
+  const { articles: contextArticles } = useArchiveContext();
   const articles = baseArticles ?? contextArticles;
   const router = useRouter();
   const { query } = router;
