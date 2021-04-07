@@ -283,7 +283,6 @@ function getSearchResultContent(
   attributes: Record<SnippetAttribute, boolean>,
   strip: boolean | undefined = false
 ): React.ReactNode {
-  console.log(hit, key, attributes, strip);
   return attributes[key] ? (
     <Snippet attribute={[key]} hit={strip ? stripEllipses(hit, key) : hit} tagName="mark" />
   ) : (
