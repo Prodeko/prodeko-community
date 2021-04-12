@@ -2,6 +2,7 @@ import { getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
 import { Head } from 'components/Head';
 import { Navbar } from 'components/Navbar';
+import { SkipLink } from 'components/SkipLink';
 import { AnimatePresence, AnimateSharedLayout, domMax, LazyMotion } from 'framer-motion';
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
@@ -109,6 +110,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   return (
     <GlobalContext.Provider value={{ commonData, language, alternativeSlugs, routes }}>
       <LazyMotion features={domMax} strict>
+        <SkipLink>{commonData.translations[language].skip_link_text}</SkipLink>
         <Navbar />
         {pageMeta}
         <AnimateSharedLayout>

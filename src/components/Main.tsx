@@ -13,6 +13,7 @@ const MainWrapper = styled(m.main).attrs({
   animate: 'enter',
   exit: 'exit',
   variants: mainTransitions,
+  id: 'main-content',
 })`
   display: grid;
   grid-template-rows: min-content;

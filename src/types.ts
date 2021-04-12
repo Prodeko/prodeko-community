@@ -68,6 +68,7 @@ export type CommonData = {
     id: number;
     site_title: string;
     site_tagline: string;
+    skip_link_text: string;
 
     no_user_placeholder: string;
     log_in_link_text: string;
