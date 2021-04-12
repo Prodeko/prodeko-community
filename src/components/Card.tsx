@@ -42,16 +42,16 @@ export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverr
   const linkPrefix = commonData.translations[language][`${type}_slug` as const];
 
   return (
-    <Wrapper>
-      <AnimatedImage
-        src={photo || commonData.article_default_picture}
-        alt=""
-        layout="fill"
-        objectFit="cover"
-        sizes="40vw"
-      />
-      <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
-        <LinkContents>
+    <Link href={{ query: { slug: [linkPrefix, slug] } }} passHref>
+      <LinkContents>
+        <AnimatedImage
+          src={photo || commonData.article_default_picture}
+          alt=""
+          layout="fill"
+          objectFit="cover"
+          sizes="40vw"
+        />
+        <Wrapper>
           <Title>{titleOverride || title}</Title>
           <Line />
           <Tagline>{taglineOverride || tagline}</Tagline>
@@ -62,15 +62,16 @@ export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverr
 
             <ArticleStats article={article} />
           </IconRow>
-        </LinkContents>
-      </Link>
-    </Wrapper>
+        </Wrapper>
+      </LinkContents>
+    </Link>
   );
 };
 
-const Wrapper = styled.div`
+const LinkContents = styled.a`
   position: relative;
   overflow: hidden;
+  display: block;
 
   border-radius: var(--border-radius-large);
   height: var(--card-height);
@@ -97,7 +98,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const LinkContents = styled.a`
+const Wrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
