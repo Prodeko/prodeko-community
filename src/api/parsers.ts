@@ -55,12 +55,24 @@ import {
  *  }
  * ```
  */
-const parseTranslationData = (data: any[]) =>
-  data.reduce((acc, curr) => {
+const parseTranslationData = (data: any[]) => {
+  const languagesData = data.reduce((acc, curr) => {
     const lang = curr.languages_code as keyof typeof LANGUAGE_KEYS;
     const data = { [LANGUAGE_KEYS[lang]]: curr };
     return { ...acc, ...data };
   }, {});
+
+  // If either translation is missing, we simply replace it with the other.
+  // This is intended behaviour as specified by the client
+  if (!('fi' in languagesData)) {
+    languagesData['fi'] = languagesData['en'];
+  }
+  if (!('en' in languagesData)) {
+    languagesData['en'] = languagesData['fi'];
+  }
+
+  return languagesData;
+};
 
 /**
  * Directus has a specialized assets endpoint, so we need to create custom urls
