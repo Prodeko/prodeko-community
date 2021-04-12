@@ -30,10 +30,7 @@ all: run
 env-test:
 	echo $(NEXT_PUBLIC_API_URL)
 
-# We want to build custom Directus extensions on install too
-# The removal of `sharp` is a hack to work around dockerignore issues and will
-# get removed anyways when Next.js 10.0.3 lands and brings us webassembly
-# image optimization
+# We want to build custom Directus extensions on install, too
 install:
 	npm install
 	npm run build:extensions
