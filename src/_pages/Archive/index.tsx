@@ -4,6 +4,7 @@ import { NoResults } from '_pages/Archive/NoResults';
 import { Search } from '_pages/Archive/Search';
 import { ArchiveContext } from '_pages/Archive/useArchiveContext';
 import { useBasicFiltering } from '_pages/Archive/useBasicFiltering';
+import { getArchivePageData } from 'api';
 import { useGlobalContext } from 'api/globalContext';
 import { Line } from 'components/Line';
 import { Main as MainBase } from 'components/Main';
@@ -12,6 +13,7 @@ import { AnimatePresence, m } from 'framer-motion';
 import { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
+import useSWR from 'swr';
 import { ArchivePageData } from 'types';
 
 /**
@@ -25,7 +27,10 @@ import { ArchivePageData } from 'types';
  * it works out of the box with Next.js
  * https://en.wikipedia.org/wiki/Query_string#Web_forms
  */
-export const Archive: NextPage<ArchivePageData> = ({ translations, articles }) => {
+export const Archive: NextPage<ArchivePageData> = (props) => {
+  const { data } = useSWR('archivePageData', getArchivePageData, { initialData: props });
+  const { translations, articles } = data!;
+
   const { language } = useGlobalContext();
   const { visibleArticles } = useBasicFiltering(articles);
 

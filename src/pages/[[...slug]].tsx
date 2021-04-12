@@ -1,4 +1,4 @@
-import { getPageBySlug, getPaths } from 'api';
+import { getCommonData, getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
 import { Head } from 'components/Head';
 import { Navbar } from 'components/Navbar';
@@ -7,6 +7,7 @@ import { AnimatePresence, AnimateSharedLayout, domMax, LazyMotion } from 'framer
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
 import { ParsedUrlQuery } from 'querystring';
+import useSWR from 'swr';
 import {
   ArchivePageData,
   Article,
@@ -43,16 +44,20 @@ const ArticlePage = dynamic<{ article: Article }>(
  * Next.js route so that our CMS can control the slugs of the application
  */
 export default function Page(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { data } = useSWR('commonData', getCommonData, { initialData: props.commonData });
+
   if (props.template === 'notFound' || !props.template) {
     return <></>; // TODO: proper 404 page
   }
 
   const {
-    commonData,
     language,
     routes,
     data: { translations },
   } = props;
+
+  // Safe assertion as static prop data is always available as initial SWR data
+  const commonData = data!;
 
   // Get the correct component to render with an immediately invoked function execution
   // Pick which meta tags to use as well

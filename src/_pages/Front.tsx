@@ -1,3 +1,4 @@
+import { getFrontPageData } from 'api';
 import { useGlobalContext } from 'api/globalContext';
 import { Banner } from 'components/Banner';
 import { Card, CardList, CardWrapper } from 'components/Card';
@@ -5,16 +6,20 @@ import { Line } from 'components/Line';
 import { Main as MainBase } from 'components/Main';
 import { NextPage } from 'next';
 import styled from 'styled-components';
+import useSWR from 'swr';
 import { Article, FrontPageData } from 'types';
 
-export const Front: NextPage<FrontPageData> = ({
-  background_banner,
-  background_animation,
-  main_logo,
-  highlighted_articles,
-  translations,
-}) => {
+export const Front: NextPage<FrontPageData> = (props) => {
+  const { data } = useSWR('frontPageData', getFrontPageData, { initialData: props });
   const { language } = useGlobalContext();
+  const {
+    background_banner,
+    background_animation,
+    main_logo,
+    highlighted_articles,
+    translations,
+  } = data!;
+
   const { logo_alternative_text, videos_title, podcasts_title, blog_posts_title } = translations[
     language
   ];

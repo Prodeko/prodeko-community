@@ -1,3 +1,4 @@
+import { getInfoPageData } from 'api';
 import { useGlobalContext } from 'api/globalContext';
 import { ArticleBody } from 'components/ArticleBody';
 import { Banner } from 'components/Banner';
@@ -7,15 +8,14 @@ import { itemTransitionUp } from 'components/transitionConfigs';
 import { m } from 'framer-motion';
 import { NextPage } from 'next';
 import styled from 'styled-components';
+import useSWR from 'swr';
 import { InfoPageData } from 'types';
 
-export const Info: NextPage<InfoPageData> = ({
-  background_animation,
-  background_banner,
-  main_logo,
-  translations,
-}) => {
+export const Info: NextPage<InfoPageData> = (props) => {
+  const { data } = useSWR('infoPageData', getInfoPageData, { initialData: props });
   const { language } = useGlobalContext();
+  const { background_animation, background_banner, main_logo, translations } = data!;
+
   const { page_title, body } = translations[language];
 
   return (

@@ -125,7 +125,7 @@ export const getFrontPageData = createDataFetcher('front_page', frontPageQuery, 
 export const getInfoPageData = createDataFetcher('info_page', commonDataQuery, parseInfoPageData);
 
 const getArchivePage = createDataFetcher('archive_page', commonDataQuery, parseArchivePageData);
-const getArchivePageData = async () => {
+export const getArchivePageData = async () => {
   const [articles, archivePageData] = await Promise.all([getArticles(), getArchivePage()]);
   return { ...archivePageData, articles };
 };
