@@ -144,6 +144,11 @@ const SearchInput = styled.input`
   padding: 0.2em 2em;
   border-radius: 999px;
   border: 1px solid var(--gray-light);
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 0.15rem var(--highlight);
+  }
 `;
 
 const ClearButton = styled.button`
