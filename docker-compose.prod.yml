@@ -5,6 +5,9 @@ services:
       - 8055:8055
     restart: unless-stopped
 
+  community_cache:
+    restart: unless-stopped
+
   community_web:
     build:
       network: prodeko-docker-net

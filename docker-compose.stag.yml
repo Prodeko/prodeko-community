@@ -6,6 +6,9 @@ services:
   community_cms:
     network_mode: host
 
+  community_cache:
+    network_mode: host
+
   community_web:
     build:
       network: host

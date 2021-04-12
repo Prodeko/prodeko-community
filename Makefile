@@ -89,7 +89,7 @@ run:
 # builds et cetera
 run-backend:
 	$(DATABASE)
-	$(COMPOSE) up -d community_cms
+	$(COMPOSE) up -d community_cms community_cache
 	$(WAIT)
 
 # Shut down all project containers

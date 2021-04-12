@@ -20,6 +20,10 @@ services:
     env_file:
       - .env
 
+  community_cache:
+    container_name: community_cache
+    image: redis:6-alpine
+
   community_web:
     container_name: community_web
     build:
