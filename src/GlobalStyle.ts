@@ -191,6 +191,8 @@ export const GlobalStyle = createGlobalStyle`
     --banner-height: min(80vh, 50rem);
     --banner-logo-offset: -5rem;
     --below-banner-offset: calc(var(--banner-height) / -4.5);
+    --scroll-top-position: 2rem;
+    --scroll-top-size: 3rem;
 
     --text-width: 75ch;
     --content-width: 65rem;
@@ -242,6 +244,7 @@ export const GlobalStyle = createGlobalStyle`
       --main-padding: var(--spacing-regular);
       --article-padding: var(--spacing-medium) var(--spacing-regular);
       --text-filter: 1rem;
+      --scroll-top-position: 1.5rem;
 
       --author-max-width: 12rem;
       --article-banner-height: 80%;
@@ -254,6 +257,8 @@ export const GlobalStyle = createGlobalStyle`
 
       --navbar-logo-width: 10rem;
       --banner-logo-offset: -10rem;
+      --scroll-top-position: 1rem;
+      --scroll-top-size: 2.5rem;
 
       --article-padding: var(--spacing-regular) var(--spacing-small);
       --article-banner-height: 100%;

@@ -1,4 +1,5 @@
 import { Footer } from 'components/Footer';
+import { ScrollToTop } from 'components/ScrollToTop';
 import { mainTransitions } from 'components/transitionConfigs';
 import { m } from 'framer-motion';
 import styled from 'styled-components';
@@ -41,6 +42,7 @@ export const Main: React.FC<React.ComponentProps<typeof MainWrapper>> = ({
 }) => (
   <MainWrapper {...props}>
     {children}
+    <ScrollToTop />
     <Footer />
   </MainWrapper>
 );
