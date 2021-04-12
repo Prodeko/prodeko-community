@@ -185,7 +185,7 @@ const Results = connectStateResults<ResultsProps>(
 
 const Hits = connectHits<SearchHit>(({ hits }) => {
   const { language } = useGlobalContext();
-  const { articles } = useArchiveContext();
+  const { articles, translations } = useArchiveContext();
   const { filteredArticles } = useBasicFiltering(articles);
   const articleIds = filteredArticles.map((article) => article.id);
   const filteredHits = hits.filter(
@@ -199,17 +199,30 @@ const Hits = connectHits<SearchHit>(({ hits }) => {
   }
 
   return (
-    <HitsWrapper>
-      {filteredHits.map((hit) => (
-        <Hit
-          hit={hit}
-          article={articles.find((article) => article.id === hit['id'])!}
-          key={hit.id}
-        />
-      ))}
-    </HitsWrapper>
+    <>
+      <HitCount>
+        {filteredHits.length} {translations.search_results_amount}
+      </HitCount>
+      <HitsWrapper>
+        {filteredHits.map((hit) => (
+          <Hit
+            hit={hit}
+            article={articles.find((article) => article.id === hit['id'])!}
+            key={hit.id}
+          />
+        ))}
+      </HitsWrapper>
+    </>
   );
 });
+
+const HitCount = styled.p`
+  && {
+    margin-top: 0.5rem;
+  }
+  color: var(--gray-light);
+  font-size: 1rem;
+`;
 
 const HitsWrapper = styled.ol`
   --card-height: 18rem;

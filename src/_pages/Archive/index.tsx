@@ -99,7 +99,9 @@ const ArticleBlockWrapper = styled(m.li)`
 `;
 
 const YearlyListing = styled.ol`
-  margin-top: var(--spacing-large);
+  && {
+    margin-top: var(--spacing-xlarge);
+  }
 `;
 
 const SearchWrapper = styled.div`

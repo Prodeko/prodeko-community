@@ -221,6 +221,7 @@ export type ArchivePageData = {
     clear_search_button: string;
     no_results_prompt: string;
     reset_filters_button: string;
+    search_results_amount: string;
   }>;
 };
 
