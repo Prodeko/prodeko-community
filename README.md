@@ -51,3 +51,13 @@ Gotta [get public API key by using master](https://docs.meilisearch.com/referenc
 ```sh
 curl -i -H "x-Meili-API-Key: <MEILI_MASTER_KEY>" <MEILI_HOST>:<MEILI_PORT>/keys
 ```
+
+## Implementation details
+
+### CSS
+
+For styling we use `styled-components`, as it provides great ergonomics, allows the writing of (almost) pure CSS, helps to convey the meaning behind individual `<div>`s and has support for static rendering with `next.js`.
+
+Most interactive styles are applied not via custom properties, but actually useful `aria`-attributes, which also help screen readers interpret the interactivities.
+
+Layout uses CSS grid for the most part, as it is widely supported by now. The main layout consists of three columns, of which the centermost has the page's contents and two oters serve as responsive margins.

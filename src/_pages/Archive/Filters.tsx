@@ -8,6 +8,10 @@ type FiltersProps = {
   translations: ArchivePageData['translations'];
 };
 
+/**
+ * Basic filters for the list of articles, including article type and sorting by
+ * date published
+ */
 export const Filters: React.FC<FiltersProps> = ({ translations }) => {
   const { language, commonData } = useGlobalContext();
   const { filter_label, sort_order_label, newest_first, oldest_first } = translations[language];
