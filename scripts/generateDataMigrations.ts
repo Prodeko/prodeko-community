@@ -21,6 +21,8 @@ const getRolePk = (role: any) => role.id;
 
 const addPk = (func: any) => (item: any) => ({ ...item, pk: func(item) });
 
+const query = { limit: 50000 };
+
 /**
  * Directus doesn't support schema migrations yet :(
  */
@@ -30,11 +32,11 @@ const addPk = (func: any) => (item: any) => ({ ...item, pk: func(item) });
 
   const [collections, fields, roles, permissions, relations] = (
     await Promise.all([
-      directus.collections.read(),
-      directus.fields.read(),
-      directus.roles.read(),
-      directus.permissions.read(),
-      directus.relations.read(),
+      directus.collections.read(query),
+      directus.fields.read(query),
+      directus.roles.read(query),
+      directus.permissions.read(query),
+      directus.relations.read(query),
     ])
   ).map((r) => r.data);
 

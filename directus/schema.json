@@ -1849,6 +1849,66 @@
       ],
       "limit": null,
       "pk": 130
+    },
+    {
+      "id": 131,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "directus_users",
+      "action": "update",
+      "permissions": {
+        "id": {
+          "_eq": "$CURRENT_USER"
+        }
+      },
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "avatar"
+      ],
+      "limit": null,
+      "pk": 131
+    },
+    {
+      "id": 133,
+      "role": null,
+      "collection": "directus_permissions",
+      "action": "read",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 133
+    },
+    {
+      "id": 134,
+      "role": null,
+      "collection": "directus_users",
+      "action": "update",
+      "permissions": null,
+      "validation": null,
+      "presets": null,
+      "fields": null,
+      "limit": null,
+      "pk": 134
+    },
+    {
+      "id": 135,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "directus_files",
+      "action": "delete",
+      "permissions": {
+        "uploaded_by": {
+          "_eq": "$CURRENT_USER"
+        }
+      },
+      "validation": null,
+      "presets": null,
+      "fields": null,
+      "limit": null,
+      "pk": 135
     }
   ],
   "fields": [
