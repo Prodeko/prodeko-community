@@ -1,10 +1,11 @@
 import { CommentForm } from '_pages/Article/CommentForm';
 import { useGlobalContext } from 'api/globalContext';
+import { useAuth } from 'api/useAuth';
 import { ProfilePicture } from 'components/ProfilePicture';
 import { itemTransitionDown } from 'components/transitionConfigs';
 import { AnimatePresence, m } from 'framer-motion';
 import styled from 'styled-components';
-import { Article, Comment as CommentType } from 'types';
+import { Article, Comment as CommentType, User } from 'types';
 
 type CommentProps = {
   article: Article;
@@ -12,10 +13,18 @@ type CommentProps = {
 };
 
 export const Comment: React.FC<CommentProps> = ({ comment, article }) => {
+  const { user } = useAuth();
   const { commonData, language } = useGlobalContext();
   const { user_not_found } = commonData.translations[language];
 
-  const commenter = comment.user_created;
+  let commenter: User | undefined = undefined;
+  if (comment.user_created) {
+    if (user && comment.user_created.id === user.id) {
+      commenter = user;
+    } else {
+      commenter = comment.user_created;
+    }
+  }
 
   return (
     <Wrapper>
