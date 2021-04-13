@@ -256,7 +256,6 @@ export const GlobalStyle = createGlobalStyle`
       --main-padding: var(--spacing-small);
 
       --navbar-logo-width: 10rem;
-      --banner-logo-offset: -10rem;
       --scroll-top-position: 1rem;
       --scroll-top-size: 2.5rem;
 
