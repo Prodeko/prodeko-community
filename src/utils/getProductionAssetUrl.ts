@@ -4,7 +4,8 @@ import { PROD_API_URL } from 'api/config';
  * re-parse the image into something that can be used by search engines in
  * meta tags
  */
-export function getProductionAssetUrl(url: string) {
+export function getProductionAssetUrl(url?: string) {
+  if (!url) return '';
   const urlBase = PROD_API_URL;
   const urlParts = url.split('/');
   const assetsIndex = urlParts.indexOf('assets');
