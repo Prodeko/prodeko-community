@@ -1,27 +1,21 @@
 import { useGlobalContext } from 'api/globalContext';
 import { useAuth } from 'api/useAuth';
 import { ProfileModal } from 'components/Navbar/ProfileModal';
+import { ProfilePicture } from 'components/ProfilePicture';
 import { SrOnly } from 'components/SrOnly';
-import { TextLink } from 'components/TextLink';
 import { itemTransitionDown } from 'components/transitionConfigs';
 import { m } from 'framer-motion';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 export const ProfileButton: React.FC = (props) => {
-  const { user, loginUrl, logout } = useAuth();
+  const { user } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
   const toggleModal = () => setModalOpen((prev) => !prev);
   const closeModal = () => setModalOpen(false);
 
   const { language, commonData } = useGlobalContext();
-  const { log_out_link_text, profile_button_alt_text } = commonData.translations[language];
-
-  const onLogout = () => {
-    logout();
-    closeModal();
-  };
+  const { profile_button_alt_text } = commonData.translations[language];
 
   return (
     <>
@@ -34,7 +28,7 @@ export const ProfileButton: React.FC = (props) => {
       >
         {user ? (
           <>
-            <ProfileImage src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
+            <ProfilePicture user={user} defaultPicture={commonData.user_default_picture} />
             <SrOnly>{profile_button_alt_text}</SrOnly>
           </>
         ) : (
@@ -45,13 +39,7 @@ export const ProfileButton: React.FC = (props) => {
         )}
       </ProfileButtonWrapper>
 
-      <ProfileModal isOpen={modalOpen} onRequestClose={closeModal}>
-        <ModalTitle>{user ? `${user.first_name} ${user.last_name}` : 'Not logged in'}</ModalTitle>
-
-        {user && <LogoutButton onClick={onLogout}>{log_out_link_text}</LogoutButton>}
-
-        {!user && <ModalLink href={loginUrl}>Log in</ModalLink>}
-      </ProfileModal>
+      <ProfileModal isOpen={modalOpen} onClose={closeModal} />
     </>
   );
 };
@@ -66,26 +54,9 @@ const ProfileButtonWrapper = styled(m.button)<{ loggedIn?: boolean }>`
   height: var(--size);
   padding: 0;
 
+  overflow: hidden;
   border: none;
   border-radius: 999px;
-  background-color: ${(p) => (p.loggedIn ? 'var(--gray-lighter)' : 'var(--gray-dark)')};
+  background-color: ${(p) => (p.loggedIn ? 'transparent' : 'var(--gray-dark)')};
   color: var(--gray-lighter);
-`;
-
-const ProfileImage = styled.img`
-  padding: var(--spacing-small);
-`;
-
-const ModalTitle = styled.h2`
-  font-size: var(--text-card-title);
-`;
-
-const ModalLink = styled(TextLink)`
-  --padding: 0px;
-`;
-
-const LogoutButton = styled(TextLink).attrs({ as: 'button' })`
-  background-color: unset;
-  border: none;
-  --padding: 0px;
 `;

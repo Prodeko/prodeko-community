@@ -1242,20 +1242,6 @@
       "pk": 62
     },
     {
-      "id": 64,
-      "role": null,
-      "collection": "directus_files",
-      "action": "read",
-      "permissions": null,
-      "validation": null,
-      "presets": null,
-      "fields": [
-        "*"
-      ],
-      "limit": null,
-      "pk": 64
-    },
-    {
       "id": 66,
       "role": null,
       "collection": "info_page_translations",
@@ -1762,6 +1748,107 @@
       ],
       "limit": null,
       "pk": 117
+    },
+    {
+      "id": 125,
+      "role": null,
+      "collection": "directus_files",
+      "action": "read",
+      "permissions": {
+        "type": {
+          "_in": [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/svg+xml",
+            "video/mp4"
+          ]
+        }
+      },
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "id",
+        "title",
+        "description",
+        "type",
+        "uploaded_by"
+      ],
+      "limit": null,
+      "pk": 125
+    },
+    {
+      "id": 128,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "directus_files",
+      "action": "create",
+      "permissions": null,
+      "validation": {
+        "type": {
+          "_in": [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/svg+xml"
+          ]
+        }
+      },
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 128
+    },
+    {
+      "id": 129,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "directus_files",
+      "action": "update",
+      "permissions": null,
+      "validation": {
+        "type": {
+          "_in": [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/svg+xml"
+          ]
+        },
+        "uploaded_by": {
+          "_eq": "$CURRENT_USER"
+        }
+      },
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 129
+    },
+    {
+      "id": 130,
+      "role": "64a13c83-5640-4671-aeea-c3891d4ac53d",
+      "collection": "directus_files",
+      "action": "read",
+      "permissions": {
+        "type": {
+          "_in": [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/svg+xml",
+            "video/mp4"
+          ]
+        }
+      },
+      "validation": null,
+      "presets": null,
+      "fields": [
+        "*"
+      ],
+      "limit": null,
+      "pk": 130
     }
   ],
   "fields": [

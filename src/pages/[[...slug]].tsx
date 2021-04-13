@@ -1,5 +1,6 @@
 import { getCommonData, getPageBySlug, getPaths } from 'api';
 import { GlobalContext } from 'api/globalContext';
+import { useAuth } from 'api/useAuth';
 import { Head } from 'components/Head';
 import { Navbar } from 'components/Navbar';
 import { SkipLink } from 'components/SkipLink';
@@ -7,6 +8,8 @@ import { AnimatePresence, AnimateSharedLayout, domMax, LazyMotion } from 'framer
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
 import { ParsedUrlQuery } from 'querystring';
+import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import useSWR from 'swr';
 import {
   ArchivePageData,
@@ -45,6 +48,9 @@ const ArticlePage = dynamic<{ article: Article }>(
  */
 export default function Page(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSWR('commonData', getCommonData, { initialData: props.commonData });
+
+  const { initializeAuth } = useAuth();
+  useEffect(initializeAuth, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (props.template === 'notFound' || !props.template) {
     return <></>; // TODO: proper 404 page
@@ -114,6 +120,7 @@ export default function Page(props: InferGetStaticPropsType<typeof getStaticProp
   // to random components
   return (
     <GlobalContext.Provider value={{ commonData, language, alternativeSlugs, routes }}>
+      <Toaster position="top-right" reverseOrder={false} />
       <LazyMotion features={domMax} strict>
         <SkipLink>{commonData.translations[language].skip_link_text}</SkipLink>
         <Navbar />

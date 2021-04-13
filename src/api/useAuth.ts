@@ -1,7 +1,9 @@
 import { directus, getAccessToken, getMe } from 'api';
 import { API_URL } from 'api/config';
+import { parseUser } from 'api/parsers';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { createGlobalState, useCookie } from 'react-use';
 import { User } from 'types';
 
@@ -23,6 +25,7 @@ const useGlobalValue = createGlobalState<User | null>(null);
  */
 export function useAuth() {
   const [user, setUser] = useGlobalValue();
+  const [loading, setLoading] = useState(false);
   const [oldRefreshToken, _, deleteOldRefreshToken] = useCookie('directus_refresh_token');
 
   const { asPath } = useRouter();
@@ -71,7 +74,7 @@ export function useAuth() {
   }
 
   // On initial mount
-  useEffect(() => {
+  function initializeAuth() {
     // If we ever end up with a `directus_refresh_token` cookie (as we do when
     // using the authentication link) we immediately consume it and try to gain
     // a proper access token for our Directus SDK instance.
@@ -106,7 +109,58 @@ export function useAuth() {
       // SDK already initialized and authenticated, gotta fetch user to state
       refreshUser();
     }
-  }, []);
+  }
 
-  return { user, loginUrl, logout };
+  /**
+   * Uploads a new file to Directus to be used as the user's avatar, deleting
+   * the old one previously there.
+   */
+  async function setUserAvatar(file: File | null, afterUpload: () => void) {
+    const onError = () => {
+      toast.error('something went wrong');
+      afterUpload();
+      setLoading(false);
+    };
+
+    try {
+      if (!loading && file && user) {
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('title', `avatar-${user.id}`);
+        formData.append('file', file);
+        formData.append('type', file.type);
+        const uploadRes = await directus.axios.post('/files', formData);
+
+        if (uploadRes.status === 200) {
+          if (uploadRes.data.data) {
+            const id = uploadRes.data.data.id;
+            const userRes = await directus.users.me.update({ avatar: id });
+            if (userRes.data) {
+              setUser(parseUser(userRes.data));
+            } else {
+              onError();
+            }
+          }
+
+          afterUpload();
+
+          if (user.avatarId) {
+            const deleteRes = await directus.axios.delete(`/files/${user.avatarId}`);
+            if (deleteRes.status !== 200) {
+              onError();
+            }
+          }
+
+          setLoading(false);
+        } else {
+          onError();
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      onError();
+    }
+  }
+
+  return { user, loginUrl, logout, setUserAvatar, initializeAuth };
 }

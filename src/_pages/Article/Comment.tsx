@@ -1,10 +1,10 @@
 import { CommentForm } from '_pages/Article/CommentForm';
 import { useGlobalContext } from 'api/globalContext';
+import { ProfilePicture } from 'components/ProfilePicture';
 import { itemTransitionDown } from 'components/transitionConfigs';
 import { AnimatePresence, m } from 'framer-motion';
 import styled from 'styled-components';
 import { Article, Comment as CommentType } from 'types';
-import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
 type CommentProps = {
   article: Article;
@@ -21,7 +21,7 @@ export const Comment: React.FC<CommentProps> = ({ comment, article }) => {
     <Wrapper>
       <Profile>
         <Photo>
-          <img src={getProductionAssetUrl(commonData.user_default_picture)} alt="" />
+          <ProfilePicture user={commenter} defaultPicture={commonData.user_default_picture} />
         </Photo>
         <Info>
           <Name>
@@ -72,12 +72,8 @@ const Photo = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding: var(--spacing-small);
-
   width: var(--image-size);
   height: var(--image-size);
-  background-color: var(--gray-lighter);
-  font-size: 1.5em;
 
   border-radius: 999px;
 `;

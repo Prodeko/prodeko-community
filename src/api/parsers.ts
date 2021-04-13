@@ -84,6 +84,7 @@ export const parseImageUrl = (imageId: string) =>
 export const parseUser = (data: any): User => ({
   ...data,
   avatar: data.avatar ? parseImageUrl(data.avatar) : null,
+  avatarId: data.avatar ?? null,
   language: LANGUAGE_KEYS[data.language as keyof typeof LANGUAGE_KEYS],
 });
 
