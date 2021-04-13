@@ -14,6 +14,7 @@ export const Front: NextPage<FrontPageData> = (props) => {
   const { language } = useGlobalContext();
   const {
     background_banner,
+    background_banner_narrow,
     background_animation,
     main_logo,
     highlighted_articles,
@@ -33,6 +34,7 @@ export const Front: NextPage<FrontPageData> = (props) => {
     <Main>
       <Banner
         bannerUrl={background_banner}
+        bannerNarrowUrl={background_banner_narrow}
         animationUrl={background_animation}
         logoUrl={main_logo}
         logoText={logo_alternative_text}

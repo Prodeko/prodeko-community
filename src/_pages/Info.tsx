@@ -14,7 +14,13 @@ import { InfoPageData } from 'types';
 export const Info: NextPage<InfoPageData> = (props) => {
   const { data } = useSWR('infoPageData', getInfoPageData, { initialData: props });
   const { language } = useGlobalContext();
-  const { background_animation, background_banner, main_logo, translations } = data!;
+  const {
+    background_animation,
+    background_banner,
+    background_banner_narrow,
+    main_logo,
+    translations,
+  } = data!;
 
   const { page_title, body } = translations[language];
 
@@ -22,6 +28,7 @@ export const Info: NextPage<InfoPageData> = (props) => {
     <Main>
       <Banner
         bannerUrl={background_banner}
+        bannerNarrowUrl={background_banner_narrow}
         animationUrl={background_animation}
         logoUrl={main_logo}
         decorative

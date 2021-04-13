@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 type BannerProps = {
   bannerUrl: string;
+  bannerNarrowUrl?: string;
   animationUrl: string;
   logoUrl: string;
   logoText?: string;
@@ -15,16 +16,22 @@ type BannerProps = {
 export const Banner: React.FC<BannerProps> = ({
   animationUrl,
   bannerUrl,
+  bannerNarrowUrl,
   logoUrl,
   logoText,
   decorative,
 }) => (
-  <BannerWrapper layoutId="banner">
+  <BannerWrapper fade={!!animationUrl}>
     <AnimatedImage src={bannerUrl} alt="" layout="fill" objectFit="cover" />
+    {bannerNarrowUrl && (
+      <NarrowImage src={bannerNarrowUrl} alt="" layout="fill" objectFit="cover" />
+    )}
 
-    <AnimationWrapper autoPlay muted playsInline loop>
-      <source src={animationUrl} type="video/mp4" />
-    </AnimationWrapper>
+    {animationUrl && (
+      <AnimationWrapper autoPlay muted playsInline loop>
+        <source src={animationUrl} type="video/mp4" />
+      </AnimationWrapper>
+    )}
 
     <LogoWrapper>
       <AnimatedImage src={logoUrl} alt="" layout="fill" objectFit="contain" transitionUpwards />
@@ -37,7 +44,7 @@ export const Banner: React.FC<BannerProps> = ({
   </BannerWrapper>
 );
 
-const BannerWrapper = styled(m.header)`
+const BannerWrapper = styled(m.header)<{ fade?: boolean }>`
   && {
     grid-column: main;
   }
@@ -54,6 +61,9 @@ const BannerWrapper = styled(m.header)`
   /* Fixes issue with next/image absolute positioning going on top */
   z-index: -1;
 
+  ${(p) =>
+    p.fade
+      ? `
   &:after {
     content: '';
     position: absolute;
@@ -63,10 +73,13 @@ const BannerWrapper = styled(m.header)`
     left: 0;
     background: linear-gradient(to bottom, transparent 0%, transparent 85%, var(--white) 100%);
   }
+  `
+      : ''}
 `;
 
 const LogoWrapper = styled.div`
   position: relative;
+  margin-top: var(--banner-logo-offset);
   width: min(var(--min-content-width), var(--content-width));
   filter: drop-shadow(0px 0.25rem 1rem var(--gray-dark));
 `;
@@ -79,4 +92,12 @@ const AnimationWrapper = styled.video`
   left: 0;
 
   object-fit: cover;
+`;
+
+// Layout prop needed with issues on styled-components and Next.js Image
+const NarrowImage = styled(AnimatedImage)<{ layout: unknown }>`
+  display: none;
+  @media (max-width: 55em) {
+    display: block;
+  }
 `;

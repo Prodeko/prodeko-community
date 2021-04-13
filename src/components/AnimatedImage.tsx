@@ -1,9 +1,10 @@
 import Image, { ImageProps } from 'next/image';
-import { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import styled from 'styled-components';
 
 type AnimatedImageProps = ImageProps & {
   transitionUpwards?: boolean;
+  className?: string;
 };
 
 /**
@@ -20,6 +21,7 @@ function directusLoader({ src, width, quality }: { src: string; width: number; q
  */
 export const AnimatedImage: React.FC<AnimatedImageProps> = ({
   transitionUpwards = false,
+  className,
   ...props
 }) => {
   const [visible, setVisible] = useState(false);
@@ -31,7 +33,11 @@ export const AnimatedImage: React.FC<AnimatedImageProps> = ({
   };
 
   return (
-    <TransitionWrapper visible={visible} transitionUpwards={transitionUpwards}>
+    <TransitionWrapper
+      visible={visible}
+      transitionUpwards={transitionUpwards}
+      className={className}
+    >
       <Image {...props} onLoad={onImageLoad} loader={directusLoader} />
     </TransitionWrapper>
   );

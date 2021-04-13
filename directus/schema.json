@@ -6318,7 +6318,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 5,
+        "sort": 6,
         "width": "half",
         "group": null,
         "translations": null,
@@ -6360,7 +6360,7 @@
         "readonly": false,
         "hidden": false,
         "sort": 4,
-        "width": "full",
+        "width": "half",
         "group": null,
         "translations": null,
         "note": "Site logo overlaid on the banner"
@@ -6400,7 +6400,7 @@
         "display_options": null,
         "readonly": true,
         "hidden": true,
-        "sort": 9,
+        "sort": 10,
         "width": "full",
         "group": null,
         "translations": null,
@@ -6441,13 +6441,54 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 6,
+        "sort": 5,
         "width": "half",
         "group": null,
         "translations": null,
         "note": "Animation to play on the main background. Should be either a .mp4 or .webm video file, and preferably under 1mb in file size"
       },
       "pk": "front_page/background_animation"
+    },
+    {
+      "collection": "front_page",
+      "field": "background_banner_narrow",
+      "type": "uuid",
+      "schema": {
+        "name": "background_banner_narrow",
+        "table": "front_page",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 184,
+        "collection": "front_page",
+        "field": "background_banner_narrow",
+        "special": null,
+        "interface": "image",
+        "options": null,
+        "display": "image",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 7,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Optional graphic for narrow viewports (mobile)"
+      },
+      "pk": "front_page/background_banner_narrow"
     },
     {
       "collection": "front_page_translations",
@@ -6994,7 +7035,7 @@
         "display_options": null,
         "readonly": true,
         "hidden": true,
-        "sort": 8,
+        "sort": 9,
         "width": "full",
         "group": null,
         "translations": null,
@@ -7036,7 +7077,7 @@
         "readonly": false,
         "hidden": false,
         "sort": 4,
-        "width": "full",
+        "width": "half",
         "group": null,
         "translations": null,
         "note": "Site logo overlaid on the banner"
@@ -7076,7 +7117,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 5,
+        "sort": 6,
         "width": "half",
         "group": null,
         "translations": null,
@@ -7117,13 +7158,54 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 6,
+        "sort": 5,
         "width": "half",
         "group": null,
         "translations": null,
         "note": "Animation to play on the main background. Should be either a .mp4 or .webm video file, and preferably under 1mb in file size"
       },
       "pk": "info_page/background_animation"
+    },
+    {
+      "collection": "info_page",
+      "field": "background_banner_narrow",
+      "type": "uuid",
+      "schema": {
+        "name": "background_banner_narrow",
+        "table": "info_page",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 185,
+        "collection": "info_page",
+        "field": "background_banner_narrow",
+        "special": null,
+        "interface": "image",
+        "options": null,
+        "display": "image",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 7,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Optional image for narrow viewports (mobile)"
+      },
+      "pk": "info_page/background_banner_narrow"
     },
     {
       "collection": "info_page_translations",
@@ -7729,6 +7811,32 @@
       "pk": "authors/translations"
     },
     {
+      "collection": "front_page",
+      "field": "translations",
+      "type": "translations",
+      "schema": null,
+      "meta": {
+        "id": 59,
+        "collection": "front_page",
+        "field": "translations",
+        "special": [
+          "translations"
+        ],
+        "interface": "translations",
+        "options": null,
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 8,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "front_page/translations"
+    },
+    {
       "collection": "common_data_translations",
       "field": "footer_divider",
       "type": "alias",
@@ -7853,32 +7961,6 @@
       "pk": "common_data_translations/profile_dropdown_divider"
     },
     {
-      "collection": "front_page",
-      "field": "translations",
-      "type": "translations",
-      "schema": null,
-      "meta": {
-        "id": 59,
-        "collection": "front_page",
-        "field": "translations",
-        "special": [
-          "translations"
-        ],
-        "interface": "translations",
-        "options": null,
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
-        "sort": 7,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "front_page/translations"
-    },
-    {
       "collection": "articles",
       "field": "comments",
       "type": "o2m",
@@ -7979,7 +8061,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 7,
+        "sort": 8,
         "width": "full",
         "group": null,
         "translations": null,
@@ -8075,7 +8157,7 @@
         },
         "readonly": false,
         "hidden": false,
-        "sort": 8,
+        "sort": 9,
         "width": "full",
         "group": null,
         "translations": null,
@@ -8855,6 +8937,34 @@
       "junction_field": null,
       "sort_field": null,
       "pk": 39
+    },
+    {
+      "id": 40,
+      "many_collection": "front_page",
+      "many_field": "background_banner_narrow",
+      "many_primary": "id",
+      "one_collection": "directus_files",
+      "one_field": null,
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 40
+    },
+    {
+      "id": 41,
+      "many_collection": "info_page",
+      "many_field": "background_banner_narrow",
+      "many_primary": "id",
+      "one_collection": "directus_files",
+      "one_field": null,
+      "one_primary": "id",
+      "one_collection_field": null,
+      "one_allowed_collections": null,
+      "junction_field": null,
+      "sort_field": null,
+      "pk": 41
     }
   ]
 }
