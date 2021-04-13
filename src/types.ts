@@ -85,6 +85,7 @@ export type CommonData = {
     blog_post_icon_alternative_text: string;
     rainbow_icon_alternative_text: string;
     comment_icon_alternative_text: string;
+    bilingual_icon_alternative_text: string;
 
     video_slug: string;
     podcast_slug: string;
@@ -150,6 +151,7 @@ type ArticleBase = {
   }>;
   comments: Comment[];
   liked_by: Like[];
+  bilingual: boolean;
 };
 
 interface BlogPost extends ArticleBase {

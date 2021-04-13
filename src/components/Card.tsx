@@ -3,12 +3,14 @@ import { AnimatedImage } from 'components/AnimatedImage';
 import { ArticleStats } from 'components/ArticleStats';
 import { Line } from 'components/Line';
 import { SrOnly } from 'components/SrOnly';
+import { Tooltip } from 'components/Tooltip';
 import { containerTransitions, itemTransitionUp } from 'components/transitionConfigs';
 import { m } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
 import {
   FiFileText as ArticleIcon,
+  FiGlobe as BilingualIcon,
   FiVolume2 as PodcastIcon,
   FiYoutube as VideoIcon,
 } from 'react-icons/fi';
@@ -27,6 +29,7 @@ export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverr
 
   const { type, photo } = article;
   const { title, tagline, slug } = article.translations[language];
+  const { bilingual_icon_alternative_text } = commonData.translations[language];
 
   const MediaIcon =
     type === 'blog_post'
@@ -57,8 +60,21 @@ export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverr
           <Tagline>{taglineOverride || tagline}</Tagline>
 
           <IconRow>
-            <MediaIcon />
-            <SrOnly>{mediaAltText}</SrOnly>
+            <LeftIconsWrapper>
+              <Tooltip content={mediaAltText}>
+                <MediaIcon />
+                <SrOnly>{mediaAltText}</SrOnly>
+              </Tooltip>
+              {article.bilingual && (
+                <>
+                  <span>|</span>
+                  <Tooltip content={bilingual_icon_alternative_text}>
+                    <BilingualIcon />
+                    <SrOnly>{bilingual_icon_alternative_text}</SrOnly>
+                  </Tooltip>
+                </>
+              )}
+            </LeftIconsWrapper>
 
             <ArticleStats article={article} />
           </IconRow>
@@ -136,6 +152,14 @@ const IconRow = styled.div`
 
   & svg {
     font-size: 1.25em;
+  }
+`;
+
+const LeftIconsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  & > * + * {
+    margin-left: 0.5em;
   }
 `;
 

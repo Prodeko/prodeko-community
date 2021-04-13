@@ -114,6 +114,12 @@ export const parseArticle = (data: any): Article => ({
   photo: parseImageUrl(data.photo),
   translations: parseTranslationData(data.translations),
   comments: data.comments.map(parseComment),
+  /**
+   * We currently only support 2 languages, so we can easily check if we have
+   * translated content for both languages. Slug works as an identifier, as for
+   * both translations to be accessible, they need to have distinct slugs
+   */
+  bilingual: new Set(data.translations.filter((t: any) => !!t.slug)).size === 2,
 });
 
 export const parseArticles = (data: any): Article[] => data.map(parseArticle);

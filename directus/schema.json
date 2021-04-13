@@ -5371,7 +5371,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 26,
+        "sort": 27,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5414,7 +5414,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 27,
+        "sort": 28,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5457,7 +5457,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 28,
+        "sort": 29,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5672,7 +5672,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 32,
+        "sort": 33,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5715,7 +5715,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 33,
+        "sort": 34,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5758,7 +5758,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 30,
+        "sort": 31,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5801,7 +5801,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 31,
+        "sort": 32,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5844,7 +5844,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 34,
+        "sort": 35,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5887,7 +5887,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 35,
+        "sort": 36,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5931,7 +5931,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 38,
+        "sort": 39,
         "width": "half",
         "group": null,
         "translations": null,
@@ -5974,7 +5974,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 39,
+        "sort": 40,
         "width": "half",
         "group": null,
         "translations": null,
@@ -6017,7 +6017,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 36,
+        "sort": 37,
         "width": "half",
         "group": null,
         "translations": null,
@@ -6060,7 +6060,7 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 37,
+        "sort": 38,
         "width": "half",
         "group": null,
         "translations": null,
@@ -6153,6 +6153,49 @@
         "note": "Text visible as the first tabbable element for accessibility"
       },
       "pk": "common_data_translations/skip_link_text"
+    },
+    {
+      "collection": "common_data_translations",
+      "field": "bilingual_icon_alternative_text",
+      "type": "string",
+      "schema": {
+        "name": "bilingual_icon_alternative_text",
+        "table": "common_data_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 186,
+        "collection": "common_data_translations",
+        "field": "bilingual_icon_alternative_text",
+        "special": null,
+        "interface": "text-input",
+        "options": {
+          "iconLeft": "language"
+        },
+        "display": "raw",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 24,
+        "width": "half",
+        "group": null,
+        "translations": null,
+        "note": "Helper text for bilingual content -icon"
+      },
+      "pk": "common_data_translations/bilingual_icon_alternative_text"
     },
     {
       "collection": "front_page",
@@ -7811,32 +7854,6 @@
       "pk": "authors/translations"
     },
     {
-      "collection": "front_page",
-      "field": "translations",
-      "type": "translations",
-      "schema": null,
-      "meta": {
-        "id": 59,
-        "collection": "front_page",
-        "field": "translations",
-        "special": [
-          "translations"
-        ],
-        "interface": "translations",
-        "options": null,
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
-        "sort": 8,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "front_page/translations"
-    },
-    {
       "collection": "common_data_translations",
       "field": "footer_divider",
       "type": "alias",
@@ -7868,6 +7885,32 @@
         "note": null
       },
       "pk": "common_data_translations/footer_divider"
+    },
+    {
+      "collection": "front_page",
+      "field": "translations",
+      "type": "translations",
+      "schema": null,
+      "meta": {
+        "id": 59,
+        "collection": "front_page",
+        "field": "translations",
+        "special": [
+          "translations"
+        ],
+        "interface": "translations",
+        "options": null,
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 8,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "front_page/translations"
     },
     {
       "collection": "common_data",
@@ -8071,36 +8114,6 @@
     },
     {
       "collection": "common_data_translations",
-      "field": "icon_explanation",
-      "type": "alias",
-      "schema": null,
-      "meta": {
-        "id": 87,
-        "collection": "common_data_translations",
-        "field": "icon_explanation",
-        "special": [
-          "alias",
-          "no-data"
-        ],
-        "interface": "notice",
-        "options": {
-          "icon": "contact_support",
-          "text": "Descriptions to give proper written explanations for icons to be used by screen readers and search engines"
-        },
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
-        "sort": 18,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "common_data_translations/icon_explanation"
-    },
-    {
-      "collection": "common_data_translations",
       "field": "icons_divider",
       "type": "alias",
       "schema": null,
@@ -8131,6 +8144,36 @@
         "note": null
       },
       "pk": "common_data_translations/icons_divider"
+    },
+    {
+      "collection": "common_data_translations",
+      "field": "icon_explanation",
+      "type": "alias",
+      "schema": null,
+      "meta": {
+        "id": 87,
+        "collection": "common_data_translations",
+        "field": "icon_explanation",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "interface": "notice",
+        "options": {
+          "icon": "contact_support",
+          "text": "Descriptions to give proper written explanations for icons to be used by screen readers and search engines"
+        },
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 18,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "common_data_translations/icon_explanation"
     },
     {
       "collection": "front_page",
@@ -8313,13 +8356,44 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 29,
+        "sort": 30,
         "width": "full",
         "group": null,
         "translations": null,
         "note": null
       },
       "pk": "common_data_translations/comments_divider"
+    },
+    {
+      "collection": "common_data_translations",
+      "field": "article_urls_note",
+      "type": "alias",
+      "schema": null,
+      "meta": {
+        "id": 130,
+        "collection": "common_data_translations",
+        "field": "article_urls_note",
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "interface": "notice",
+        "options": {
+          "icon": "info",
+          "color": "info",
+          "text": "Defines the prefixes for all media types, for example\n\"seminar.prodeko.org/<prefix>/some-blog-post-title\""
+        },
+        "display": null,
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": 26,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": null
+      },
+      "pk": "common_data_translations/article_urls_note"
     },
     {
       "collection": "common_data_translations",
@@ -8346,44 +8420,13 @@
         "display_options": null,
         "readonly": false,
         "hidden": false,
-        "sort": 24,
-        "width": "full",
-        "group": null,
-        "translations": null,
-        "note": null
-      },
-      "pk": "common_data_translations/article_urls_divider"
-    },
-    {
-      "collection": "common_data_translations",
-      "field": "article_urls_note",
-      "type": "alias",
-      "schema": null,
-      "meta": {
-        "id": 130,
-        "collection": "common_data_translations",
-        "field": "article_urls_note",
-        "special": [
-          "alias",
-          "no-data"
-        ],
-        "interface": "notice",
-        "options": {
-          "icon": "info",
-          "color": "info",
-          "text": "Defines the prefixes for all media types, for example\n\"seminar.prodeko.org/<prefix>/some-blog-post-title\""
-        },
-        "display": null,
-        "display_options": null,
-        "readonly": false,
-        "hidden": false,
         "sort": 25,
         "width": "full",
         "group": null,
         "translations": null,
         "note": null
       },
-      "pk": "common_data_translations/article_urls_note"
+      "pk": "common_data_translations/article_urls_divider"
     },
     {
       "collection": "archive_page_translations",

@@ -173,7 +173,7 @@ export const GlobalStyle = createGlobalStyle`
     /* Text sizes */
     --text-title: 3rem;
     --text-subtitle: 2.5rem;
-    --text-ingress: 1.75rem;
+    --text-ingress: 1.6rem;
     --text-card-title: 1.75rem;
     --text-navigation: 1.5rem;
     --text-filter: 1.25rem;
