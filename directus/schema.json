@@ -305,7 +305,7 @@
         "collection": "languages",
         "icon": "translate",
         "note": "Languages available in the website",
-        "display_template": null,
+        "display_template": "{{name}} ({{code}})",
         "hidden": true,
         "singleton": false,
         "translations": null,
