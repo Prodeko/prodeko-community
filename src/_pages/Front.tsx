@@ -3,11 +3,11 @@ import { useGlobalContext } from 'api/globalContext';
 import { Banner } from 'components/Banner';
 import { Card, CardList, CardWrapper } from 'components/Card';
 import { Line } from 'components/Line';
-import { Main as MainBase } from 'components/Main';
+import { Main } from 'components/Main';
 import { NextPage } from 'next';
 import styled from 'styled-components';
 import useSWR from 'swr';
-import { Article, FrontPageData } from 'types';
+import { ARTICLE_TYPES, FrontPageData } from 'types';
 
 export const Front: NextPage<FrontPageData> = (props) => {
   const { data } = useSWR('frontPageData', getFrontPageData, { initialData: props });
@@ -21,14 +21,7 @@ export const Front: NextPage<FrontPageData> = (props) => {
     translations,
   } = data!;
 
-  const { logo_alternative_text, videos_title, podcasts_title, blog_posts_title } = translations[
-    language
-  ];
-
-  // TODO: remove
-  const mockArticles = highlighted_articles
-    .concat(highlighted_articles)
-    .concat(highlighted_articles);
+  const { logo_alternative_text } = translations[language];
 
   return (
     <Main>
@@ -40,38 +33,24 @@ export const Front: NextPage<FrontPageData> = (props) => {
         logoText={logo_alternative_text}
       />
 
-      <CardSection articles={mockArticles} type="video" title={videos_title} />
-
-      <CardSection articles={mockArticles} type="podcast" title={podcasts_title} />
-
-      <CardSection articles={mockArticles} type="blog_post" title={blog_posts_title} />
+      {ARTICLE_TYPES.map((type) => (
+        <CardSectionWrapper key={type}>
+          <CardSectionTitle>{translations[language][`${type}s_title` as const]}</CardSectionTitle>
+          <Line variant="long" />
+          <CardList>
+            {highlighted_articles
+              .filter((a) => a.type === type)
+              .map((article) => (
+                <CardWrapper key={article.id}>
+                  <Card article={article} />
+                </CardWrapper>
+              ))}
+          </CardList>
+        </CardSectionWrapper>
+      ))}
     </Main>
   );
 };
-
-type CardSectionProps = {
-  articles: Article[];
-  type: Article['type'];
-  title: string;
-};
-
-const CardSection: React.FC<CardSectionProps> = ({ articles, type, title, ...rest }) => (
-  <CardSectionWrapper {...rest}>
-    <CardSectionTitle>{title}</CardSectionTitle>
-    <Line variant="long" />
-    <CardList>
-      {articles
-        .filter((a) => a.type === type)
-        .map((article) => (
-          <CardWrapper key={article.id}>
-            <Card article={article} />
-          </CardWrapper>
-        ))}
-    </CardList>
-  </CardSectionWrapper>
-);
-
-const Main = styled(MainBase)``;
 
 const CardSectionWrapper = styled.section`
   & + & {

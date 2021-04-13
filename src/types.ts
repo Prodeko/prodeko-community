@@ -133,7 +133,7 @@ export type Like = {
   directus_users_id: string;
 };
 
-export const ARTICLE_TYPES = ['blog_post', 'podcast', 'video'] as const;
+export const ARTICLE_TYPES = ['video', 'podcast', 'blog_post'] as const;
 export type ArticleType = typeof ARTICLE_TYPES[number];
 
 type ArticleBase = {
