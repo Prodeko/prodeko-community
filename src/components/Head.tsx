@@ -29,6 +29,7 @@ export const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       <title key="title">{fullTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={fullDescription} />
+      <link rel="icon" type="image/png" href={getProductionAssetUrl(commonData.favicon)} />
 
       <meta name="robots" content="index,follow" />
       <meta name="googlebot" content="index,follow" />
@@ -40,7 +41,7 @@ export const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       <meta property="og:locale" content={language} />
       <meta
         property="og:image"
-        content={image ? getProductionAssetUrl(image) : getProductionAssetUrl(commonData.logo)}
+        content={image ? getProductionAssetUrl(image) : getProductionAssetUrl(commonData.favicon)}
       />
 
       <meta name="twitter:card" content="summary" />
@@ -48,7 +49,7 @@ export const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       <meta name="twitter:description" content={fullDescription} />
       <meta
         property="twitter:image"
-        content={image ? getProductionAssetUrl(image) : getProductionAssetUrl(commonData.logo)}
+        content={image ? getProductionAssetUrl(image) : getProductionAssetUrl(commonData.favicon)}
       />
     </NextHead>
   );

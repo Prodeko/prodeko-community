@@ -55,6 +55,7 @@ export type CommonData = {
   prodeko_logo: string;
   user_default_picture: string;
   article_default_picture: string;
+  favicon: string;
 
   prodeko_link: string;
   alumni_link: string;

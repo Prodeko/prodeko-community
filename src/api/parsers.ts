@@ -92,6 +92,7 @@ export const parseCommonData = (data: any): CommonData => ({
   logo: parseImageUrl(data.logo),
   user_default_picture: parseImageUrl(data.user_default_picture),
   article_default_picture: parseImageUrl(data.article_default_picture),
+  favicon: parseImageUrl(data.favicon),
   prodeko_logo: parseImageUrl(data.prodeko_logo),
   translations: parseTranslationData(data.translations),
 });
