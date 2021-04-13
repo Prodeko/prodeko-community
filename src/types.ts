@@ -160,7 +160,8 @@ interface BlogPost extends ArticleBase {
 
 interface Podcast extends ArticleBase {
   type: 'podcast';
-  spotify_embed: string;
+  spotify_embed?: string;
+  youtube_embed?: string;
 }
 
 interface Video extends ArticleBase {

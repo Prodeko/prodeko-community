@@ -3090,11 +3090,10 @@
                 {
                   "value": "podcast",
                   "show": [
-                    "spotify_embed"
-                  ],
-                  "hide": [
+                    "spotify_embed",
                     "youtube_embed"
-                  ]
+                  ],
+                  "hide": []
                 },
                 {
                   "value": "video",

@@ -51,7 +51,12 @@ export const Article: NextPage<ArticleProps> = (props) => {
         );
 
       case 'podcast':
-        return <PodcastBanner title={title} podcastEmbed={article.spotify_embed} />;
+        if (article.spotify_embed) {
+          return <PodcastBanner title={title} podcastEmbed={article.spotify_embed} />;
+        } else if (article.youtube_embed) {
+          return <VideoBanner title={title} videoEmbed={article.youtube_embed} />;
+        }
+        break;
 
       case 'video':
         return <VideoBanner title={title} videoEmbed={article.youtube_embed} />;
