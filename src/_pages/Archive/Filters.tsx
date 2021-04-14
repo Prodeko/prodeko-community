@@ -124,7 +124,7 @@ const Pill = styled.button`
 
   &[aria-pressed='true'] {
     background-color: var(--highlight);
-    color: var(--confirm);
+    color: var(--gray-dark);
   }
 `;
 
