@@ -148,13 +148,13 @@ export const GlobalStyle = createGlobalStyle`
     /* Colors */
     --white: #FFFFFF;
     --black: #000000;
-    --background: #001302;
     --gray-dark: #333333;
     --gray-light: #666666;
     --gray-lighter: #F0F0F0;
-    --highlight: #41DFAB;
+    --highlight: #00D3FF;
     --danger: #C45046;
     --confirm: #005338;
+    --confirm-background: #41DFAB;
     --neutral: #2F80ED;
     --neutral-dark: #285FA9;
 

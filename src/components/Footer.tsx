@@ -68,7 +68,7 @@ const FooterWrapper = styled(m.footer)`
     grid-column: content;
   }
 
-  background-color: var(--background);
+  background-color: var(--black);
   color: var(--white);
 
   margin-top: calc(var(--spacing-xlarge) * 2);

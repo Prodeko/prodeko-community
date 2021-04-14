@@ -68,7 +68,7 @@ const NeutralButtonOutlined = styled.button`
 
 const ConfirmButton = styled.button`
   ${buttonBase}
-  background-color: var(--highlight);
+  background-color: var(--confirm-background);
   color: var(--confirm);
 `;
 
