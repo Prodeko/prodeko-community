@@ -27,7 +27,7 @@ export const Front: NextPage<FrontPageData> = (props) => {
 
   const { logo_alternative_text, see_more_link } = translations[language];
 
-  const archiveRoute = routes[language].find((route) => route.template === 'archive');
+  const archiveRoute = routes[language].find((route) => route.template === 'archive')!;
 
   return (
     <Main>
@@ -41,7 +41,19 @@ export const Front: NextPage<FrontPageData> = (props) => {
 
       {ARTICLE_TYPES.map((type) => (
         <CardSectionWrapper key={type}>
-          <CardSectionTitle>{translations[language][`${type}s_title` as const]}</CardSectionTitle>
+          <CardSectionTitle>
+            <Link
+              href={{
+                pathname: slugify(archiveRoute.slug),
+                query: { filter: ARTICLE_TYPES.filter((t) => t !== type) },
+              }}
+              passHref
+            >
+              <TitleLink>
+                {translations[language][`${type}s_title` as const]} <FiArrowRight />
+              </TitleLink>
+            </Link>
+          </CardSectionTitle>
           <Line variant="long" />
           <CardList>
             {highlighted_articles
@@ -85,6 +97,31 @@ const CardSectionWrapper = styled.section`
 
 const CardSectionTitle = styled.h2`
   font-size: var(--text-title);
+`;
+
+const TitleLink = styled.a`
+  display: inline-flex;
+  position: relative;
+  text-decoration: none;
+  color: unset;
+
+  & > svg {
+    position: absolute;
+    right: -1.2em;
+    stroke-width: 0.5;
+    transition-property: opacity transform;
+    transition-duration: 0.7s;
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    opacity: 0;
+    transform: translateX(-1em);
+  }
+
+  &:focus > svg,
+  &:hover > svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
 `;
 
 const MoreLinkWrapper = styled.div`
