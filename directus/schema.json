@@ -7102,6 +7102,50 @@
       "pk": "front_page_translations/navigation_title"
     },
     {
+      "collection": "front_page_translations",
+      "field": "see_more_link",
+      "type": "string",
+      "schema": {
+        "name": "see_more_link",
+        "table": "front_page_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_primary_key": false,
+        "has_auto_increment": false,
+        "foreign_key_column": null,
+        "foreign_key_table": null,
+        "comment": null,
+        "schema": "public",
+        "foreign_key_schema": null
+      },
+      "meta": {
+        "id": 188,
+        "collection": "front_page_translations",
+        "field": "see_more_link",
+        "special": null,
+        "interface": "text-input",
+        "options": {
+          "iconLeft": "arrow_forward",
+          "nullable": false
+        },
+        "display": "raw",
+        "display_options": null,
+        "readonly": false,
+        "hidden": false,
+        "sort": null,
+        "width": "full",
+        "group": null,
+        "translations": null,
+        "note": "Link to direct user to Archive page"
+      },
+      "pk": "front_page_translations/see_more_link"
+    },
+    {
       "collection": "info_page",
       "field": "id",
       "type": "integer",

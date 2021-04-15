@@ -21,7 +21,7 @@ export const PillButton: React.FC<PillButtonProps> = ({ variant, outlined, ...re
   return <></>;
 };
 
-const buttonBase = css`
+export const buttonBase = css`
   font-size: 1.125em;
   border-radius: 999px;
   border: none;

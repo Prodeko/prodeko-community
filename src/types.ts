@@ -189,6 +189,7 @@ export type FrontPageData = {
     videos_title: string;
     podcasts_title: string;
     blog_posts_title: string;
+    see_more_link: string;
   }>;
   highlighted_articles: Article[];
 };
@@ -237,6 +238,7 @@ export type PageRoutes = Translated<
   {
     title: string;
     slug: string;
+    template: 'front' | 'info' | 'archive';
   }[]
 >;
 

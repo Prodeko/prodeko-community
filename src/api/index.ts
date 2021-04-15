@@ -152,6 +152,7 @@ export const getPageBySlug = async (slug: string[] | undefined): Promise<PageDat
       const newRoute = {
         title: curr.translations[lang].navigation_title,
         slug: curr.translations[lang].slug || '',
+        template: curr.template,
       };
       if (Array.isArray(acc[lang])) {
         acc[lang] = [...acc[lang], newRoute];

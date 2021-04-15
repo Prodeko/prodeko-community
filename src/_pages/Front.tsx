@@ -4,14 +4,18 @@ import { Banner } from 'components/Banner';
 import { Card, CardList, CardWrapper } from 'components/Card';
 import { Line } from 'components/Line';
 import { Main } from 'components/Main';
+import { TextLink } from 'components/TextLink';
 import { NextPage } from 'next';
+import Link from 'next/link';
+import { FiArrowRight } from 'react-icons/fi';
 import styled from 'styled-components';
 import useSWR from 'swr';
 import { ARTICLE_TYPES, FrontPageData } from 'types';
+import { slugify } from 'utils/slugify';
 
 export const Front: NextPage<FrontPageData> = (props) => {
   const { data } = useSWR('frontPageData', getFrontPageData, { initialData: props });
-  const { language } = useGlobalContext();
+  const { language, routes } = useGlobalContext();
   const {
     background_banner,
     background_banner_narrow,
@@ -21,7 +25,9 @@ export const Front: NextPage<FrontPageData> = (props) => {
     translations,
   } = data!;
 
-  const { logo_alternative_text } = translations[language];
+  const { logo_alternative_text, see_more_link } = translations[language];
+
+  const archiveRoute = routes[language].find((route) => route.template === 'archive');
 
   return (
     <Main>
@@ -48,6 +54,16 @@ export const Front: NextPage<FrontPageData> = (props) => {
           </CardList>
         </CardSectionWrapper>
       ))}
+
+      {archiveRoute && (
+        <MoreLinkWrapper>
+          <Link href={slugify(archiveRoute.slug)} passHref>
+            <MoreLink>
+              {see_more_link} <FiArrowRight />
+            </MoreLink>
+          </Link>
+        </MoreLinkWrapper>
+      )}
     </Main>
   );
 };
@@ -69,4 +85,20 @@ const CardSectionWrapper = styled.section`
 
 const CardSectionTitle = styled.h2`
   font-size: var(--text-title);
+`;
+
+const MoreLinkWrapper = styled.div`
+  margin-top: calc(var(--spacing-xlarge) * 1.5);
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const MoreLink = styled(TextLink)`
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-navigation);
+
+  & > svg {
+    margin-left: 0.5em;
+  }
 `;
