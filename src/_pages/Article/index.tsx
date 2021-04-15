@@ -74,7 +74,7 @@ export const Article: NextPage<ArticleProps> = (props) => {
 
             {ingress && <Ingress>{ingress}</Ingress>}
 
-            <Contents dangerouslySetInnerHTML={{ __html: body }} />
+            {body && <Contents dangerouslySetInnerHTML={{ __html: body }} />}
 
             <RainbowButton article={article}>
               {article.liked_by.length} {like_count_text}

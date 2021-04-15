@@ -57,7 +57,7 @@ export const Card: React.FC<CardProps> = ({ article, titleOverride, taglineOverr
         <Wrapper>
           <Title>{titleOverride || title}</Title>
           <Line />
-          <Tagline>{taglineOverride || tagline}</Tagline>
+          {(taglineOverride || tagline) && <Tagline>{taglineOverride || tagline}</Tagline>}
 
           <IconRow>
             <LeftIconsWrapper>
