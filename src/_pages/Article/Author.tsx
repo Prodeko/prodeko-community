@@ -12,6 +12,8 @@ type AuthorProps = {
 export const Author: React.FC<AuthorProps> = ({ author }) => {
   const { language } = useGlobalContext();
 
+  const biography = author.translations[language].biography;
+
   return (
     <AuthorWrapper initial="initial" animate="enter" exit="exit" variants={containerTransitions}>
       <AuthorPhotoWrapper>
@@ -19,7 +21,7 @@ export const Author: React.FC<AuthorProps> = ({ author }) => {
       </AuthorPhotoWrapper>
 
       <AuthorName>{author.name}</AuthorName>
-      <AuthorBio dangerouslySetInnerHTML={{ __html: author.translations[language].biography }} />
+      {biography && <AuthorBio dangerouslySetInnerHTML={{ __html: biography }} />}
     </AuthorWrapper>
   );
 };

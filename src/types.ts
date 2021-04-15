@@ -123,7 +123,7 @@ export type Author = {
   photo: string;
   translations: Translated<{
     id: number;
-    biography: HTMLString;
+    biography?: HTMLString;
   }>;
 };
 
@@ -147,8 +147,8 @@ type ArticleBase = {
     id: number;
     title: string;
     ingress?: string;
-    tagline: string;
-    body: HTMLString;
+    tagline?: string;
+    body?: HTMLString;
     slug: string;
   }>;
   comments: Comment[];

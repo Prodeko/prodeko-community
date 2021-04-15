@@ -65,10 +65,10 @@ const parseTranslationData = (data: any[]) => {
   // If either translation is missing, we simply replace it with the other.
   // This is intended behaviour as specified by the client
   if (!('fi' in languagesData)) {
-    languagesData['fi'] = languagesData['en'];
+    languagesData['fi'] = languagesData['en'] || {};
   }
   if (!('en' in languagesData)) {
-    languagesData['en'] = languagesData['fi'];
+    languagesData['en'] = languagesData['fi'] || {};
   }
 
   return languagesData;
