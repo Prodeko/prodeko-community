@@ -92,6 +92,7 @@ const LinkContents = styled.a`
   border-radius: var(--border-radius-large);
   height: var(--card-height);
   box-shadow: var(--card-shadow);
+  background-color: var(--white);
 
   // Fix Safari issue with transitioning overflowing elements with border radius
   // sigh...
