@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { User } from 'types';
 import { getProductionAssetUrl } from 'utils/getProductionAssetUrl';
 
+/**
+ *  Either we display the default placeholder image or a custom user-set picture
+ */
 export const ProfilePicture: React.FC<{ user?: User; defaultPicture: string }> = ({
   user,
   defaultPicture,

@@ -1,6 +1,11 @@
 import { SrOnly } from 'components/SrOnly';
 import styled from 'styled-components';
 
+/**
+ * The element which always appears first when tabbing, so that keyboard users
+ * can more easily reach the page contents without having to tab through
+ * navigation every single time.
+ */
 export const SkipLink = styled(SrOnly).attrs({ as: 'a', href: '#main-content' })`
   &:focus {
     background: var(--white);

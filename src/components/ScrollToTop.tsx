@@ -2,6 +2,9 @@ import { FiArrowUp } from 'react-icons/fi';
 import { useWindowScroll } from 'react-use';
 import styled from 'styled-components';
 
+/**
+ * Small "helper" which appears when user has scrolled far down enough
+ */
 export const ScrollToTop: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const { y } = useWindowScroll();

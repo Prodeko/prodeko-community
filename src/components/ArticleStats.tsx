@@ -10,6 +10,9 @@ type ArticleStatsProps = {
   article: Article;
 };
 
+/**
+ * The amount of likes and comments for an article
+ */
 export const ArticleStats: React.FC<ArticleStatsProps> = ({ article, ...rest }) => {
   const { language, commonData } = useGlobalContext();
 

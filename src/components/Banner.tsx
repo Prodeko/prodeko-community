@@ -13,6 +13,9 @@ type BannerProps = {
   decorative?: boolean;
 };
 
+/**
+ * The main banner / hero component currently used in the frontpage and infopage
+ */
 export const Banner: React.FC<BannerProps> = ({
   animationUrl,
   bannerUrl,

@@ -17,6 +17,10 @@ function sortBy<T>(a: T, b: T, getValue: (x: T) => number, order: Order) {
   return order === 'oldest' ? getValue(a) - getValue(b) : getValue(b) - getValue(a);
 }
 
+/**
+ * Here we implement the filtering functionality used in the archive (besides
+ * search) in a hook for cleaner component architecture.
+ */
 export const useBasicFiltering = (baseArticles?: Article[]) => {
   const { articles: contextArticles } = useArchiveContext();
   const articles = baseArticles ?? contextArticles;

@@ -6,6 +6,9 @@ import { FiGlobe as BilingualIcon } from 'react-icons/fi';
 import styled from 'styled-components';
 import { Article } from 'types';
 
+/**
+ * Component to display article metadata right below the main image/embed
+ */
 export const ArticleInfo: React.FC<{ article: Article }> = ({ article }) => {
   const { language, commonData } = useGlobalContext();
   const { bilingual_icon_alternative_text } = commonData.translations[language];

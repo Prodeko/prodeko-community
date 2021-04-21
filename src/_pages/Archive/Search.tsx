@@ -23,6 +23,10 @@ import { Article, LANGUAGE_KEYS } from 'types';
 
 const SNIPPET_MAX_LENGTH = 200;
 
+/**
+ * We only request the search engine to provide highlighted results from these
+ * fields of an article
+ */
 const snippetAttributes = [
   'author.name',
   'translations.title',
@@ -32,6 +36,7 @@ const snippetAttributes = [
 ] as const;
 type SnippetAttribute = typeof snippetAttributes[number];
 
+/** A single "result" given by the search engine */
 interface SearchHit extends Record<SnippetAttribute, string | null> {
   id: number;
   'translations.languages_code': keyof typeof LANGUAGE_KEYS;
@@ -44,6 +49,18 @@ type SearchProps = {
   defaultView: React.ReactNode;
 };
 
+/**
+ * For the search functionality we use a nice package from Algolia,
+ * `react-instantsearch`.
+ *
+ * This gives us nice base functionality from the get-go, but we still need some
+ * custom logic and styling, so we mostly use their "headless" functions to hook
+ * into core functionalities.
+ *
+ * We manage the search "state" (we only use a query string, no categories or
+ * such) in the URL as a query parameter so that search results can be easily
+ * shared, persisted, and optionally server-side rendered.
+ */
 export const Search: React.FC<SearchProps> = ({ defaultView }) => {
   const { language } = useGlobalContext();
   const {
@@ -68,6 +85,7 @@ export const Search: React.FC<SearchProps> = ({ defaultView }) => {
   );
 };
 
+/** The search input itself */
 const SearchBox = connectSearchBox(({ currentRefinement }) => {
   const { updateRouterQuery, clearRouterQuery } = useBasicFiltering();
   const { translations } = useArchiveContext();
@@ -172,6 +190,7 @@ interface ResultsProps extends StateResultsProvided<SearchHit> {
   defaultView: React.ReactNode;
 }
 
+/** Wrapper component for displaying a list of search hits */
 const Results = connectStateResults<ResultsProps>(
   ({ searchState, searchResults, defaultView, children }) => {
     if (searchState && (searchState.query === undefined || searchState.query === '')) {
@@ -183,6 +202,11 @@ const Results = connectStateResults<ResultsProps>(
   }
 );
 
+/**
+ * The actual list of search results. We want to be able to use the article type
+ * filters in addition to the search input, so we add custom filtering in
+ * addition to what the search engine provides us.
+ */
 const Hits = connectHits<SearchHit>(({ hits }) => {
   const { language } = useGlobalContext();
   const { articles, translations } = useArchiveContext();
@@ -234,6 +258,7 @@ type HitProps = {
   article: Article;
 };
 
+/** A single search result */
 const Hit: React.FC<HitProps> = ({ hit, article }) => {
   const filteredHitFields = Object.entries(hit._snippetResult)
     .filter(([_, value]) => value.value.includes('<ais-highlight')) // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -284,6 +309,11 @@ const Hit: React.FC<HitProps> = ({ hit, article }) => {
   );
 };
 
+/**
+ * If we request the search engine to give us snippets of fields, they always
+ * contain pre- and suffix ellipses around the result. We don't want these for
+ * the article title or author, so we manually get rid of them.
+ */
 function stripEllipses(hit: SearchHit, key: SnippetAttribute): SearchHit {
   const newSnippetResult = {
     ...hit._snippetResult,
@@ -295,6 +325,7 @@ function stripEllipses(hit: SearchHit, key: SnippetAttribute): SearchHit {
   };
 }
 
+/** Helper for rendering the proper element for a given search result field */
 function getSearchResultContent(
   hit: SearchHit,
   key: SnippetAttribute,

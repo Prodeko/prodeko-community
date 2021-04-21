@@ -48,6 +48,7 @@ type Translated<Data> = {
 /** Output string of a WYSIWYG interface which should be injected instead of rendering */
 type HTMLString = string;
 
+/** Data available in a global context, used mainly for UI translations and variables */
 export type CommonData = {
   id: number;
   date_updated?: string;
@@ -133,9 +134,11 @@ export type Like = {
   directus_users_id: string;
 };
 
+// Currently called `talk, podcast, blog post` in the CMS`
 export const ARTICLE_TYPES = ['video', 'podcast', 'blog_post'] as const;
 export type ArticleType = typeof ARTICLE_TYPES[number];
 
+/** Common data availabel on all articles regardless of their type */
 type ArticleBase = {
   id: number;
   date_updated?: string;
@@ -155,6 +158,8 @@ type ArticleBase = {
   liked_by: Like[];
   bilingual: boolean;
 };
+
+// Article type specific data
 
 interface BlogPost extends ArticleBase {
   type: 'blog_post';

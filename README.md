@@ -14,6 +14,7 @@ Web portal for the Prodeko Community, hosting various talks, podcasts, blog post
    1. [Website](#website)
    1. [Search](#search)
 1. [Implementation details](#implementation-details)
+   1. [Internationalization](#internationalization)
    1. [CSS](#css)
 
 ## Setup
@@ -33,6 +34,16 @@ Web portal for the Prodeko Community, hosting various talks, podcasts, blog post
 Project management is conducted mainly via `./Makefile`, and the scripts included therein contain sufficient [inline documentations](./Makefile) explaining their usages. Make was chosen as the management interface as it is readily available on practically all Unix-y operating systems, and it can easily interface with all the external command line tools we need to use in our project (`npm`, `docker-compose`, anything else that might come up). Command chaining also allows us to command the project descriptively and neatly, and build up more complex scripts from smaller primitives.
 
 ## Migrations
+
+**How to apply local admin UI changes to prod, TL;DR:**
+
+1. Make changes locally via the admin UI
+1. Run `make save-migrations`
+1. Commit changes to `directus/schema.json`
+1. Push and wait for automatic deployment
+1. Verify changes in production admin UI!
+
+**NOTE:** These changes apply to database schema and the admin UI, not data! For example, if you add a new text field for a new button, you still need to add the actual translated strings in the admin UI as data !== schema!
 
 Directus doesn't yet support proper schema migrations ([relevant GH discussion](https://github.com/directus/directus/discussions/3891)), but we really want to be able to version our admin UI and data structures. The `./scripts` folder contains just that!
 
@@ -100,7 +111,7 @@ Even though we utilize static pre-rendering for the website, we still want to hy
 
 The website is powered by TypeScript, React, and Next.js. This stack was deemed suitable for a website of mostly static content (articles) but with some dynamic elements (commenting & liking). Smaller dependencies were chosen based on bundle sizes, DX, open source activity and of course familiarity (and other biased metrics).
 
-As is true with most anglocentric and popular software, internationalization (i18n) is rarely a first class citizen. This forces some compromises, as is evident from the code structure discussed below.
+As is true with most anglocentric and popular software, internationalization (i18n) is rarely a first class citizen. This forces some compromises, as is evident from the code structure [discussed below](#internationalization).
 
 As the usage of the website requires little to no statefulness, we simply omit any state management libraries and focus on consuming data straight from the API, as the few stateful needs we have are easily fulfilled with React's build in `useState` hook. In the archive pages we also use the most OG state manager of all web, the URL.
 
@@ -119,6 +130,16 @@ curl -i -H "x-Meili-API-Key: <MEILI_MASTER_KEY>" <MEILI_HOST>:<MEILI_PORT>/keys
 After that we can set the environment variable `NEXT_PUBLIC_SEARCH_KEY` with the response's `public` key.
 
 ## Implementation details
+
+### Internationalization
+
+We want the project to be available in both english and finnish, so we somehow need to accommodate that in the codebase. One of the trickiest internationalization (i18n) problems is routing: it iis necessary to have some control over URLs from the CMS (articles) and it's always nice to have complete control. URL structures like `<site>/fi/<slug>` where the current language is embedded in the slug itself is one possibility, but it looks much clean more professional to have URLs like `<site>/articles` rather than `<site>/en/articles`!
+
+We also want to avoid having to prerender the whole site's contents, as editors could possibly change some single words of the content on a whim, and optimally we'd want the changes to be instantly visible.
+
+On the CMS side this is simple: we use the built-in i18n features of Directus to handle the data in any way we see fit. On the website side, however, there isn't a default way of attaining such functionalities with Next.js (or any other library/framework for that matter). Next.js has the most suitable toolset for implementing this, so that's exactly what we do, utilizing [catch-all routes](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes). This allows us to implement custom logic for route handling, namely to fetch a proper set of data from the API based on which data models the given slug matches.
+
+The standard Next.js `src/pages` directory thus contains only template components (`_document.tsx` etc.) and a single `[[..slug]].tsx`. There we call the API to tell us which page corresponds to the slug, and we pick the correct page from a non-standard `src/_pages` directory. Based on the slug received we can also infer the language of the page, which we then use to choose the correct UI strings to use all around the app.
 
 ### CSS
 
